@@ -77,6 +77,8 @@ const CONFESSIONS: RegExp[] = [
 const HANDLING =
   "put|slipped|added|grated|stirred|mixed|dropped|swapped|switched|replaced|used|dug|peeled|crushed|steeped|sprinkled|poured|hid";
 
+const escapeRegExp = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
 function normalizeQuotes(text: string): string {
   return text.replace(/[‘’ʼ]/g, "'").replace(/[“”]/g, '"');
 }
@@ -109,14 +111,14 @@ export function sharesRun(text: string, source: string, size = 10): boolean {
 }
 
 function confesses(text: string, poisonNames: string[]): boolean {
-  // Generic kitchen nouns in a poison's name ("root", "tablets") are things an
-  // innocent cook handles all night; only the distinctive word marks a confession.
-  const generic = new Set(["root", "roots", "tablets", "tablet", "bait", "leaf", "leaves", "seeds", "oil", "powder", "extract", "the", "of", "a"]);
-  const distinctive = poisonNames
-    .flatMap((name) => words(name))
-    .filter((w) => w.length > 3 && !generic.has(w));
-  const poisons = ["poison", "aconite", "aconitine", ...distinctive].map((w) => w.replace(/[^a-z]/g, "")).filter(Boolean);
-  const handled = new RegExp(`\\bi (${HANDLING}) [^.!?]{0,60}\\b(${[...new Set(poisons)].join("|")})\\b`, "i");
+  // The full name of a poison ("heart tablets") or its one distinctive long word
+  // ("monkshood") marks a confession. Short or generic words do not: an innocent
+  // cook handles roots and tablets, and puts their heart into things, all night.
+  const generic = new Set(["tablets", "capsules", "extract", "powder", "cleaner", "essence", "tincture", "berries", "kernels"]);
+  const distinctive = poisonNames.flatMap((name) => words(name)).filter((w) => w.length >= 7 && !generic.has(w));
+  const phrases = poisonNames.map((name) => words(name).join(" ")).filter(Boolean);
+  const poisons = [...new Set(["poison", "aconite", "aconitine", ...phrases, ...distinctive])].map(escapeRegExp);
+  const handled = new RegExp(`\\bi (${HANDLING}) [^.!?]{0,60}\\b(${poisons.join("|")})\\b`, "i");
 
   for (const sentence of sentences(normalizeQuotes(text))) {
     // A question is never a confession ("You think I poisoned him?").
@@ -131,8 +133,6 @@ function confesses(text: string, poisonNames: string[]): boolean {
   }
   return false;
 }
-
-const escapeRegExp = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 const GUILT = "did it|poisoned|killed|murdered|is the (?:killer|culprit|murderer|poisoner)|was the (?:killer|culprit|murderer|poisoner)|is guilty|was guilty";
 

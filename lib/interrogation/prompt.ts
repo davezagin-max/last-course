@@ -145,7 +145,7 @@ export function suspectSheet(view: SuspectView): string {
   );
   if (s.lies.length) {
     sections.push(
-      `## Your lies\n${s.lies
+      `## Your lies\n(These notes describe your character in the third person.)\n${s.lies
         .map((lie) =>
           [
             `About ${lie.topic}:`,

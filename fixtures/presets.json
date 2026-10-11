@@ -1,4 +1,514 @@
 [
-  { "route": "/api/example", "body": { "demoId": "powder-day", "topic": "a powder day in the Wasatch" } },
-  { "route": "/api/example", "body": { "demoId": "house-set", "topic": "the first drop in a house set" } }
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "odile-know-vale",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "odile",
+      "question": "Did you know the man at table seven?",
+      "evidenceIds": [],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "odile-where",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "odile",
+      "question": "Where were you between eight o'clock and the moment he collapsed?",
+      "evidenceIds": [],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "odile-flourish",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "odile",
+      "question": "What was different about table seven's turbot?",
+      "evidenceIds": [],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "odile-photos",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "odile",
+      "question": "Is there any record of what crossed the pass?",
+      "evidenceIds": [],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "odile-dish",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "odile",
+      "question": "Who handled the copper dish that night?",
+      "evidenceIds": [],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "odile-brigade",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "odile",
+      "question": "Who in your kitchen would want him dead?",
+      "evidenceIds": [],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "odile-show-phone-log",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "odile",
+      "question": "The office line was in use from 20:41 to 20:53. You told me you never left the pass.",
+      "evidenceIds": [
+        "phone_log"
+      ],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "odile-show-lineup",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "odile",
+      "question": "This is your handwriting: 'Friend of the house.' You knew exactly who he was.",
+      "evidenceIds": [
+        "lineup_sheet"
+      ],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "tomas-grated",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "tomas",
+      "question": "You plated the fourth course. Walk me through it.",
+      "evidenceIds": [],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "tomas-where",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "tomas",
+      "question": "Did you leave the pass at any point during service?",
+      "evidenceIds": [],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "tomas-dish",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "tomas",
+      "question": "Tell me about the copper dish.",
+      "evidenceIds": [],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "tomas-priya",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "tomas",
+      "question": "What is there between Priya Nair and Augustin Vale?",
+      "evidenceIds": [],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "tomas-lineup",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "tomas",
+      "question": "What did Chef tell the brigade about table seven?",
+      "evidenceIds": [],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "tomas-show-bump-log",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "tomas",
+      "question": "Your PIN is on every ticket until 20:57. Then nothing for seven minutes.",
+      "evidenceIds": [
+        "bump_log"
+      ],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "tomas-show-photos",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "tomas",
+      "question": "Look at the copper dish in the 20:38 photograph. Now the one from 20:56.",
+      "evidenceIds": [
+        "pass_photos"
+      ],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "priya-know-vale",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "priya",
+      "question": "Had you met Augustin Vale before Saturday?",
+      "evidenceIds": [],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "priya-where",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "priya",
+      "question": "Where were you between half past eight and nine?",
+      "evidenceIds": [],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "priya-tomas",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "priya",
+      "question": "Could Tomas have left the pass without you noticing?",
+      "evidenceIds": [],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "priya-dish",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "priya",
+      "question": "Did you see anyone near the copper dish?",
+      "evidenceIds": [],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "priya-marit",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "priya",
+      "question": "Was everyone at their station during the push?",
+      "evidenceIds": [],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "priya-lineup",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "priya",
+      "question": "Did the kitchen know who was at table seven?",
+      "evidenceIds": [],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "priya-show-notebook",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "priya",
+      "question": "His notebook says: 'Pastry is N., the girl from The Final Plate.'",
+      "evidenceIds": [
+        "notebook"
+      ],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "priya-show-door-log",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "priya",
+      "question": "The alley door opened at 20:58 and again at 21:03. You said Tomas never left the pass.",
+      "evidenceIds": [
+        "door_log"
+      ],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "marit-monkshood",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "marit",
+      "question": "The poison was aconite. You know plants. Where would it come from?",
+      "evidenceIds": [],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "marit-where",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "marit",
+      "question": "Where were you during service?",
+      "evidenceIds": [],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "marit-root",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "marit",
+      "question": "Could someone mistake monkshood root for horseradish?",
+      "evidenceIds": [],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "marit-gus",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "marit",
+      "question": "What do you make of Gus?",
+      "evidenceIds": [],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "marit-show-keypad",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "marit",
+      "question": "Your code opened the dry store at 20:38. You came out at 20:57.",
+      "evidenceIds": [
+        "keypad_log"
+      ],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "marit-show-planter",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "marit",
+      "question": "One of your monkshood plants is gone. Root and all.",
+      "evidenceIds": [
+        "planter"
+      ],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "gus-where",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "gus",
+      "question": "Where were you during service?",
+      "evidenceIds": [],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "gus-know-vale",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "gus",
+      "question": "Did you know who was eating at table seven?",
+      "evidenceIds": [],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "gus-dish",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "gus",
+      "question": "The copper dish came through your pit. When did it go back up?",
+      "evidenceIds": [],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "gus-others",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "gus",
+      "question": "Did you see anyone leave their station?",
+      "evidenceIds": [],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "gus-show-machine-log",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "gus",
+      "question": "Four cycles between 20:43 and 20:50, and the door never lifted between them.",
+      "evidenceIds": [
+        "machine_log"
+      ],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "gus-show-video",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "gus",
+      "question": "This video has you setting the dish on the pass at 20:51. You told me twenty to nine.",
+      "evidenceIds": [
+        "guest_video"
+      ],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "gus-show-bin-cage",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "gus",
+      "question": "Your fob opened the bin cage at 20:45. There was a half-grated horseradish root in the food bin.",
+      "evidenceIds": [
+        "bin_cage"
+      ],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/interrogate",
+    "body": {
+      "demoId": "gus-show-clipping",
+      "case": {
+        "id": "the-fourth-course"
+      },
+      "suspectId": "gus",
+      "question": "This was taped inside your locker. His review of Pereira's.",
+      "evidenceIds": [
+        "locker_clipping"
+      ],
+      "history": []
+    }
+  },
+  {
+    "route": "/api/generate",
+    "body": {
+      "demoId": "generate-sample",
+      "theme": "A seafood grill on a pier, and a landlord nobody will miss"
+    }
+  }
 ]

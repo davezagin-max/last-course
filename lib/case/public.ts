@@ -55,6 +55,12 @@ export interface PublicCase {
   questions: DemoQuestion[];
 }
 
+/**
+ * How the browser names a case to the server: a built-in case by id, or a
+ * generated case by the sealed blob the server handed out for it.
+ */
+export type CaseRef = { id: string } | { sealed: string };
+
 export function toPublicCase(kase: CaseFile): PublicCase {
   return {
     id: kase.id,

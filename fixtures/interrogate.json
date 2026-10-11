@@ -1,0 +1,1586 @@
+{
+  "gus-dish": {
+    "label": "gus: The copper dish came through your pit. When did it go back up?",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "It came down in a bus tub with the rest, a root sitting in it. I rinsed the dish, I dried it, I put back what was in it, and I sent it straight up. Twenty to nine, no later. Whatever happened to that root happened on the pass, after it left my hands. I only wash things, sir. I don't season them.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "It came down in a bus tub with the rest, a root sitting in it. I rinsed the dish, I dried it, I put back what was in it, and I sent it straight up. Twenty to nine, no later. Whatever happened to that root happened on the pass, after it left my hands. I only wash things, sir. I don't season them."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "gus",
+          "subject": "gus",
+          "kind": "timing",
+          "place": null,
+          "from": 1240,
+          "to": null,
+          "object": "dish_returned",
+          "negated": false,
+          "quote": "Twenty to nine, no later"
+        },
+        {
+          "speaker": "gus",
+          "subject": "gus",
+          "kind": "possession",
+          "place": null,
+          "from": null,
+          "to": null,
+          "object": "copper_dish",
+          "negated": false,
+          "quote": "I rinsed the dish, I dried it"
+        }
+      ],
+      "leads": [],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "gus-know-vale": {
+    "label": "gus: Did you know who was eating at table seven?",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "Chef said a name at lineup. I don't hold on to names from the dining room, sir; they don't come back to the pit to shake hands. I never knew the man. A critic is somebody who eats the food and leaves the plate, and I have washed a great many plates.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "Chef said a name at lineup. I don't hold on to names from the dining room, sir; they don't come back to the pit to shake hands. I never knew the man. A critic is somebody who eats the food and leaves the plate, and I have washed a great many plates."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "gus",
+          "subject": "gus",
+          "kind": "relationship",
+          "place": null,
+          "from": null,
+          "to": null,
+          "object": "victim",
+          "negated": true,
+          "quote": "I never knew the man"
+        }
+      ],
+      "leads": [],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "gus-others": {
+    "label": "gus: Did you see anyone leave their station?",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "From the pit you see the back corridor, so you see everything nobody thinks you see. Marit went into the dry store a little before twenty to nine, and she was in there a long time, near twenty minutes. And the sous chef stepped out to the alley just before nine o'clock. Out where the blue flowers grow. I am not saying anything by it, sir. I am only saying what the corridor showed me.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "From the pit you see the back corridor, so you see everything nobody thinks you see. Marit went into the dry store a little before twenty to nine, and she was in there a long time, near twenty minutes. And the sous chef stepped out to the alley just before nine o'clock. Out where the blue flowers grow. I am not saying anything by it, sir. I am only saying what the corridor showed me."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "gus",
+          "subject": "marit",
+          "kind": "sighting",
+          "place": "dry_store",
+          "from": 1238,
+          "to": 1257,
+          "object": null,
+          "negated": false,
+          "quote": "Marit went into the dry store a little before twenty to nine"
+        },
+        {
+          "speaker": "gus",
+          "subject": "tomas",
+          "kind": "sighting",
+          "place": "alley",
+          "from": 1258,
+          "to": null,
+          "object": null,
+          "negated": false,
+          "quote": "the sous chef stepped out to the alley just before nine o'clock"
+        }
+      ],
+      "leads": [
+        "gus_marit"
+      ],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "gus-show-bin-cage": {
+    "label": "gus: Your fob opened the bin cage at 20:45. There was a half-grated horseradish root in the food bin.",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "Scraps go in the food bin, sir. That is what it is for. I told you I took the bins out at quarter to nine; the fob only says what I already said. A root in a bin... do you know how many roots a kitchen throws away on a Saturday? You have an old man standing near some rubbish. That is all you have.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "Scraps go in the food bin, sir. That is what it is for. I told you I took the bins out at quarter to nine; the fob only says what I already said. A root in a bin... do you know how many roots a kitchen throws away on a Saturday? You have an old man standing near some rubbish. That is all you have."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "gus",
+          "subject": "gus",
+          "kind": "location",
+          "place": "alley",
+          "from": 1245,
+          "to": null,
+          "object": null,
+          "negated": false,
+          "quote": "I took the bins out at quarter to nine"
+        }
+      ],
+      "leads": [],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "gus-show-clipping": {
+    "label": "gus: This was taped inside your locker. His review of Pereira's.",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "...Fourteen tables. My wife did the flowers. He came once, on a Tuesday, in the rain, and he needed four hundred words. 'A kitchen that has given up.' The turbot, he said, was 'grey and apologetic.' We closed in the spring. So yes, sir, I knew the name. I have known it for fifteen years. But knowing a name is not the same as doing a thing about it. I wash dishes now. That is all I do.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "...Fourteen tables. My wife did the flowers. He came once, on a Tuesday, in the rain, and he needed four hundred words. 'A kitchen that has given up.' The turbot, he said, was 'grey and apologetic.' We closed in the spring. So yes, sir, I knew the name. I have known it for fifteen years. But knowing a name is not the same as doing a thing about it. I wash dishes now. That is all I do."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "gus",
+          "subject": "gus",
+          "kind": "relationship",
+          "place": null,
+          "from": null,
+          "to": null,
+          "object": "victim",
+          "negated": false,
+          "quote": "I have known it for fifteen years"
+        }
+      ],
+      "leads": [],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "gus-show-machine-log": {
+    "label": "gus: Four cycles between 20:43 and 20:50, and the door never lifted between them.",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "...The cycle button sticks if you lean a rack against it. Everybody in the trade knows that trick. All right. I took the bins out. Quarter to nine, five minutes, no more. A porter takes the bins out, sir; it is the job. I let the machine run so nobody would shout for plates. I didn't say so because I know how the alley sounds to you now. The bin cage has a fob lock. It will tell you the same thing I just did.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "...The cycle button sticks if you lean a rack against it. Everybody in the trade knows that trick. All right. I took the bins out. Quarter to nine, five minutes, no more. A porter takes the bins out, sir; it is the job. I let the machine run so nobody would shout for plates. I didn't say so because I know how the alley sounds to you now. The bin cage has a fob lock. It will tell you the same thing I just did."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "gus",
+          "subject": "gus",
+          "kind": "location",
+          "place": "alley",
+          "from": 1245,
+          "to": 1250,
+          "object": null,
+          "negated": false,
+          "quote": "I took the bins out. Quarter to nine, five minutes, no more"
+        }
+      ],
+      "leads": [
+        "gus_bins"
+      ],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "gus-show-video": {
+    "label": "gus: This video has you setting the dish on the pass at 20:51. You told me twenty to nine.",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "Then I had the time wrong. Ten to nine, twenty to nine: in the pit the clock is whatever rack you are on. I walked the dish up myself because it was Chef's copper and I would not trust it to a bus tub twice. If I was slow about it, I was slow. I am sixty-one, sir. You will forgive me a few minutes.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "Then I had the time wrong. Ten to nine, twenty to nine: in the pit the clock is whatever rack you are on. I walked the dish up myself because it was Chef's copper and I would not trust it to a bus tub twice. If I was slow about it, I was slow. I am sixty-one, sir. You will forgive me a few minutes."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "gus",
+          "subject": "gus",
+          "kind": "location",
+          "place": "pass",
+          "from": 1251,
+          "to": null,
+          "object": null,
+          "negated": false,
+          "quote": "I walked the dish up myself"
+        }
+      ],
+      "leads": [],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "gus-where": {
+    "label": "gus: Where were you during service?",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "Where I always am, sir. At the machine. From eight until they came running through with the news, I did not leave the dish pit. A rack goes in, a rack comes out, every minute and a half, all night. You don't have to believe an old man. The machine keeps a log of every cycle. Ask the machine.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "Where I always am, sir. At the machine. From eight until they came running through with the news, I did not leave the dish pit. A rack goes in, a rack comes out, every minute and a half, all night. You don't have to believe an old man. The machine keeps a log of every cycle. Ask the machine."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "gus",
+          "subject": "gus",
+          "kind": "location",
+          "place": "dish_pit",
+          "from": 1200,
+          "to": 1294,
+          "object": null,
+          "negated": false,
+          "quote": "From eight until they came running through with the news, I did not leave the dish pit"
+        }
+      ],
+      "leads": [
+        "gus_machine"
+      ],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "marit-gus": {
+    "label": "marit: What do you make of Gus?",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "Gus is the only person in this building who has never raised his voice. He cooked once, did you know? He holds a knife like someone who was taught properly. And he has a newspaper cutting taped inside his locker door. Old, yellow. He closes the door when you walk past. I never asked. In a kitchen you do not ask a quiet man why he is quiet.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "Gus is the only person in this building who has never raised his voice. He cooked once, did you know? He holds a knife like someone who was taught properly. And he has a newspaper cutting taped inside his locker door. Old, yellow. He closes the door when you walk past. I never asked. In a kitchen you do not ask a quiet man why he is quiet."
+        }
+      ],
+      "seal": null,
+      "claims": [],
+      "leads": [
+        "marit_locker"
+      ],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "marit-monkshood": {
+    "label": "marit: The poison was aconite. You know plants. Where would it come from?",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "Monkshood. Aconitum napellus. And before you ask: yes, I planted it. Chef wanted blue in the alley planters and nothing is bluer. I told the whole brigade the day it went in: the blue ones will stop your heart, do not touch them, do not let the root near a board. It grows in the planter nearest the bins. If someone has been digging there, you will see it. And the linen driver photographs that wall at every drop, so you will even know when.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "Monkshood. Aconitum napellus. And before you ask: yes, I planted it. Chef wanted blue in the alley planters and nothing is bluer. I told the whole brigade the day it went in: the blue ones will stop your heart, do not touch them, do not let the root near a board. It grows in the planter nearest the bins. If someone has been digging there, you will see it. And the linen driver photographs that wall at every drop, so you will even know when."
+        }
+      ],
+      "seal": null,
+      "claims": [],
+      "leads": [
+        "marit_planter"
+      ],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "marit-root": {
+    "label": "marit: Could someone mistake monkshood root for horseradish?",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "Whole, no. Horseradish is pale and knobbly; monkshood root is dark, smooth, shaped like a small carrot. But peel it and it is white inside, and on a microplane, under heat lamps, with forty covers on the rail? It would pass. The smell would tell you. Horseradish bites your nose. Monkshood smells of very little. But nobody on a Saturday pass stops to smell a root they grated an hour ago.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "Whole, no. Horseradish is pale and knobbly; monkshood root is dark, smooth, shaped like a small carrot. But peel it and it is white inside, and on a microplane, under heat lamps, with forty covers on the rail? It would pass. The smell would tell you. Horseradish bites your nose. Monkshood smells of very little. But nobody on a Saturday pass stops to smell a root they grated an hour ago."
+        }
+      ],
+      "seal": null,
+      "claims": [],
+      "leads": [],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "marit-show-keypad": {
+    "label": "marit: Your code opened the dry store at 20:38. You came out at 20:57.",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "Yes. Nineteen minutes. I was in the dry store from 8:38 until three minutes to nine, peeling farm stickers off crates and writing 'wild' on them. Half of what I sell Chef as foraged comes from a grower in the valley. Vale had written to me, asking where I find ramps in November. So yes, I had a reason to dislike his questions. But I was behind a locked door with a marker pen while somebody else was in that alley.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "Yes. Nineteen minutes. I was in the dry store from 8:38 until three minutes to nine, peeling farm stickers off crates and writing 'wild' on them. Half of what I sell Chef as foraged comes from a grower in the valley. Vale had written to me, asking where I find ramps in November. So yes, I had a reason to dislike his questions. But I was behind a locked door with a marker pen while somebody else was in that alley."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "marit",
+          "subject": "marit",
+          "kind": "location",
+          "place": "dry_store",
+          "from": 1238,
+          "to": 1257,
+          "object": null,
+          "negated": false,
+          "quote": "I was in the dry store from 8:38 until three minutes to nine"
+        }
+      ],
+      "leads": [],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "marit-show-planter": {
+    "label": "marit: One of your monkshood plants is gone. Root and all.",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "Then someone knew which one to take. Look at the cut in the soil: flat. That is a bench scraper or a dish scraper, not a trowel. They took only the root and threw the flowers behind the planter. The driver's photograph shows it standing at 8:31? Then it went after that, taken by someone who could stand in that alley for a few minutes without anybody asking why.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "Then someone knew which one to take. Look at the cut in the soil: flat. That is a bench scraper or a dish scraper, not a trowel. They took only the root and threw the flowers behind the planter. The driver's photograph shows it standing at 8:31? Then it went after that, taken by someone who could stand in that alley for a few minutes without anybody asking why."
+        }
+      ],
+      "seal": null,
+      "claims": [],
+      "leads": [],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "marit-where": {
+    "label": "marit: Where were you during service?",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "At my station. Cold side, by the alley door, from eight until the shouting started. Crudo, oysters, the garnishes for the turbot. I do not wander. And because I stand by that door, I can tell you who used it: Tomas went out to the alley at two minutes to nine and came back in at three minutes past, with his phone in his hand.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "At my station. Cold side, by the alley door, from eight until the shouting started. Crudo, oysters, the garnishes for the turbot. I do not wander. And because I stand by that door, I can tell you who used it: Tomas went out to the alley at two minutes to nine and came back in at three minutes past, with his phone in his hand."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "marit",
+          "subject": "marit",
+          "kind": "location",
+          "place": "cold_station",
+          "from": 1200,
+          "to": 1294,
+          "object": null,
+          "negated": false,
+          "quote": "Cold side, by the alley door, from eight until the shouting started"
+        },
+        {
+          "speaker": "marit",
+          "subject": "tomas",
+          "kind": "sighting",
+          "place": "alley",
+          "from": 1258,
+          "to": 1263,
+          "object": null,
+          "negated": false,
+          "quote": "Tomas went out to the alley at two minutes to nine and came back in at three minutes past"
+        }
+      ],
+      "leads": [],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "odile-brigade": {
+    "label": "odile: Who in your kitchen would want him dead?",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "Nobody in my brigade is a poisoner. But you want honesty. Tomas wants my job and thinks I cannot see it. Priya has a history with that man which she does not discuss. Marit sells me 'wild' leeks that are suspiciously straight. And Gus has washed my pots for six years and never once asked for anything. Of all of them, he is the one I would trust with my keys.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "Nobody in my brigade is a poisoner. But you want honesty. Tomas wants my job and thinks I cannot see it. Priya has a history with that man which she does not discuss. Marit sells me 'wild' leeks that are suspiciously straight. And Gus has washed my pots for six years and never once asked for anything. Of all of them, he is the one I would trust with my keys."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "odile",
+          "subject": "priya",
+          "kind": "relationship",
+          "place": null,
+          "from": null,
+          "to": null,
+          "object": "victim",
+          "negated": false,
+          "quote": "Priya has a history with that man"
+        }
+      ],
+      "leads": [],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "odile-dish": {
+    "label": "odile: Who handled the copper dish that night?",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "Tomas, when I called the flourish. And the porter. I will not have a smeared dish on my pass, so between VIP tables it goes down to the pit to be rinsed and polished. It went after table four. Gus brought it back while I was... while service was at its heaviest. I did not see it return. When I next looked it was in its place, with a root in it.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "Tomas, when I called the flourish. And the porter. I will not have a smeared dish on my pass, so between VIP tables it goes down to the pit to be rinsed and polished. It went after table four. Gus brought it back while I was... while service was at its heaviest. I did not see it return. When I next looked it was in its place, with a root in it."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "odile",
+          "subject": "gus",
+          "kind": "possession",
+          "place": null,
+          "from": null,
+          "to": null,
+          "object": "copper_dish",
+          "negated": false,
+          "quote": "Gus brought it back"
+        }
+      ],
+      "leads": [],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "odile-flourish": {
+    "label": "odile: What was different about table seven's turbot?",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "The flourish. An ordinary table gets horseradish cream with the turbot. A table that matters gets fresh root, grated over the plate at the pass at the last second, while the heat is still in it. I called it; Tomas grated it. The root lives in a little copper dish by the lamps. If something was wrong with that plate, Detective, your laboratory should start with what was grated onto it.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "The flourish. An ordinary table gets horseradish cream with the turbot. A table that matters gets fresh root, grated over the plate at the pass at the last second, while the heat is still in it. I called it; Tomas grated it. The root lives in a little copper dish by the lamps. If something was wrong with that plate, Detective, your laboratory should start with what was grated onto it."
+        }
+      ],
+      "seal": null,
+      "claims": [],
+      "leads": [
+        "odile_flourish"
+      ],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "odile-know-vale": {
+    "label": "odile: Did you know the man at table seven?",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "A name on a ticket. 'Marsh, one cover, tasting.' I knew a critic was in my dining room, a chef can smell one, but I did not know Augustin Vale. Critics are weather, Detective. You do not befriend the rain. You cook, and in the morning you see what it did to the garden.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "A name on a ticket. 'Marsh, one cover, tasting.' I knew a critic was in my dining room, a chef can smell one, but I did not know Augustin Vale. Critics are weather, Detective. You do not befriend the rain. You cook, and in the morning you see what it did to the garden."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "odile",
+          "subject": "odile",
+          "kind": "relationship",
+          "place": null,
+          "from": null,
+          "to": null,
+          "object": "victim",
+          "negated": true,
+          "quote": "I did not know Augustin Vale"
+        }
+      ],
+      "leads": [],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "odile-photos": {
+    "label": "odile: Is there any record of what crossed the pass?",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "There is a tablet bolted above the pass. Every plate for a VIP is photographed before it leaves; I keep them for the book, so the kitchen learns what right looks like. Table four's turbot at 8:38. Each of table seven's courses after that. Look at them. You will see clean plates. You will also see my copper dish, because it sits in the corner of every frame.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "There is a tablet bolted above the pass. Every plate for a VIP is photographed before it leaves; I keep them for the book, so the kitchen learns what right looks like. Table four's turbot at 8:38. Each of table seven's courses after that. Look at them. You will see clean plates. You will also see my copper dish, because it sits in the corner of every frame."
+        }
+      ],
+      "seal": null,
+      "claims": [],
+      "leads": [
+        "odile_photos"
+      ],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "odile-show-lineup": {
+    "label": "odile: This is your handwriting: 'Friend of the house.' You knew exactly who he was.",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "Yes. We stood on the same line in Lyon thirty years ago, he and I, before he decided he would rather judge food than cook it. He lent me the deposit on this building. He came on Saturday to write the review that would have kept my doors open, and I told the whole brigade so at lineup. Now ask yourself who gains from his death. Not me. I needed him alive and typing.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "Yes. We stood on the same line in Lyon thirty years ago, he and I, before he decided he would rather judge food than cook it. He lent me the deposit on this building. He came on Saturday to write the review that would have kept my doors open, and I told the whole brigade so at lineup. Now ask yourself who gains from his death. Not me. I needed him alive and typing."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "odile",
+          "subject": "odile",
+          "kind": "relationship",
+          "place": null,
+          "from": null,
+          "to": null,
+          "object": "victim",
+          "negated": false,
+          "quote": "We stood on the same line in Lyon thirty years ago"
+        }
+      ],
+      "leads": [],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "odile-show-phone-log": {
+    "label": "odile: The office line was in use from 20:41 to 20:53. You told me you never left the pass.",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "...Twelve minutes. Calloway and Finch are insolvency practitioners, and they do not telephone at civilised hours. I took the call in the office at 8:41 and I was back on my pass at 8:53. Verjus owes more than it earns, Detective. That is a shame. It is not a crime. I told you I never left because a chef who leaves her pass on a Saturday is already finished.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "...Twelve minutes. Calloway and Finch are insolvency practitioners, and they do not telephone at civilised hours. I took the call in the office at 8:41 and I was back on my pass at 8:53. Verjus owes more than it earns, Detective. That is a shame. It is not a crime. I told you I never left because a chef who leaves her pass on a Saturday is already finished."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "odile",
+          "subject": "odile",
+          "kind": "location",
+          "place": "office",
+          "from": 1241,
+          "to": 1253,
+          "object": null,
+          "negated": false,
+          "quote": "I took the call in the office at 8:41 and I was back on my pass at 8:53"
+        }
+      ],
+      "leads": [],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "odile-where": {
+    "label": "odile: Where were you between eight o'clock and the moment he collapsed?",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "On my pass. From the first ticket at eight until the dining room started screaming at 9:34, I did not leave it. Every plate in this restaurant crosses that steel under my eyes. Ask anyone: Chef does not leave the pass on a Saturday. The turbot for seven went out at 9:16, exactly as I wanted it.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "On my pass. From the first ticket at eight until the dining room started screaming at 9:34, I did not leave it. Every plate in this restaurant crosses that steel under my eyes. Ask anyone: Chef does not leave the pass on a Saturday. The turbot for seven went out at 9:16, exactly as I wanted it."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "odile",
+          "subject": "odile",
+          "kind": "location",
+          "place": "pass",
+          "from": 1200,
+          "to": 1294,
+          "object": null,
+          "negated": false,
+          "quote": "From the first ticket at eight until the dining room started screaming at 9:34, I did not leave it"
+        },
+        {
+          "speaker": "odile",
+          "subject": "odile",
+          "kind": "timing",
+          "place": null,
+          "from": 1276,
+          "to": null,
+          "object": "course4_served",
+          "negated": false,
+          "quote": "The turbot for seven went out at 9:16"
+        }
+      ],
+      "leads": [],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "priya-dish": {
+    "label": "priya: Did you see anyone near the copper dish?",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "One thing, and it's small. Around ten to nine Gus came up from the pit and put the copper dish on the pass. Just the dish. I noticed because Gus never carries one thing; he carries a stack of forty plates and makes it look like nothing. One little dish, in both hands, like it was hot. Then he went back down. I didn't think about it again until yesterday.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "One thing, and it's small. Around ten to nine Gus came up from the pit and put the copper dish on the pass. Just the dish. I noticed because Gus never carries one thing; he carries a stack of forty plates and makes it look like nothing. One little dish, in both hands, like it was hot. Then he went back down. I didn't think about it again until yesterday."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "priya",
+          "subject": "gus",
+          "kind": "sighting",
+          "place": "pass",
+          "from": 1250,
+          "to": null,
+          "object": null,
+          "negated": false,
+          "quote": "Around ten to nine Gus came up from the pit and put the copper dish on the pass"
+        },
+        {
+          "speaker": "priya",
+          "subject": "priya",
+          "kind": "timing",
+          "place": null,
+          "from": 1250,
+          "to": null,
+          "object": "dish_returned",
+          "negated": false,
+          "quote": "Around ten to nine Gus came up from the pit and put the copper dish on the pass"
+        }
+      ],
+      "leads": [],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "priya-know-vale": {
+    "label": "priya: Had you met Augustin Vale before Saturday?",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "No. I know the byline, everyone in this trade does, but I've never met the man. I make the last three courses; by the time a critic gets to me he has already decided. On Saturday I was tempering chocolate at 31 degrees and thinking about a birthday plate for table twelve, not about who was eating turbot.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "No. I know the byline, everyone in this trade does, but I've never met the man. I make the last three courses; by the time a critic gets to me he has already decided. On Saturday I was tempering chocolate at 31 degrees and thinking about a birthday plate for table twelve, not about who was eating turbot."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "priya",
+          "subject": "priya",
+          "kind": "relationship",
+          "place": null,
+          "from": null,
+          "to": null,
+          "object": "victim",
+          "negated": true,
+          "quote": "I've never met the man"
+        }
+      ],
+      "leads": [],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "priya-lineup": {
+    "label": "priya: Did the kitchen know who was at table seven?",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "Everyone knew. Chef announced it at lineup: Augustin Vale, table seven, booked as Marsh, a friend of the house. She wrote it on the lineup sheet, and that sheet stays clipped by the office door all night. So nobody back here was afraid of that review, if that's what you're wondering. We thought it was the best news Verjus had had all year.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "Everyone knew. Chef announced it at lineup: Augustin Vale, table seven, booked as Marsh, a friend of the house. She wrote it on the lineup sheet, and that sheet stays clipped by the office door all night. So nobody back here was afraid of that review, if that's what you're wondering. We thought it was the best news Verjus had had all year."
+        }
+      ],
+      "seal": null,
+      "claims": [],
+      "leads": [
+        "priya_lineup"
+      ],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "priya-marit": {
+    "label": "priya: Was everyone at their station during the push?",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "Marit wasn't. Her station is the cold side, by the alley door, and from about twenty to nine she just wasn't there. I plated two of her crudos myself because the tickets were dying on the rail. She was back a little before nine and didn't say a word about it. If you want to know where she went, the dry store has a keypad, and it remembers everyone.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "Marit wasn't. Her station is the cold side, by the alley door, and from about twenty to nine she just wasn't there. I plated two of her crudos myself because the tickets were dying on the rail. She was back a little before nine and didn't say a word about it. If you want to know where she went, the dry store has a keypad, and it remembers everyone."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "priya",
+          "subject": "marit",
+          "kind": "location",
+          "place": "cold_station",
+          "from": 1240,
+          "to": 1255,
+          "object": null,
+          "negated": true,
+          "quote": "from about twenty to nine she just wasn't there"
+        }
+      ],
+      "leads": [
+        "priya_marit"
+      ],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "priya-show-door-log": {
+    "label": "priya: The alley door opened at 20:58 and again at 21:03. You said Tomas never left the pass.",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "Fine. He stepped out at two minutes to nine and he was back at three minutes past. It was a phone call. Tomas has been offered a kitchen of his own, at Brasa, and he has asked me to come with him, and neither of us has told Chef. That's what I was protecting: a job, not a murderer. He came back in with his phone in his hand and nothing else.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "Fine. He stepped out at two minutes to nine and he was back at three minutes past. It was a phone call. Tomas has been offered a kitchen of his own, at Brasa, and he has asked me to come with him, and neither of us has told Chef. That's what I was protecting: a job, not a murderer. He came back in with his phone in his hand and nothing else."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "priya",
+          "subject": "tomas",
+          "kind": "sighting",
+          "place": "alley",
+          "from": 1258,
+          "to": 1263,
+          "object": null,
+          "negated": false,
+          "quote": "He stepped out at two minutes to nine and he was back at three minutes past"
+        }
+      ],
+      "leads": [
+        "priya_brasa"
+      ],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "priya-show-notebook": {
+    "label": "priya: His notebook says: 'Pastry is N., the girl from The Final Plate.'",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "...He remembered. All right. Three years ago, The Final Plate, semi-final. He called my entremet 'a wedding cake for a divorce' and four million people laughed. I told you I'd never met him because I have spent three years being more than that sentence. What does it say after that? 'Better than I said she was.' Well. He could have led with that.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "...He remembered. All right. Three years ago, The Final Plate, semi-final. He called my entremet 'a wedding cake for a divorce' and four million people laughed. I told you I'd never met him because I have spent three years being more than that sentence. What does it say after that? 'Better than I said she was.' Well. He could have led with that."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "priya",
+          "subject": "priya",
+          "kind": "relationship",
+          "place": null,
+          "from": null,
+          "to": null,
+          "object": "victim",
+          "negated": false,
+          "quote": "Three years ago, The Final Plate, semi-final"
+        }
+      ],
+      "leads": [],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "priya-tomas": {
+    "label": "priya: Could Tomas have left the pass without you noticing?",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "No. My station looks straight across at the pass; that's eleven metres of clear sightline. Tomas was there. Five to nine, nine o'clock, five past: he was at the rail calling tickets the entire time. He is loud, Detective. You notice when he stops. I would tell you if he had gone anywhere.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "No. My station looks straight across at the pass; that's eleven metres of clear sightline. Tomas was there. Five to nine, nine o'clock, five past: he was at the rail calling tickets the entire time. He is loud, Detective. You notice when he stops. I would tell you if he had gone anywhere."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "priya",
+          "subject": "tomas",
+          "kind": "sighting",
+          "place": "pass",
+          "from": 1255,
+          "to": 1265,
+          "object": null,
+          "negated": false,
+          "quote": "Five to nine, nine o'clock, five past: he was at the rail calling tickets the entire time"
+        }
+      ],
+      "leads": [],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "priya-where": {
+    "label": "priya: Where were you between half past eight and nine?",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "Pastry. I didn't leave my corner from eight until I went to the walk-in for cream at twenty past nine. And you don't have to take my word for it: table twelve had a birthday, and the whole family filmed me through the glass while I built the plate. Sparkler, the lot. That was about quarter to nine. Ask them for the video. It will have the time on it.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "Pastry. I didn't leave my corner from eight until I went to the walk-in for cream at twenty past nine. And you don't have to take my word for it: table twelve had a birthday, and the whole family filmed me through the glass while I built the plate. Sparkler, the lot. That was about quarter to nine. Ask them for the video. It will have the time on it."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "priya",
+          "subject": "priya",
+          "kind": "location",
+          "place": "pastry",
+          "from": 1200,
+          "to": 1280,
+          "object": null,
+          "negated": false,
+          "quote": "I didn't leave my corner from eight until I went to the walk-in for cream at twenty past nine"
+        },
+        {
+          "speaker": "priya",
+          "subject": "priya",
+          "kind": "location",
+          "place": "walk_in",
+          "from": 1280,
+          "to": null,
+          "object": null,
+          "negated": false,
+          "quote": "I went to the walk-in for cream at twenty past nine"
+        }
+      ],
+      "leads": [
+        "priya_video"
+      ],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "tomas-dish": {
+    "label": "tomas: Tell me about the copper dish.",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "Chef's little altar. It holds the horseradish for the flourish. After table four's plate, around twenty to nine, I sent it down to the pit in a bus tub, because she wants it polished between VIPs. Gus walked it back up himself about ten to nine, root sitting in it, and set it down by the lamps. I didn't look twice. Why would I? It's a root in a dish, and I had forty covers on the rail.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "Chef's little altar. It holds the horseradish for the flourish. After table four's plate, around twenty to nine, I sent it down to the pit in a bus tub, because she wants it polished between VIPs. Gus walked it back up himself about ten to nine, root sitting in it, and set it down by the lamps. I didn't look twice. Why would I? It's a root in a dish, and I had forty covers on the rail."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "tomas",
+          "subject": "tomas",
+          "kind": "timing",
+          "place": null,
+          "from": 1240,
+          "to": null,
+          "object": "dish_sent",
+          "negated": false,
+          "quote": "around twenty to nine, I sent it down to the pit in a bus tub"
+        },
+        {
+          "speaker": "tomas",
+          "subject": "tomas",
+          "kind": "timing",
+          "place": null,
+          "from": 1250,
+          "to": null,
+          "object": "dish_returned",
+          "negated": false,
+          "quote": "Gus walked it back up himself about ten to nine"
+        },
+        {
+          "speaker": "tomas",
+          "subject": "gus",
+          "kind": "sighting",
+          "place": "pass",
+          "from": 1250,
+          "to": null,
+          "object": null,
+          "negated": false,
+          "quote": "set it down by the lamps"
+        },
+        {
+          "speaker": "tomas",
+          "subject": "gus",
+          "kind": "possession",
+          "place": null,
+          "from": 1240,
+          "to": 1250,
+          "object": "copper_dish",
+          "negated": false,
+          "quote": "I sent it down to the pit in a bus tub"
+        }
+      ],
+      "leads": [],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "tomas-grated": {
+    "label": "tomas: You plated the fourth course. Walk me through it.",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "Ticket fires at 9:05, turbot's on the plate at 9:11, Chef calls the flourish, and I pick the root up out of the copper dish and I grate it. Me. These hands. Ten strokes on the microplane, straight over the fish, and the runner has it gone by 9:16. If there was something wrong with that root, then I'm the one who put it on his plate, and I've been sick about it for two days. So test it. Test the shavings.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "Ticket fires at 9:05, turbot's on the plate at 9:11, Chef calls the flourish, and I pick the root up out of the copper dish and I grate it. Me. These hands. Ten strokes on the microplane, straight over the fish, and the runner has it gone by 9:16. If there was something wrong with that root, then I'm the one who put it on his plate, and I've been sick about it for two days. So test it. Test the shavings."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "tomas",
+          "subject": "tomas",
+          "kind": "timing",
+          "place": null,
+          "from": 1271,
+          "to": null,
+          "object": "course4_plated",
+          "negated": false,
+          "quote": "turbot's on the plate at 9:11"
+        },
+        {
+          "speaker": "tomas",
+          "subject": "tomas",
+          "kind": "timing",
+          "place": null,
+          "from": 1276,
+          "to": null,
+          "object": "course4_served",
+          "negated": false,
+          "quote": "the runner has it gone by 9:16"
+        },
+        {
+          "speaker": "tomas",
+          "subject": "tomas",
+          "kind": "location",
+          "place": "pass",
+          "from": 1265,
+          "to": 1276,
+          "object": null,
+          "negated": false,
+          "quote": "I pick the root up out of the copper dish and I grate it"
+        }
+      ],
+      "leads": [
+        "tomas_flourish"
+      ],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "tomas-lineup": {
+    "label": "tomas: What did Chef tell the brigade about table seven?",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "Lineup, half past four, same as always. She had the sheet in her hand and she said: seven is Augustin Vale under the name Marsh, he's a friend of this house, cook clean and nobody fusses. So we all knew. Every one of us, porter included. It's on the lineup sheet by the office door with all our initials. If someone back there tells you they didn't know who was on seven, they were standing in a different lineup than I was.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "Lineup, half past four, same as always. She had the sheet in her hand and she said: seven is Augustin Vale under the name Marsh, he's a friend of this house, cook clean and nobody fusses. So we all knew. Every one of us, porter included. It's on the lineup sheet by the office door with all our initials. If someone back there tells you they didn't know who was on seven, they were standing in a different lineup than I was."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "tomas",
+          "subject": "odile",
+          "kind": "relationship",
+          "place": null,
+          "from": null,
+          "to": null,
+          "object": "victim",
+          "negated": false,
+          "quote": "he's a friend of this house"
+        }
+      ],
+      "leads": [
+        "tomas_lineup"
+      ],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "tomas-priya": {
+    "label": "tomas: What is there between Priya Nair and Augustin Vale?",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "Oh, she didn't tell you? Three years ago she was on The Final Plate. Television. Vale was the guest judge, and he looked at her entremet, the thing she'd spent nine hours on, and called it 'a wedding cake for a divorce.' On air. She went out in the semi-final. She doesn't talk about it, and I'd appreciate it if you didn't say you heard it from me. She's the best pastry chef I've ever worked with.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "Oh, she didn't tell you? Three years ago she was on The Final Plate. Television. Vale was the guest judge, and he looked at her entremet, the thing she'd spent nine hours on, and called it 'a wedding cake for a divorce.' On air. She went out in the semi-final. She doesn't talk about it, and I'd appreciate it if you didn't say you heard it from me. She's the best pastry chef I've ever worked with."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "tomas",
+          "subject": "priya",
+          "kind": "relationship",
+          "place": null,
+          "from": null,
+          "to": null,
+          "object": "victim",
+          "negated": false,
+          "quote": "Vale was the guest judge"
+        }
+      ],
+      "leads": [],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "tomas-show-bump-log": {
+    "label": "tomas: Your PIN is on every ticket until 20:57. Then nothing for seven minutes.",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "Okay. Okay. Two minutes to nine I stepped out the back door into the alley, and I was back on the pass by three minutes past. Five minutes. My phone had been going all night. It was Dominic Achterberg from Brasa, and he was offering me his kitchen. Head chef. I took the call next to the bins like a teenager, and yes, I mean to take a couple of cooks with me. I didn't touch any planter. I didn't even look at it.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "Okay. Okay. Two minutes to nine I stepped out the back door into the alley, and I was back on the pass by three minutes past. Five minutes. My phone had been going all night. It was Dominic Achterberg from Brasa, and he was offering me his kitchen. Head chef. I took the call next to the bins like a teenager, and yes, I mean to take a couple of cooks with me. I didn't touch any planter. I didn't even look at it."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "tomas",
+          "subject": "tomas",
+          "kind": "location",
+          "place": "alley",
+          "from": 1258,
+          "to": 1263,
+          "object": null,
+          "negated": false,
+          "quote": "Two minutes to nine I stepped out the back door into the alley, and I was back on the pass by three minutes past"
+        }
+      ],
+      "leads": [
+        "tomas_brasa"
+      ],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "tomas-show-photos": {
+    "label": "tomas: Look at the copper dish in the 20:38 photograph. Now the one from 20:56.",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "That first one's horseradish. Knobbly, pale, bit of green crown still on it. That's what I grated for table four. And the second... no. That's darker. Smooth. It tapers. That is not the same root, and it's sitting there at four minutes to nine like it belongs. So it was swapped while the dish was off my pass, or right as it came back. I grated that. God. I grated that and I never looked.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "That first one's horseradish. Knobbly, pale, bit of green crown still on it. That's what I grated for table four. And the second... no. That's darker. Smooth. It tapers. That is not the same root, and it's sitting there at four minutes to nine like it belongs. So it was swapped while the dish was off my pass, or right as it came back. I grated that. God. I grated that and I never looked."
+        }
+      ],
+      "seal": null,
+      "claims": [],
+      "leads": [],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  },
+  "tomas-where": {
+    "label": "tomas: Did you leave the pass at any point during service?",
+    "placeholder": true,
+    "recordedAt": null,
+    "model": "claude-opus-5-5 + claude-haiku-5-5",
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0
+    },
+    "costUsd": 0,
+    "data": {
+      "answer": "No. Eight o'clock to the moment that plate went out, I was on the pass. I call the tickets, I bump the tickets, I don't get to leave. You want proof, pull the bump log off the pass screen: every ticket that left this kitchen has my PIN on it. Chef, on the other hand, walked off in the middle of the push, about twenty to nine, and was gone a good ten minutes. Ask her where.",
+      "assistantContent": [
+        {
+          "type": "text",
+          "text": "No. Eight o'clock to the moment that plate went out, I was on the pass. I call the tickets, I bump the tickets, I don't get to leave. You want proof, pull the bump log off the pass screen: every ticket that left this kitchen has my PIN on it. Chef, on the other hand, walked off in the middle of the push, about twenty to nine, and was gone a good ten minutes. Ask her where."
+        }
+      ],
+      "seal": null,
+      "claims": [
+        {
+          "speaker": "tomas",
+          "subject": "tomas",
+          "kind": "location",
+          "place": "pass",
+          "from": 1200,
+          "to": 1276,
+          "object": null,
+          "negated": false,
+          "quote": "Eight o'clock to the moment that plate went out, I was on the pass"
+        },
+        {
+          "speaker": "tomas",
+          "subject": "odile",
+          "kind": "location",
+          "place": "pass",
+          "from": 1240,
+          "to": 1250,
+          "object": null,
+          "negated": true,
+          "quote": "Chef, on the other hand, walked off in the middle of the push, about twenty to nine"
+        }
+      ],
+      "leads": [
+        "tomas_bumps",
+        "tomas_chef_left"
+      ],
+      "blocked": false,
+      "blockedFor": [],
+      "historyReset": false,
+      "extractionFailed": false
+    }
+  }
+}

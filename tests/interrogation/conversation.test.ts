@@ -123,7 +123,7 @@ describe("turn seals", () => {
 describe("case seals", () => {
   it("round-trips a value and is opaque in between", () => {
     const blob = encrypt({ culprit: "gus", nested: [1, 2, 3] }, SECRET);
-    expect(blob).not.toContain("gus");
+    expect(Buffer.from(blob, "base64url").toString("latin1")).not.toContain('"culprit"');
     expect(decrypt(blob, SECRET)).toEqual({ culprit: "gus", nested: [1, 2, 3] });
   });
 

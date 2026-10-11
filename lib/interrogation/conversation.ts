@@ -21,9 +21,7 @@ import { untrusted, withSystemNote, type Msg } from "@/lib/claude";
 import { sign, verify } from "@/lib/seal";
 import { evidenceNote } from "./prompt";
 
-export const MAX_TURNS = 20;
-export const MAX_QUESTION_CHARS = 400;
-export const MAX_EVIDENCE_PER_TURN = 3;
+export { MAX_EVIDENCE_PER_TURN, MAX_QUESTION_CHARS, MAX_TURNS } from "./limits";
 
 /** One earlier exchange, as the browser stores it. */
 export interface TurnRecord {

@@ -8,7 +8,7 @@ import type { Contradiction, Source } from "./contradictions";
 import type { Names } from "./public";
 import type { Elimination } from "./solver";
 import { formatClock, formatSpan, formatSpans, type Span } from "./time";
-import { PLACE_AT, type Claim, type Fact, type Method } from "./types";
+import { PLACE_AT, VICTIM_ID, type Claim, type Fact, type Method } from "./types";
 
 function when(claim: Claim, evening: Span): string {
   if (claim.from === null) return claim.negated ? " at any point" : "";
@@ -28,7 +28,7 @@ export function claimText(names: Names, claim: Claim, evening: Span): string {
         claim.place ? PLACE_AT[claim.place] : "there"
       }${when(claim, evening)}`;
     case "timing":
-      return `${capitalize(names.event(claim.object ?? ""))}: ${claim.from === null ? "?" : formatClock(claim.from)}`;
+      return `${claim.from === null ? "?" : formatClock(claim.from)}: ${names.event(claim.object ?? "")}`;
     case "possession":
       return `${who} ${claim.negated ? "never had" : "had"} ${names.item(claim.object ?? "")}${
         claim.from === null ? "" : when(claim, evening)
@@ -62,7 +62,7 @@ export function factText(names: Names, fact: Fact): string {
     case "relationship":
       return `${names.person(fact.a)} and ${names.person(fact.b)} ${fact.holds ? "knew each other" : "had never met"}`;
     case "timing":
-      return `${capitalize(names.event(fact.event))}: ${formatClock(fact.at)}`;
+      return `${formatClock(fact.at)}: ${names.event(fact.event)}`;
   }
 }
 
@@ -81,8 +81,8 @@ const RULE_TITLE: Record<Contradiction["rule"], (subject: string) => string> = {
   denied: (s) => `Where was ${s}?`,
   empty: (s) => `${s} in a room that was empty`,
   possession: (s) => `Who had ${s}?`,
-  relationship: () => "Did they know each other?",
-  timing: (s) => `Two times for ${s}`,
+  relationship: (s) => `Did ${s}?`,
+  timing: (s) => `Two different times: ${s}`,
 };
 
 export function contradictionText(
@@ -97,7 +97,9 @@ export function contradictionText(
       ? names.item(contradiction.subject)
       : contradiction.rule === "timing"
         ? names.event(contradiction.subject)
-        : names.person(contradiction.subject);
+        : contradiction.rule === "relationship"
+          ? knowsPhrase(names, contradiction.subject)
+          : names.person(contradiction.subject);
 
   const side = (source: Source, other: Source) => {
     if (source.type === "claim") {
@@ -121,6 +123,13 @@ export function contradictionText(
     title: RULE_TITLE[contradiction.rule](subject),
     sides: [side(contradiction.a, contradiction.b), side(contradiction.b, contradiction.a)],
   };
+}
+
+/** "Odile know Augustin Vale" from a sorted pair key, with the victim named second. */
+function knowsPhrase(names: Names, pair: string): string {
+  const [a, b] = pair.split("|");
+  const [who, whom] = a === VICTIM_ID ? [b, a] : [a, b];
+  return `${names.person(who)} know ${names.person(whom)}`;
 }
 
 /** Picks the fact of an exhibit that a given contradiction is about. */
