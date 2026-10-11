@@ -39,7 +39,10 @@ export const POST = localRoute({
   handler: (body) => {
     const kase = resolveCase(body.case);
     const { culprit, method } = body.accusation;
-    if (!kase.suspects.some((s) => s.id === culprit) || !kase.methods.some((m) => m.id === method)) {
+    if (
+      !kase.suspects.some((s) => s.id === culprit) ||
+      !kase.methods.some((m) => m.id === method)
+    ) {
       throw new RouteError(400, "invalid", "Name one of the suspects and one of the methods.");
     }
     return scoreAccusation(kase, body.accusation, { found: body.found, claims: body.claims });

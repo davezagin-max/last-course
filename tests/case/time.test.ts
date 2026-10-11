@@ -31,9 +31,14 @@ describe("clock parsing and formatting", () => {
 
 describe("interval arithmetic on half-open spans", () => {
   it("merges overlapping and touching spans and drops empty ones", () => {
-    expect(normalize([s("20:10", "20:20"), s("20:00", "20:10"), s("20:15", "20:30"), s("21:00", "21:00")])).toEqual([
-      s("20:00", "20:30"),
-    ]);
+    expect(
+      normalize([
+        s("20:10", "20:20"),
+        s("20:00", "20:10"),
+        s("20:15", "20:30"),
+        s("21:00", "21:00"),
+      ]),
+    ).toEqual([s("20:00", "20:30")]);
   });
 
   it("treats adjacent spans as not overlapping", () => {
@@ -49,10 +54,9 @@ describe("interval arithmetic on half-open spans", () => {
 
   it("subtracts cuts from the middle, the edges, and the whole", () => {
     const base = [s("20:31", "21:11")];
-    expect(subtract(base, [s("20:25", "20:44"), s("20:49", "20:58"), s("21:03", "21:30")])).toEqual([
-      s("20:44", "20:49"),
-      s("20:58", "21:03"),
-    ]);
+    expect(subtract(base, [s("20:25", "20:44"), s("20:49", "20:58"), s("21:03", "21:30")])).toEqual(
+      [s("20:44", "20:49"), s("20:58", "21:03")],
+    );
     expect(subtract(base, [s("20:00", "22:00")])).toEqual([]);
     expect(subtract(base, [])).toEqual(base);
   });

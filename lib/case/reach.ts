@@ -90,7 +90,9 @@ export function reachability(kase: { evidence: EvidenceRule[]; leads: LeadRule[]
   let leads: string[] = [];
   for (;;) {
     const have = new Set(found);
-    const nextLeads = kase.leads.filter((l) => l.requires.every((e) => have.has(e))).map((l) => l.id);
+    const nextLeads = kase.leads
+      .filter((l) => l.requires.every((e) => have.has(e)))
+      .map((l) => l.id);
     const nextFound = unlockEvidence(kase.evidence, nextLeads, found);
     const grew = nextLeads.length > leads.length || nextFound.length > found.length;
     leads = nextLeads;

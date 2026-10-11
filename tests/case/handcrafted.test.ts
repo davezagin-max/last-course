@@ -39,7 +39,10 @@ describe("The Fourth Course (handcrafted case)", () => {
   it("gives every suspect a secret and at least one lie that evidence can break", () => {
     for (const s of kase.suspects) {
       expect(s.secret.length, s.id).toBeGreaterThan(40);
-      expect(s.lies.some((l) => l.breaksWith.length > 0), s.id).toBe(true);
+      expect(
+        s.lies.some((l) => l.breaksWith.length > 0),
+        s.id,
+      ).toBe(true);
     }
   });
 

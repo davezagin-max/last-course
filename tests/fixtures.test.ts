@@ -8,7 +8,15 @@ import { toPublicCase } from "@/lib/case/public";
 import { acceptLeads } from "@/lib/case/reach";
 import type { FixtureStore } from "@/lib/demo";
 import { ZERO_USAGE } from "@/lib/config";
-import { contradictionsIn, initialState, knownMotives, questionsFor, reduce, theoriesLeft, type GameState } from "@/lib/game/state";
+import {
+  contradictionsIn,
+  initialState,
+  knownMotives,
+  questionsFor,
+  reduce,
+  theoriesLeft,
+  type GameState,
+} from "@/lib/game/state";
 import { claimProblems } from "@/lib/interrogation/extract";
 import { checkAnswer } from "@/lib/interrogation/guard";
 import { guardContext } from "@/lib/interrogation/guard-context";
@@ -21,7 +29,14 @@ const question = (id: string) => kase.questions.find((q) => q.id === id)!;
 /** Plays a suggested question the way the browser does: fold the recorded answer into the game state. */
 function play(state: GameState, id: string): GameState {
   const q = question(id);
-  return reduce(pub, state, { type: "answered", suspect: q.suspect, question: q.text, presents: q.presents, data: store[id].data, meta: null });
+  return reduce(pub, state, {
+    type: "answered",
+    suspect: q.suspect,
+    question: q.text,
+    presents: q.presents,
+    data: store[id].data,
+    meta: null,
+  });
 }
 
 describe("interrogation fixtures: every recorded answer goes through the real pipeline", () => {
@@ -42,7 +57,10 @@ describe("interrogation fixtures: every recorded answer goes through the real pi
     const { data } = store[id];
 
     it("passes the output guard, in voice and within the length rule", () => {
-      expect(checkAnswer(data.answer, guardContext(kase, q.suspect))).toEqual({ ok: true, reasons: [] });
+      expect(checkAnswer(data.answer, guardContext(kase, q.suspect))).toEqual({
+        ok: true,
+        reasons: [],
+      });
       // The prompt asks for under 110 words; a recorded answer gets a little slack.
       expect(data.answer.split(/\s+/).length).toBeLessThanOrEqual(130);
       expect(data.blocked).toBe(false);
@@ -63,7 +81,9 @@ describe("interrogation fixtures: every recorded answer goes through the real pi
         const verdict = claimVerdict(kase, claim);
         expect(verdict, claim.quote).not.toBe("unknown");
         if (verdict === "false") {
-          const declared = speaker.lies.some((lie) => lie.asserts.some((p) => matchesPattern(claim, p, kase.window)));
+          const declared = speaker.lies.some((lie) =>
+            lie.asserts.some((p) => matchesPattern(claim, p, kase.window)),
+          );
           expect(declared, `undeclared lie: "${claim.quote}"`).toBe(true);
         }
       }
@@ -74,7 +94,11 @@ describe("interrogation fixtures: every recorded answer goes through the real pi
     for (const s of kase.suspects) {
       const mine = kase.questions.filter((q) => q.suspect === s.id);
       for (const lie of s.lies) {
-        const told = mine.some((q) => store[q.id].data.claims.some((c) => lie.asserts.some((p) => matchesPattern(c, p, kase.window))));
+        const told = mine.some((q) =>
+          store[q.id].data.claims.some((c) =>
+            lie.asserts.some((p) => matchesPattern(c, p, kase.window)),
+          ),
+        );
         expect(told, `${lie.id} is never told`).toBe(true);
         const confronted = mine.some((q) => q.presents.some((e) => lie.breaksWith.includes(e)));
         expect(confronted, `${lie.id} is never confronted`).toBe(true);
@@ -92,10 +116,19 @@ describe("presets.json", () => {
   const interrogate = presets.filter((p) => p.route === "/api/interrogate");
 
   it("lists every suggested question exactly as the case file has it, so `pnpm record` replays them all", () => {
-    expect(interrogate.map((p) => p.body.demoId).sort()).toEqual(kase.questions.map((q) => q.id).sort());
+    expect(interrogate.map((p) => p.body.demoId).sort()).toEqual(
+      kase.questions.map((q) => q.id).sort(),
+    );
     for (const p of interrogate) {
       const q = question(p.body.demoId);
-      expect(p.body).toEqual({ demoId: q.id, case: { id: kase.id }, suspectId: q.suspect, question: q.text, evidenceIds: q.presents, history: [] });
+      expect(p.body).toEqual({
+        demoId: q.id,
+        case: { id: kase.id },
+        suspectId: q.suspect,
+        question: q.text,
+        evidenceIds: q.presents,
+        history: [],
+      });
     }
   });
 });
@@ -112,7 +145,7 @@ describe("playing the demo script", () => {
   it("reaches every exhibit and every motive using only suggested questions", () => {
     let state = initialState(pub);
     // Keep asking whatever is currently askable until nothing new is left.
-    for (let progress = true; progress; ) {
+    for (let progress = true; progress;) {
       progress = false;
       for (const s of pub.suspects) {
         for (const q of questionsFor(pub, state, s.id)) {
@@ -127,7 +160,9 @@ describe("playing the demo script", () => {
     expect([...state.found].sort()).toEqual(kase.evidence.map((e) => e.id).sort());
     expect([...knownMotives(pub, state)].sort()).toEqual(kase.motives.map((m) => m.id).sort());
     // With everything found, the public solver has it down to the one true theory.
-    expect(theoriesLeft(pub, state).survivors).toEqual([{ culprit: "gus", method: "root_on_turbot", motive: "gus_revenge" }]);
+    expect(theoriesLeft(pub, state).survivors).toEqual([
+      { culprit: "gus", method: "root_on_turbot", motive: "gus_revenge" },
+    ]);
   });
 
   it("produces well over three detectable contradictions, of every basis", () => {
@@ -139,7 +174,13 @@ describe("playing the demo script", () => {
 
     // The specific catches the case is built around.
     const caught = (speaker: string, evidence: string) =>
-      found.some((c) => c.a.type === "claim" && c.a.speaker === speaker && c.b.type === "evidence" && c.b.id === evidence);
+      found.some(
+        (c) =>
+          c.a.type === "claim" &&
+          c.a.speaker === speaker &&
+          c.b.type === "evidence" &&
+          c.b.id === evidence,
+      );
     expect(caught("odile", "phone_log")).toBe(true);
     expect(caught("odile", "notebook")).toBe(true);
     expect(caught("priya", "notebook")).toBe(true);
@@ -148,7 +189,11 @@ describe("playing the demo script", () => {
     expect(caught("gus", "guest_video")).toBe(true);
     expect(caught("gus", "locker_clipping")).toBe(true);
     // Tomas is caught by testimony, not by an exhibit: the bump log only shows a gap.
-    expect(found.some((c) => c.basis === "testimony" && c.subject === "tomas" && c.rule === "two_places")).toBe(true);
+    expect(
+      found.some(
+        (c) => c.basis === "testimony" && c.subject === "tomas" && c.rule === "two_places",
+      ),
+    ).toBe(true);
   });
 
   it("flags every lie in the case and no truthful claim against evidence", () => {
@@ -161,9 +206,12 @@ describe("playing the demo script", () => {
       expect(claimVerdict(kase, claim), claim.quote).toBe("false");
     }
     // And every false claim in the script is caught by something.
-    const flagged = new Set(found.flatMap((c) => [c.a, c.b]).flatMap((s) => (s.type === "claim" ? [s.id] : [])));
+    const flagged = new Set(
+      found.flatMap((c) => [c.a, c.b]).flatMap((s) => (s.type === "claim" ? [s.id] : [])),
+    );
     for (const claim of claims) {
-      if (claimVerdict(kase, claim) === "false") expect(flagged.has(claim.id), claim.quote).toBe(true);
+      if (claimVerdict(kase, claim) === "false")
+        expect(flagged.has(claim.id), claim.quote).toBe(true);
     }
   });
 });

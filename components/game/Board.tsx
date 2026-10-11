@@ -4,7 +4,16 @@ import { useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import type { Contradiction } from "@/lib/case/contradictions";
 import type { PublicCase } from "@/lib/case/public";
 import type { Evidence } from "@/lib/case/types";
-import { BOARD, boardLinks, clampToBoard, defaultPosition, evidenceCard, stringBetween, suspectCard, type BoardLink } from "@/lib/game/board";
+import {
+  BOARD,
+  boardLinks,
+  clampToBoard,
+  defaultPosition,
+  evidenceCard,
+  stringBetween,
+  suspectCard,
+  type BoardLink,
+} from "@/lib/game/board";
 import type { GameState, Point } from "@/lib/game/state";
 import { Portrait } from "./Portrait";
 
@@ -37,18 +46,36 @@ const LINK_STYLE: Record<BoardLink["kind"], { stroke: string; dash?: string; wid
   conflict: { stroke: "var(--danger)", width: 2.25 },
 };
 
-export function Board({ pub, state, found, contradictions, onMove, onTidy, onOpenExhibit, onQuestion }: Props) {
+export function Board({
+  pub,
+  state,
+  found,
+  contradictions,
+  onMove,
+  onTidy,
+  onOpenExhibit,
+  onQuestion,
+}: Props) {
   const surface = useRef<HTMLDivElement>(null);
   const [drag, setDrag] = useState<{ id: string; at: Point } | null>(null);
   const [active, setActive] = useState<string | null>(null);
   const [status, setStatus] = useState("");
-  const grab = useRef<{ id: string; dx: number; dy: number; startX: number; startY: number; moved: boolean } | null>(null);
+  const grab = useRef<{
+    id: string;
+    dx: number;
+    dy: number;
+    startX: number;
+    startY: number;
+    moved: boolean;
+  } | null>(null);
 
   const cards: Card[] = [
     ...pub.suspects.map((s): Card => {
       const said = state.claims.filter((c) => c.speaker === s.id).length;
       const caught = new Set(
-        contradictions.filter((c) => [c.a, c.b].some((x) => x.type === "claim" && x.speaker === s.id)).map((c) => `${c.rule}:${c.subject}`),
+        contradictions
+          .filter((c) => [c.a, c.b].some((x) => x.type === "claim" && x.speaker === s.id))
+          .map((c) => `${c.rule}:${c.subject}`),
       ).size;
       return {
         id: suspectCard(s.id),
@@ -60,9 +87,13 @@ export function Board({ pub, state, found, contradictions, onMove, onTidy, onOpe
         open: () => onQuestion(s.id),
       };
     }),
-    ...found.map(
-      (e): Card => ({ id: evidenceCard(e.id), kind: "evidence", title: e.title, detail: e.summary, open: () => onOpenExhibit(e.id) }),
-    ),
+    ...found.map((e): Card => ({
+      id: evidenceCard(e.id),
+      kind: "evidence",
+      title: e.title,
+      detail: e.summary,
+      open: () => onOpenExhibit(e.id),
+    })),
   ];
   const positionOf = (id: string): Point =>
     drag?.id === id ? drag.at : (state.positions[id] ?? defaultPosition(pub, state.found, id));
@@ -92,7 +123,10 @@ export function Board({ pub, state, found, contradictions, onMove, onTidy, onOpe
     // A few pixels of wobble is still a click, not a drag.
     if (!g.moved && Math.hypot(event.clientX - g.startX, event.clientY - g.startY) < 5) return;
     g.moved = true;
-    setDrag({ id: g.id, at: clampToBoard({ x: event.clientX - rect.left - g.dx, y: event.clientY - rect.top - g.dy }) });
+    setDrag({
+      id: g.id,
+      at: clampToBoard({ x: event.clientX - rect.left - g.dx, y: event.clientY - rect.top - g.dy }),
+    });
   }
 
   function pointerUp(card: Card) {
@@ -131,20 +165,29 @@ export function Board({ pub, state, found, contradictions, onMove, onTidy, onOpe
         <div>
           <h2 className="font-display text-xl">Evidence board</h2>
           <p className="text-sm text-muted">
-            Drag the cards, or focus one and use the arrow keys (Shift for bigger steps). Enter opens it. Strings are drawn from what each exhibit proves.
+            Drag the cards, or focus one and use the arrow keys (Shift for bigger steps). Enter
+            opens it. Strings are drawn from what each exhibit proves.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted">
           <Legend kind="concerns" label="Concerns" />
           <Legend kind="conflict" label="Contradicts" />
           <Legend kind="follows" label="Led to" />
-          <button type="button" onClick={onTidy} disabled={!moved} className="rounded-md border border-border px-2.5 py-1.5 text-fg hover:bg-raised disabled:opacity-40">
+          <button
+            type="button"
+            onClick={onTidy}
+            disabled={!moved}
+            className="rounded-md border border-border px-2.5 py-1.5 text-fg hover:bg-raised disabled:opacity-40"
+          >
             Tidy board
           </button>
         </div>
       </div>
 
-      <div className="overflow-auto rounded-lg border border-border bg-surface" style={{ maxHeight: "min(70vh, 700px)" }}>
+      <div
+        className="overflow-auto rounded-lg border border-border bg-surface"
+        style={{ maxHeight: "min(70vh, 700px)" }}
+      >
         <div
           ref={surface}
           className="relative"
@@ -187,32 +230,62 @@ export function Board({ pub, state, found, contradictions, onMove, onTidy, onOpe
                     <span className="flex items-center gap-2">
                       <Portrait monogram={card.monogram ?? ""} size={34} />
                       <span className="min-w-0">
-                        <span className="block truncate font-display text-[0.95rem] leading-tight">{card.title}</span>
-                        <span className="block truncate text-[0.6875rem] text-muted">{card.detail}</span>
+                        <span className="block truncate font-display text-[0.95rem] leading-tight">
+                          {card.title}
+                        </span>
+                        <span className="block truncate text-[0.6875rem] text-muted">
+                          {card.detail}
+                        </span>
                       </span>
                     </span>
-                    <span className="mt-auto truncate border-t border-border pt-1 font-mono text-[0.625rem] text-muted">{card.note}</span>
+                    <span className="mt-auto truncate border-t border-border pt-1 font-mono text-[0.625rem] text-muted">
+                      {card.note}
+                    </span>
                   </>
                 ) : (
                   <>
-                    <span className="line-clamp-2 text-[0.8125rem] font-semibold leading-tight">{card.title}</span>
-                    <span className="mt-0.5 line-clamp-2 text-[0.6875rem] leading-snug text-muted">{card.detail}</span>
+                    <span className="line-clamp-2 text-[0.8125rem] font-semibold leading-tight">
+                      {card.title}
+                    </span>
+                    <span className="mt-0.5 line-clamp-2 text-[0.6875rem] leading-snug text-muted">
+                      {card.detail}
+                    </span>
                   </>
                 )}
               </div>
             );
           })}
 
-          <svg aria-hidden width={BOARD.width} height={BOARD.height} className="pointer-events-none absolute inset-0 z-30">
+          <svg
+            aria-hidden
+            width={BOARD.width}
+            height={BOARD.height}
+            className="pointer-events-none absolute inset-0 z-30"
+          >
             {links.map((link) => {
               const style = LINK_STYLE[link.kind];
               const lit = active === null || link.from === active || link.to === active;
               const { path, ends } = stringBetween(positionOf(link.from), positionOf(link.to));
               return (
                 <g key={`${link.from}~${link.to}`} opacity={lit ? 0.92 : 0.14}>
-                  <path d={path} fill="none" stroke={style.stroke} strokeWidth={style.width} strokeDasharray={style.dash} strokeLinecap="round" />
+                  <path
+                    d={path}
+                    fill="none"
+                    stroke={style.stroke}
+                    strokeWidth={style.width}
+                    strokeDasharray={style.dash}
+                    strokeLinecap="round"
+                  />
                   {ends.map((end, i) => (
-                    <circle key={i} cx={end.x} cy={end.y} r="3.25" fill={style.stroke} stroke="var(--raised)" strokeWidth="1" />
+                    <circle
+                      key={i}
+                      cx={end.x}
+                      cy={end.y}
+                      r="3.25"
+                      fill={style.stroke}
+                      stroke="var(--raised)"
+                      strokeWidth="1"
+                    />
                   ))}
                 </g>
               );
@@ -232,7 +305,16 @@ function Legend({ kind, label }: { kind: BoardLink["kind"]; label: string }) {
   return (
     <span className="inline-flex items-center gap-1.5">
       <svg aria-hidden width="26" height="8">
-        <line x1="1" y1="4" x2="25" y2="4" stroke={style.stroke} strokeWidth={style.width} strokeDasharray={style.dash} strokeLinecap="round" />
+        <line
+          x1="1"
+          y1="4"
+          x2="25"
+          y2="4"
+          stroke={style.stroke}
+          strokeWidth={style.width}
+          strokeDasharray={style.dash}
+          strokeLinecap="round"
+        />
       </svg>
       {label}
     </span>

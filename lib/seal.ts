@@ -16,14 +16,22 @@
  * server process: fine for local use and a single instance, but seals then
  * die with the process, so a deployment on more than one instance must set it.
  */
-import { createCipheriv, createDecipheriv, createHash, createHmac, randomBytes, timingSafeEqual } from "node:crypto";
+import {
+  createCipheriv,
+  createDecipheriv,
+  createHash,
+  createHmac,
+  randomBytes,
+  timingSafeEqual,
+} from "node:crypto";
 import { stableStringify } from "./demo";
 
 let processSecret: Buffer | null = null;
 
 function key(secret?: string): Buffer {
   const configured = secret ?? process.env.CASE_SEAL_SECRET;
-  if (configured && configured.length >= 16) return createHash("sha256").update(configured).digest();
+  if (configured && configured.length >= 16)
+    return createHash("sha256").update(configured).digest();
   processSecret ??= randomBytes(32);
   return processSecret;
 }
@@ -59,7 +67,9 @@ export function decrypt<T>(blob: string, secret?: string): T | null {
     if (raw.length < 29) return null;
     const decipher = createDecipheriv("aes-256-gcm", key(secret), raw.subarray(0, 12));
     decipher.setAuthTag(raw.subarray(12, 28));
-    const text = Buffer.concat([decipher.update(raw.subarray(28)), decipher.final()]).toString("utf8");
+    const text = Buffer.concat([decipher.update(raw.subarray(28)), decipher.final()]).toString(
+      "utf8",
+    );
     return JSON.parse(text) as T;
   } catch {
     return null;

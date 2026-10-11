@@ -29,7 +29,10 @@ export const evidenceCard = (id: string) => `e:${id}`;
 export function defaultPosition(pub: PublicCase, found: string[], cardId: string): Point {
   const [kind, id] = [cardId.slice(0, 1), cardId.slice(2)];
   if (kind === "s") {
-    const i = Math.max(0, pub.suspects.findIndex((s) => s.id === id));
+    const i = Math.max(
+      0,
+      pub.suspects.findIndex((s) => s.id === id),
+    );
     return { x: BOARD.margin + i * BOARD.gapX, y: BOARD.suspectTop };
   }
   const i = Math.max(0, found.indexOf(id));
@@ -63,7 +66,8 @@ export function concerns(pub: PublicCase, exhibit: Evidence): string[] {
   const suspects = new Set(pub.suspects.map((s) => s.id));
   const people = new Set<string>();
   for (const fact of exhibit.facts) {
-    if (fact.type === "presence" || fact.type === "absent" || fact.type === "possession") people.add(fact.person);
+    if (fact.type === "presence" || fact.type === "absent" || fact.type === "possession")
+      people.add(fact.person);
     if (fact.type === "relationship") [fact.a, fact.b].forEach((p) => people.add(p));
     if (fact.type === "motive") {
       const owner = pub.motives.find((m) => m.id === fact.motive)?.suspect;
@@ -74,7 +78,11 @@ export function concerns(pub: PublicCase, exhibit: Evidence): string[] {
   return [...people].filter((p) => suspects.has(p));
 }
 
-export function boardLinks(pub: PublicCase, found: Evidence[], contradictions: Contradiction[]): BoardLink[] {
+export function boardLinks(
+  pub: PublicCase,
+  found: Evidence[],
+  contradictions: Contradiction[],
+): BoardLink[] {
   const links = new Map<string, BoardLink>();
   const add = (from: string, to: string, kind: BoardLink["kind"]) => {
     const key = [from, to].sort().join("~");
@@ -85,7 +93,8 @@ export function boardLinks(pub: PublicCase, found: Evidence[], contradictions: C
   const have = new Set(found.map((e) => e.id));
 
   for (const exhibit of found) {
-    for (const person of concerns(pub, exhibit)) add(evidenceCard(exhibit.id), suspectCard(person), "concerns");
+    for (const person of concerns(pub, exhibit))
+      add(evidenceCard(exhibit.id), suspectCard(person), "concerns");
     if (exhibit.unlock.type === "evidence") {
       for (const source of exhibit.unlock.all) {
         if (have.has(source)) add(evidenceCard(source), evidenceCard(exhibit.id), "follows");
@@ -118,7 +127,10 @@ export function stringBetween(a: Point, b: Point): { path: string; ends: [Point,
     const [from, to] = [top(a), top(b)];
     const lift = 16 + Math.abs(to.x - from.x) * 0.045;
     const peak = Math.min(from.y, to.y) - lift;
-    return { path: `M ${from.x} ${from.y} Q ${(from.x + to.x) / 2} ${peak} ${to.x} ${to.y}`, ends: [from, to] };
+    return {
+      path: `M ${from.x} ${from.y} Q ${(from.x + to.x) / 2} ${peak} ${to.x} ${to.y}`,
+      ends: [from, to],
+    };
   }
   const [upper, lower] = a.y < b.y ? [a, b] : [b, a];
   const [from, to] = [bottom(upper), top(lower)];

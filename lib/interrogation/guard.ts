@@ -23,8 +23,10 @@ export interface GuardResult {
 export interface GuardContext {
   /** Text whose verbatim repetition counts as a leak (the game's rules). */
   protectedText?: string;
-  /** Names of the poisons in this case, so "I put the monkshood in" reads as a confession. */
+  /** Names of the poisons in this case, so "I put the monkshood on his plate" reads as a confession. */
   poisonNames?: string[];
+  /** Names of the dishes and drinks the poison could have gone into. */
+  vehicleNames?: string[];
   /** Every name the cast goes by ("Gus", "Pereira"). Used to spot a named verdict. */
   castNames?: string[];
   /** The names of the character who is speaking. */
@@ -74,8 +76,35 @@ const CONFESSIONS: RegExp[] = [
   /\bmy (confession|crime|murder)\b/i,
 ];
 
-const HANDLING =
-  "put|slipped|added|grated|stirred|mixed|dropped|swapped|switched|replaced|used|dug|peeled|crushed|steeped|sprinkled|poured|hid";
+/** Verbs that, with the poison as their object, are the crime itself. */
+const TAMPERING = "swapped|switched|replaced|crushed|steeped|stole";
+/**
+ * Verbs that are only incriminating when the poison goes somewhere it can be
+ * eaten. "I put the monkshood in that planter myself" is a gardener talking;
+ * "I put the monkshood on his plate" is a confession.
+ */
+const PLACING = "put|slipped|added|grated|stirred|mixed|dropped|sprinkled|poured|tipped|hid";
+const EDIBLE = [
+  "dish",
+  "plate",
+  "food",
+  "meal",
+  "sauce",
+  "broth",
+  "soup",
+  "stock",
+  "bowl",
+  "glass",
+  "cup",
+  "drink",
+  "wine",
+  "pot",
+  "pan",
+  "course",
+  "his",
+  "her",
+  "their",
+];
 
 const escapeRegExp = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
@@ -110,15 +139,50 @@ export function sharesRun(text: string, source: string, size = 10): boolean {
   return false;
 }
 
-function confesses(text: string, poisonNames: string[]): boolean {
+function distinctiveWords(names: string[], generic: Set<string>): string[] {
+  return names.flatMap((name) => words(name)).filter((w) => w.length >= 6 && !generic.has(w));
+}
+
+function confesses(text: string, poisonNames: string[], vehicleNames: string[]): boolean {
   // The full name of a poison ("heart tablets") or its one distinctive long word
-  // ("monkshood") marks a confession. Short or generic words do not: an innocent
-  // cook handles roots and tablets, and puts their heart into things, all night.
-  const generic = new Set(["tablets", "capsules", "extract", "powder", "cleaner", "essence", "tincture", "berries", "kernels"]);
-  const distinctive = poisonNames.flatMap((name) => words(name)).filter((w) => w.length >= 7 && !generic.has(w));
+  // ("monkshood") marks it. Short or generic words do not: an innocent cook
+  // handles roots and tablets, and puts their heart into things, all night.
+  const generic = new Set([
+    "tablets",
+    "capsules",
+    "extract",
+    "powder",
+    "cleaner",
+    "essence",
+    "tincture",
+    "berries",
+    "kernels",
+    "course",
+    "bottle",
+    "smoked",
+    "butter",
+  ]);
   const phrases = poisonNames.map((name) => words(name).join(" ")).filter(Boolean);
-  const poisons = [...new Set(["poison", "aconite", "aconitine", ...phrases, ...distinctive])].map(escapeRegExp);
-  const handled = new RegExp(`\\bi (${HANDLING}) [^.!?]{0,60}\\b(${poisons.join("|")})\\b`, "i");
+  const poisons = [
+    ...new Set([
+      "poison",
+      "aconite",
+      "aconitine",
+      ...phrases,
+      ...distinctiveWords(poisonNames, generic),
+    ]),
+  ]
+    .map(escapeRegExp)
+    .join("|");
+  const targets = [...new Set([...EDIBLE, ...distinctiveWords(vehicleNames, generic)])]
+    .map(escapeRegExp)
+    .join("|");
+  const tampered = new RegExp(`\\bi (${TAMPERING}) [^.!?]{0,60}\\b(${poisons})\\b`, "i");
+  const placed = new RegExp(
+    `\\bi (${PLACING}) [^.!?]{0,60}\\b(${poisons})\\b[^.!?]{0,40}\\b(${targets})\\b`,
+    "i",
+  );
+  const handled = { test: (clause: string) => tampered.test(clause) || placed.test(clause) };
 
   for (const sentence of sentences(normalizeQuotes(text))) {
     // A question is never a confession ("You think I poisoned him?").
@@ -134,7 +198,8 @@ function confesses(text: string, poisonNames: string[]): boolean {
   return false;
 }
 
-const GUILT = "did it|poisoned|killed|murdered|is the (?:killer|culprit|murderer|poisoner)|was the (?:killer|culprit|murderer|poisoner)|is guilty|was guilty";
+const GUILT =
+  "did it|poisoned|killed|murdered|is the (?:killer|culprit|murderer|poisoner)|was the (?:killer|culprit|murderer|poisoner)|is guilty|was guilty";
 
 /**
  * A verdict stated as fact: "the killer is Tomas", or a character naming
@@ -145,9 +210,14 @@ function statesVerdict(text: string, castNames: string[], speakerNames: string[]
   const cast = castNames.filter(Boolean).map(escapeRegExp).join("|");
   const self = speakerNames.filter(Boolean).map(escapeRegExp).join("|");
   const named = cast
-    ? new RegExp(`\\b(?:the )?(?:culprit|killer|murderer|poisoner|guilty (?:one|party))(?:\\s+(?:is|was)\\s+|\\s*[=:]\\s*)(?:${cast})\\b`, "i")
+    ? new RegExp(
+        `\\b(?:the )?(?:culprit|killer|murderer|poisoner|guilty (?:one|party))(?:\\s+(?:is|was)\\s+|\\s*[=:]\\s*)(?:${cast})\\b`,
+        "i",
+      )
     : null;
-  const thirdPerson = self ? new RegExp(`\\b(?:${self})\\b[^.!?]{0,40}\\b(?:${GUILT})\\b`, "i") : null;
+  const thirdPerson = self
+    ? new RegExp(`\\b(?:${self})\\b[^.!?]{0,40}\\b(?:${GUILT})\\b`, "i")
+    : null;
   for (const sentence of sentences(text)) {
     if (sentence.endsWith("?")) continue;
     for (const clause of sentence.split(/[,;]|\bbut\b/i)) {
@@ -169,7 +239,8 @@ export function checkAnswer(answer: string, context: GuardContext = {}): GuardRe
     reasons.push("meta");
   }
   if (context.protectedText && sharesRun(text, context.protectedText)) reasons.push("prompt_echo");
-  if (confesses(text, context.poisonNames ?? [])) reasons.push("confession");
+  if (confesses(text, context.poisonNames ?? [], context.vehicleNames ?? []))
+    reasons.push("confession");
   if (statesVerdict(text, castNames, context.speakerNames ?? [])) reasons.push("verdict");
 
   return { ok: reasons.length === 0, reasons };

@@ -7,7 +7,11 @@ import { parseSaved } from "@/lib/game/storage";
 const pub = toPublicCase(kase);
 
 describe("saved progress", () => {
-  const played = reduce(pub, initialState(pub), { type: "move", id: "s:gus", to: { x: 10, y: 20 } });
+  const played = reduce(pub, initialState(pub), {
+    type: "move",
+    id: "s:gus",
+    to: { x: 10, y: 20 },
+  });
 
   it("restores a state it wrote", () => {
     expect(parseSaved(pub, JSON.stringify(played))).toEqual(played);

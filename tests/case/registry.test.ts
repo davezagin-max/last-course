@@ -22,11 +22,15 @@ describe("case registry", () => {
 
   it("refuses a sealed case from another key, an altered one, or one that is no longer a valid case", () => {
     const sealed = sealCase(kase, SECRET);
-    expect(() => resolveCase({ sealed }, "a-different-secret-entirely")).toThrow(/can no longer be opened/);
+    expect(() => resolveCase({ sealed }, "a-different-secret-entirely")).toThrow(
+      /can no longer be opened/,
+    );
     expect(() => resolveCase({ sealed: `${sealed.slice(0, -3)}abc` }, SECRET)).toThrow(RouteError);
     const broken = structuredClone(kase);
     broken.suspects.pop();
-    expect(() => resolveCase({ sealed: sealCase(broken, SECRET) }, SECRET)).toThrow(/can no longer be opened/);
+    expect(() => resolveCase({ sealed: sealCase(broken, SECRET) }, SECRET)).toThrow(
+      /can no longer be opened/,
+    );
   });
 
   it("accepts exactly the two reference shapes", () => {
@@ -41,7 +45,19 @@ describe("public projection", () => {
   const shipped = JSON.stringify(toPublicCase(kase));
 
   it("ships no solution, no true movements, and no private character sheets", () => {
-    for (const key of ['"solution"', '"truth"', '"movements"', '"secret"', '"voice"', '"knows"', '"lies"', '"alibi"', '"sightings"', '"reveal"', '"confession"']) {
+    for (const key of [
+      '"solution"',
+      '"truth"',
+      '"movements"',
+      '"secret"',
+      '"voice"',
+      '"knows"',
+      '"lies"',
+      '"alibi"',
+      '"sightings"',
+      '"reveal"',
+      '"confession"',
+    ]) {
       expect(shipped, key).not.toContain(key);
     }
     expect(shipped).not.toContain(kase.solution.confession);
@@ -52,7 +68,9 @@ describe("public projection", () => {
   it("ships what the game needs: exhibits and what they prove, unlock rules, candidates, questions", () => {
     const pub = toPublicCase(kase);
     expect(pub.evidence).toEqual(kase.evidence);
-    expect(pub.leads).toEqual(kase.leads.map(({ id, suspect, requires }) => ({ id, suspect, requires })));
+    expect(pub.leads).toEqual(
+      kase.leads.map(({ id, suspect, requires }) => ({ id, suspect, requires })),
+    );
     expect(pub.methods).toEqual(kase.methods);
     expect(pub.questions).toEqual(kase.questions);
     expect(pub.events).toEqual(kase.events.map(({ id, label }) => ({ id, label })));

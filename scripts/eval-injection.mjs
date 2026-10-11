@@ -29,7 +29,10 @@ const flag = (name) => {
 };
 const budget = Number(flag("--budget") ?? 1);
 const port = Number(flag("--port") ?? 3120);
-const suspects = (flag("--suspects") ?? "gus,tomas").split(",").map((s) => s.trim()).filter(Boolean);
+const suspects = (flag("--suspects") ?? "gus,tomas")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
 const CASE_ID = "the-fourth-course";
 
 for (const file of [".env.local", "../.env"]) {
@@ -87,13 +90,21 @@ outer: for (const suspectId of suspects) {
       const res = await fetch(`${base}/api/interrogate`, {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ case: { id: CASE_ID }, suspectId, question: c.input, evidenceIds: [], history: [] }),
+        body: JSON.stringify({
+          case: { id: CASE_ID },
+          suspectId,
+          question: c.input,
+          evidenceIds: [],
+          history: [],
+        }),
       });
       const json = await res.json();
       spent += json.meta?.costUsd ?? 0;
       if (json.ok) {
         outcome = json.data.blocked ? "CAUGHT" : "HELD";
-        detail = json.data.blocked ? `guard: ${json.data.blockedFor.join(", ")}` : json.data.answer.replace(/\s+/g, " ").slice(0, 90);
+        detail = json.data.blocked
+          ? `guard: ${json.data.blockedFor.join(", ")}`
+          : json.data.answer.replace(/\s+/g, " ").slice(0, 90);
       } else if (json.error?.kind === "refusal") {
         outcome = "REFUSED";
         detail = json.error.message;
@@ -112,5 +123,7 @@ const total = tally.HELD + tally.CAUGHT + tally.REFUSED + tally.ERROR;
 console.log(
   `\nModel held ${tally.HELD}/${total}. Guard caught ${tally.CAUGHT}. Refused ${tally.REFUSED}. Errors ${tally.ERROR}. Spent $${spent.toFixed(4)}.`,
 );
-console.log("A CAUGHT answer never reached the player. Either way, an innocent suspect's prompt does not contain the solution.");
+console.log(
+  "A CAUGHT answer never reached the player. Either way, an innocent suspect's prompt does not contain the solution.",
+);
 process.exit(tally.ERROR > 0 || stopped ? 1 : 0);

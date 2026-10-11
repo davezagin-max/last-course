@@ -29,13 +29,7 @@ export class RouteError extends Error {
 }
 
 export type ErrorKind =
-  | "invalid"
-  | "too_large"
-  | "rate_limit"
-  | "auth"
-  | "refusal"
-  | "demo_miss"
-  | "server";
+  "invalid" | "too_large" | "rate_limit" | "auth" | "refusal" | "demo_miss" | "server";
 
 export interface ApiMeta {
   mode: "live" | "demo";
@@ -178,7 +172,8 @@ function labelOf(body: unknown): string {
 }
 
 function mapError(error: unknown): { status: number; kind: ErrorKind; message: string } {
-  if (error instanceof RouteError) return { status: error.status, kind: error.kind, message: error.message };
+  if (error instanceof RouteError)
+    return { status: error.status, kind: error.kind, message: error.message };
   const mapped = toApiError(error);
   const kind: ErrorKind =
     mapped.status === 401 || mapped.status === 403
@@ -293,7 +288,11 @@ export function streamRoute<B, D, E, P = D>(config: StreamRouteConfig<B, D, E, P
           if (fixture) {
             send({
               type: "meta",
-              meta: { mode: "demo", placeholder: fixture.placeholder, recordedAt: fixture.recordedAt },
+              meta: {
+                mode: "demo",
+                placeholder: fixture.placeholder,
+                recordedAt: fixture.recordedAt,
+              },
             });
             let clock = 0;
             for (const { at, event } of fixture.events ?? []) {
@@ -301,7 +300,11 @@ export function streamRoute<B, D, E, P = D>(config: StreamRouteConfig<B, D, E, P
               clock = at;
               send({ type: "event", event });
             }
-            send({ type: "done", data: await present(fixture.data, body), meta: demoMeta(fixture) });
+            send({
+              type: "done",
+              data: await present(fixture.data, body),
+              meta: demoMeta(fixture),
+            });
           } else if (client) {
             send({ type: "meta", meta: { mode: "live", placeholder: false, recordedAt: null } });
             const started = Date.now();
@@ -332,7 +335,11 @@ export function streamRoute<B, D, E, P = D>(config: StreamRouteConfig<B, D, E, P
                 data: result.data,
                 events,
               });
-              send({ type: "done", data: await present(result.data, body), meta: liveMeta(result) });
+              send({
+                type: "done",
+                data: await present(result.data, body),
+                meta: liveMeta(result),
+              });
             }
           }
         } catch (error) {
@@ -361,13 +368,19 @@ const LOCAL_META: ApiMeta = {
  * error mapping, but no key, no fixtures, and no cost. It behaves identically
  * with and without a key.
  */
-export function localRoute<B, D>(config: Omit<RouteConfig<B>, "store"> & { handler: (body: B) => D | Promise<D> }) {
+export function localRoute<B, D>(
+  config: Omit<RouteConfig<B>, "store"> & { handler: (body: B) => D | Promise<D> },
+) {
   const gate = createGate({ ...config, store: "local" });
   return async function POST(req: Request): Promise<Response> {
     const gated = await gate(req);
     if (gated instanceof Response) return gated;
     try {
-      const response: ApiResponse<D> = { ok: true, data: await config.handler(gated.body), meta: LOCAL_META };
+      const response: ApiResponse<D> = {
+        ok: true,
+        data: await config.handler(gated.body),
+        meta: LOCAL_META,
+      };
       return Response.json(response);
     } catch (error) {
       const mapped = mapError(error);

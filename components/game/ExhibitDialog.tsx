@@ -6,7 +6,15 @@ import type { Names } from "@/lib/case/public";
 import { PLACE_AT, type Evidence } from "@/lib/case/types";
 
 /** One exhibit in full: its text, and exactly what it proves. Native <dialog>, so focus and Escape just work. */
-export function ExhibitDialog({ exhibit, names, onClose }: { exhibit: Evidence | null; names: Names; onClose: () => void }) {
+export function ExhibitDialog({
+  exhibit,
+  names,
+  onClose,
+}: {
+  exhibit: Evidence | null;
+  names: Names;
+  onClose: () => void;
+}) {
   const ref = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -32,7 +40,9 @@ export function ExhibitDialog({ exhibit, names, onClose }: { exhibit: Evidence |
       {exhibit && (
         <div className="flex flex-col gap-4 p-6">
           <div>
-            <p className="label">Exhibit{exhibit.foundAt ? ` · found ${PLACE_AT[exhibit.foundAt]}` : ""}</p>
+            <p className="label">
+              Exhibit{exhibit.foundAt ? ` · found ${PLACE_AT[exhibit.foundAt]}` : ""}
+            </p>
             <h2 id="exhibit-title" className="font-display text-2xl leading-tight">
               {exhibit.title}
             </h2>
@@ -51,14 +61,20 @@ export function ExhibitDialog({ exhibit, names, onClose }: { exhibit: Evidence |
                 {motive && motive.type === "motive" && (
                   <li className="flex gap-2">
                     <span aria-hidden className="mt-2 size-1 shrink-0 rounded-full bg-accent" />
-                    {motive.holds ? "Supports a motive. Check the accusation sheet." : "Rules out a motive. Check the accusation sheet."}
+                    {motive.holds
+                      ? "Supports a motive. Check the accusation sheet."
+                      : "Rules out a motive. Check the accusation sheet."}
                   </li>
                 )}
               </ul>
             </div>
           )}
           <div className="flex justify-end">
-            <button type="button" onClick={onClose} className="rounded-md border border-border px-3 py-2 text-sm hover:bg-raised">
+            <button
+              type="button"
+              onClick={onClose}
+              className="rounded-md border border-border px-3 py-2 text-sm hover:bg-raised"
+            >
               Close
             </button>
           </div>

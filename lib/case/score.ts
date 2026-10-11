@@ -51,9 +51,21 @@ export interface Reveal {
     confession: string;
   };
   /** Why the evidence clears each innocent suspect. */
-  cleared: { suspect: string; name: string; reason: string; evidence: { id: string; title: string }[] }[];
+  cleared: {
+    suspect: string;
+    name: string;
+    reason: string;
+    evidence: { id: string; title: string }[];
+  }[];
   /** Every lie in the case, and whether the player's notebook caught it. */
-  lies: { suspect: string; name: string; topic: string; says: string; truth: string; caught: boolean }[];
+  lies: {
+    suspect: string;
+    name: string;
+    topic: string;
+    says: string;
+    truth: string;
+    caught: boolean;
+  }[];
   /** Verdict on each notebook claim, by claim id. */
   claims: Record<string, Verdict>;
   missed: { id: string; title: string }[];
@@ -61,17 +73,37 @@ export interface Reveal {
 }
 
 const RANKS: { min: number; rank: string; note: string }[] = [
-  { min: 95, rank: "Chef de cuisine", note: "Who, how, and why, with the paperwork to prove it. You ran this case like a pass on a Saturday." },
-  { min: 70, rank: "Sous chef", note: "You had the right person. The file still has a gap or two a defence lawyer would enjoy." },
-  { min: 40, rank: "Commis", note: "Part of this plate was right. Not the part that matters most." },
-  { min: 0, rank: "Stagiaire", note: "The wrong person is in handcuffs and the right one is drying glasses." },
+  {
+    min: 95,
+    rank: "Chef de cuisine",
+    note: "Who, how, and why, with the paperwork to prove it. You ran this case like a pass on a Saturday.",
+  },
+  {
+    min: 70,
+    rank: "Sous chef",
+    note: "You had the right person. The file still has a gap or two a defence lawyer would enjoy.",
+  },
+  {
+    min: 40,
+    rank: "Commis",
+    note: "Part of this plate was right. Not the part that matters most.",
+  },
+  {
+    min: 0,
+    rank: "Stagiaire",
+    note: "The wrong person is in handcuffs and the right one is drying glasses.",
+  },
 ];
 
 function count(n: number, noun: string): string {
   return `${n} ${noun}${n === 1 ? "" : "s"}`;
 }
 
-export function scoreAccusation(kase: CaseFile, accusation: Accusation, casework: Casework): Reveal {
+export function scoreAccusation(
+  kase: CaseFile,
+  accusation: Accusation,
+  casework: Casework,
+): Reveal {
   const sol = kase.solution;
   const names = namesOf(kase);
   const culprit = kase.suspects.find((s) => s.id === sol.culprit);
@@ -131,7 +163,9 @@ export function scoreAccusation(kase: CaseFile, accusation: Accusation, casework
       label: "How",
       points: correct.method ? POINTS.method : 0,
       max: POINTS.method,
-      note: correct.method ? `Right: ${lowerFirst(method.label)}.` : `It was ${lowerFirst(method.label)}.`,
+      note: correct.method
+        ? `Right: ${lowerFirst(method.label)}.`
+        : `It was ${lowerFirst(method.label)}.`,
     },
     {
       id: "motive",
@@ -169,7 +203,9 @@ export function scoreAccusation(kase: CaseFile, accusation: Accusation, casework
       return {
         suspect: s.id,
         name: s.name,
-        reason: best ? eliminationText(names, best, kase.methods) : "Nothing in the evidence rules them out.",
+        reason: best
+          ? eliminationText(names, best, kase.methods)
+          : "Nothing in the evidence rules them out.",
         evidence: (best?.evidence ?? []).map((id) => ({ id, title: titles.get(id) ?? id })),
       };
     });
@@ -190,7 +226,9 @@ export function scoreAccusation(kase: CaseFile, accusation: Accusation, casework
     cleared,
     lies,
     claims: Object.fromEntries(claims.map((c) => [c.id, claimVerdict(kase, c)])),
-    missed: kase.evidence.filter((e) => !casework.found.includes(e.id)).map((e) => ({ id: e.id, title: e.title })),
+    missed: kase.evidence
+      .filter((e) => !casework.found.includes(e.id))
+      .map((e) => ({ id: e.id, title: e.title })),
     theories: solved.total,
   };
 }

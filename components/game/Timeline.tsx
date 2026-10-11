@@ -38,11 +38,18 @@ const CONFLICT_STYLE: Record<Lane, string> = {
 export function Timeline({ pub, state, names, found, contradictions }: Props) {
   const data = buildTimeline(pub, names, state.claims, found, contradictions);
   const { from, to } = pub.window;
-  const pct = (minute: number) => ((Math.min(Math.max(minute, from), to) - from) / (to - from)) * 100;
-  const place = (span: Span): CSSProperties => ({ left: `${pct(span.from)}%`, width: `${Math.max(pct(span.to) - pct(span.from), 0.6)}%` });
+  const pct = (minute: number) =>
+    ((Math.min(Math.max(minute, from), to) - from) / (to - from)) * 100;
+  const place = (span: Span): CSSProperties => ({
+    left: `${pct(span.from)}%`,
+    width: `${Math.max(pct(span.to) - pct(span.from), 0.6)}%`,
+  });
   const ticks: number[] = [];
   for (let m = Math.ceil(from / 10) * 10; m <= to; m += 10) ticks.push(m);
-  const empty = data.rows.every((r) => r.bars.length === 0) && data.empties.length === 0 && data.bands.length === 0;
+  const empty =
+    data.rows.every((r) => r.bars.length === 0) &&
+    data.empties.length === 0 &&
+    data.bands.length === 0;
 
   return (
     <section aria-label="Timeline" className="flex flex-col gap-3">
@@ -50,30 +57,46 @@ export function Timeline({ pub, state, names, found, contradictions }: Props) {
         <div>
           <h2 className="font-display text-xl">Timeline</h2>
           <p className="text-sm text-muted">
-            Where each person says they were, where others put them, and what the exhibits prove. Testimony caught in a conflict turns red.
+            Where each person says they were, where others put them, and what the exhibits prove.
+            Testimony caught in a conflict turns red.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-3 text-xs text-muted">
           {LANES.map((lane) => (
             <span key={lane.id} className="inline-flex items-center gap-1.5">
-              <span aria-hidden className={`inline-block h-3 w-6 rounded-sm ${LANE_STYLE[lane.id]}`} />
+              <span
+                aria-hidden
+                className={`inline-block h-3 w-6 rounded-sm ${LANE_STYLE[lane.id]}`}
+              />
               {lane.label}
             </span>
           ))}
           <span className="inline-flex items-center gap-1.5">
-            <span aria-hidden className={`inline-block h-3 w-6 rounded-sm ${CONFLICT_STYLE.says}`} />
+            <span
+              aria-hidden
+              className={`inline-block h-3 w-6 rounded-sm ${CONFLICT_STYLE.says}`}
+            />
             In conflict
           </span>
         </div>
       </div>
 
-      <div className="overflow-x-auto rounded-lg border border-border bg-surface" tabIndex={0} role="group" aria-label="Timeline chart. Scrolls sideways on small screens.">
+      <div
+        className="overflow-x-auto rounded-lg border border-border bg-surface"
+        tabIndex={0}
+        role="group"
+        aria-label="Timeline chart. Scrolls sideways on small screens."
+      >
         <div className="grid min-w-[52rem] grid-cols-[7.5rem_minmax(0,1fr)_1.25rem]">
           {/* Clock */}
           <div className="sticky left-0 z-10 border-b border-border bg-surface" />
           <div className="relative h-8 border-b border-border">
             {ticks.map((m) => (
-              <span key={m} className="absolute top-2 -translate-x-1/2 font-mono text-[0.6875rem] text-muted" style={{ left: `${pct(m)}%` }}>
+              <span
+                key={m}
+                className="absolute top-2 -translate-x-1/2 font-mono text-[0.6875rem] text-muted"
+                style={{ left: `${pct(m)}%` }}
+              >
                 {formatClock(m)}
               </span>
             ))}
@@ -83,15 +106,31 @@ export function Timeline({ pub, state, names, found, contradictions }: Props) {
           {/* What the evidence establishes about the evening as a whole. */}
           {(data.bands.length > 0 || data.markers.length > 0) && (
             <>
-              <div className="label sticky left-0 z-10 border-b border-border bg-surface px-3 py-2.5">Established</div>
-              <Track ticks={ticks} pct={pct} data={data} place={place} className="border-b border-border py-1.5">
+              <div className="label sticky left-0 z-10 border-b border-border bg-surface px-3 py-2.5">
+                Established
+              </div>
+              <Track
+                ticks={ticks}
+                pct={pct}
+                data={data}
+                place={place}
+                className="border-b border-border py-1.5"
+              >
                 <ul className="relative flex flex-col gap-1">
                   {data.bands.map((band) => (
                     <li key={band.key} className="relative h-5">
-                      <span aria-hidden className="absolute inset-y-0 rounded-sm border border-accent bg-accent-soft" style={place(band.span)} />
+                      <span
+                        aria-hidden
+                        className="absolute inset-y-0 rounded-sm border border-accent bg-accent-soft"
+                        style={place(band.span)}
+                      />
                       {/* The label starts at the window but is allowed to run past it. */}
-                      <span className="absolute inset-y-0 flex items-center whitespace-nowrap pl-1.5 text-[0.6875rem] font-medium" style={{ left: `${pct(band.span.from)}%` }}>
-                        {band.label}, <span className="ml-1 font-mono">{formatSpan(band.span)}</span>
+                      <span
+                        className="absolute inset-y-0 flex items-center whitespace-nowrap pl-1.5 text-[0.6875rem] font-medium"
+                        style={{ left: `${pct(band.span.from)}%` }}
+                      >
+                        {band.label},{" "}
+                        <span className="ml-1 font-mono">{formatSpan(band.span)}</span>
                       </span>
                     </li>
                   ))}
@@ -103,7 +142,8 @@ export function Timeline({ pub, state, names, found, contradictions }: Props) {
                           className={`absolute whitespace-nowrap text-[0.6875rem] text-muted ${flip ? "-translate-x-full pr-1.5" : "pl-1.5"}`}
                           style={{ left: `${pct(marker.at)}%` }}
                         >
-                          <span className="font-mono text-fg">{formatClock(marker.at)}</span> {marker.label}
+                          <span className="font-mono text-fg">{formatClock(marker.at)}</span>{" "}
+                          {marker.label}
                         </span>
                       </li>
                     );
@@ -115,7 +155,10 @@ export function Timeline({ pub, state, names, found, contradictions }: Props) {
           )}
 
           {data.rows.map((row) => (
-            <div key={row.suspect.id} className="col-span-3 grid grid-cols-subgrid border-b border-border last:border-b-0">
+            <div
+              key={row.suspect.id}
+              className="col-span-3 grid grid-cols-subgrid border-b border-border last:border-b-0"
+            >
               <div className="sticky left-0 z-10 flex items-center gap-2 bg-surface px-3">
                 <Portrait monogram={row.suspect.monogram} size={30} />
                 <span className="truncate text-sm font-medium">{row.suspect.short}</span>
@@ -131,7 +174,13 @@ export function Timeline({ pub, state, names, found, contradictions }: Props) {
                     {row.bars
                       .filter((b) => b.lane === lane.id)
                       .map((bar) => (
-                        <Bar key={bar.key} bar={bar} who={row.suspect.short} style={place(bar.span)} left={pct(bar.span.from)} />
+                        <Bar
+                          key={bar.key}
+                          bar={bar}
+                          who={row.suspect.short}
+                          style={place(bar.span)}
+                          left={pct(bar.span.from)}
+                        />
                       ))}
                   </ul>
                 ))}
@@ -142,7 +191,9 @@ export function Timeline({ pub, state, names, found, contradictions }: Props) {
 
           {data.empties.length > 0 && (
             <div className="col-span-3 grid grid-cols-subgrid border-t border-border">
-              <div className="sticky left-0 z-10 flex items-center bg-surface px-3 text-sm font-medium">Empty rooms</div>
+              <div className="sticky left-0 z-10 flex items-center bg-surface px-3 text-sm font-medium">
+                Empty rooms
+              </div>
               <Track ticks={ticks} pct={pct} data={data} place={place} className="py-1.5">
                 <ul className="relative" style={{ height: LANE_H }}>
                   {data.empties.map((e) => (
@@ -152,7 +203,8 @@ export function Timeline({ pub, state, names, found, contradictions }: Props) {
                       style={{
                         ...place(e.span),
                         height: LANE_H - 4,
-                        backgroundImage: "repeating-linear-gradient(135deg, transparent 0 5px, var(--border) 5px 6px)",
+                        backgroundImage:
+                          "repeating-linear-gradient(135deg, transparent 0 5px, var(--border) 5px 6px)",
                       }}
                       title={`Nobody ${PLACE_AT[e.place]}, ${formatSpan(e.span)} (${e.source})`}
                     >
@@ -173,7 +225,8 @@ export function Timeline({ pub, state, names, found, contradictions }: Props) {
       </div>
       {empty && (
         <p className="text-sm text-muted">
-          Nothing to plot yet. Ask people where they were; the times they give, and the times the exhibits prove, will line up here.
+          Nothing to plot yet. Ask people where they were; the times they give, and the times the
+          exhibits prove, will line up here.
         </p>
       )}
     </section>
@@ -200,13 +253,25 @@ function Track({
     <div className={`relative ${className}`}>
       <div aria-hidden className="pointer-events-none absolute inset-0">
         {ticks.map((m) => (
-          <span key={m} className="absolute inset-y-0 w-px bg-border/60" style={{ left: `${pct(m)}%` }} />
+          <span
+            key={m}
+            className="absolute inset-y-0 w-px bg-border/60"
+            style={{ left: `${pct(m)}%` }}
+          />
         ))}
         {data.bands.map((band) => (
-          <span key={band.key} className="absolute inset-y-0 bg-accent-soft" style={place(band.span)} />
+          <span
+            key={band.key}
+            className="absolute inset-y-0 bg-accent-soft"
+            style={place(band.span)}
+          />
         ))}
         {data.markers.map((marker) => (
-          <span key={`${marker.at}-${marker.label}`} className="absolute inset-y-0 w-px bg-accent/70" style={{ left: `${pct(marker.at)}%` }} />
+          <span
+            key={`${marker.at}-${marker.label}`}
+            className="absolute inset-y-0 w-px bg-accent/70"
+            style={{ left: `${pct(marker.at)}%` }}
+          />
         ))}
       </div>
       <div className="relative">{children}</div>
@@ -214,7 +279,17 @@ function Track({
   );
 }
 
-function Bar({ bar, who, style, left }: { bar: TimelineBar; who: string; style: CSSProperties; left: number }) {
+function Bar({
+  bar,
+  who,
+  style,
+  left,
+}: {
+  bar: TimelineBar;
+  who: string;
+  style: CSSProperties;
+  left: number;
+}) {
   const what =
     bar.lane === "says"
       ? `${who} says: ${PLACE_AT[bar.place]}`
@@ -227,8 +302,15 @@ function Bar({ bar, who, style, left }: { bar: TimelineBar; who: string; style: 
   if (bar.point) {
     // A single moment: a small diamond, with the room named beside it.
     return (
-      <li className="absolute flex items-center gap-1" style={{ left: `${left}%`, top, height: LANE_H - 4 }} title={description}>
-        <span aria-hidden className={`-ml-[5px] block size-2.5 shrink-0 rotate-45 rounded-[1px] ${tone}`} />
+      <li
+        className="absolute flex items-center gap-1"
+        style={{ left: `${left}%`, top, height: LANE_H - 4 }}
+        title={description}
+      >
+        <span
+          aria-hidden
+          className={`-ml-[5px] block size-2.5 shrink-0 rotate-45 rounded-[1px] ${tone}`}
+        />
         <span aria-hidden className="whitespace-nowrap text-[0.6875rem] font-medium">
           {PLACE_SHORT[bar.place]}
         </span>

@@ -63,7 +63,12 @@ function placeAt(movements: Movement[], minute: Minute): string | null {
 }
 
 /** Was the person in the place for every minute of the span? */
-export function wasAtThroughout(kase: CaseFile, person: string, place: string, span: Span): boolean {
+export function wasAtThroughout(
+  kase: CaseFile,
+  person: string,
+  place: string,
+  span: Span,
+): boolean {
   const movements = movementsOf(kase, person);
   for (let minute = span.from; minute < span.to; minute++) {
     if (placeAt(movements, minute) !== place) return false;

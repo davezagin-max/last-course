@@ -12,7 +12,10 @@ import { decrypt, encrypt, sign, verify } from "@/lib/seal";
 const SECRET = "a-test-secret-of-sufficient-length";
 
 /** Builds a sealed history the way the server would, one turn at a time. */
-function sealedHistory(suspectId: string, turns: { question: string; evidenceIds?: string[]; text: string }[]): TurnRecord[] {
+function sealedHistory(
+  suspectId: string,
+  turns: { question: string; evidenceIds?: string[]; text: string }[],
+): TurnRecord[] {
   const history: TurnRecord[] = [];
   for (const [index, t] of turns.entries()) {
     const assistantContent = [
@@ -21,7 +24,15 @@ function sealedHistory(suspectId: string, turns: { question: string; evidenceIds
     ];
     const evidenceIds = t.evidenceIds ?? [];
     const seal = sealTurn(
-      { caseId: kase.id, suspectId, index, previous: history.at(-1)?.seal ?? null, question: t.question, evidenceIds, assistantContent },
+      {
+        caseId: kase.id,
+        suspectId,
+        index,
+        previous: history.at(-1)?.seal ?? null,
+        question: t.question,
+        evidenceIds,
+        assistantContent,
+      },
       SECRET,
     );
     history.push({ question: t.question, evidenceIds, assistantContent, seal });
@@ -36,17 +47,32 @@ const history = sealedHistory("odile", [
 
 describe("server-side conversation rebuild", () => {
   it("lays out user question, system note for evidence, and the untouched assistant turn", () => {
-    const messages = buildMessages(kase, "odile", history, { question: "Who is Vale to you?", evidenceIds: [] });
-    expect(messages.map((m) => m.role)).toEqual(["user", "assistant", "user", "system", "assistant", "user"]);
+    const messages = buildMessages(kase, "odile", history, {
+      question: "Who is Vale to you?",
+      evidenceIds: [],
+    });
+    expect(messages.map((m) => m.role)).toEqual([
+      "user",
+      "assistant",
+      "user",
+      "system",
+      "assistant",
+      "user",
+    ]);
     expect(messages[0].content).toBe("<question>\nWhere were you?\n</question>");
     expect(messages[1].content).toEqual(history[0].assistantContent);
-    expect(messages[3].content).toContain('EXHIBIT placed in front of you by the detective: "Office phone log".');
+    expect(messages[3].content).toContain(
+      'EXHIBIT placed in front of you by the detective: "Office phone log".',
+    );
     expect(messages[4].content).toEqual(history[1].assistantContent);
     expect(messages[5].content).toBe("<question>\nWho is Vale to you?\n</question>");
   });
 
   it("puts the system note directly after the user turn that presents evidence", () => {
-    const messages = buildMessages(kase, "odile", [], { question: "Explain this.", evidenceIds: ["phone_log", "lineup_sheet"] });
+    const messages = buildMessages(kase, "odile", [], {
+      question: "Explain this.",
+      evidenceIds: ["phone_log", "lineup_sheet"],
+    });
     expect(messages.map((m) => m.role)).toEqual(["user", "system"]);
     const note = messages[1].content as string;
     expect(note.indexOf("Office phone log")).toBeLessThan(note.indexOf("Lineup sheet"));
@@ -54,11 +80,21 @@ describe("server-side conversation rebuild", () => {
 
   it("yields a byte-identical prefix as the conversation grows, so the cache keeps hitting", () => {
     const two = buildMessages(kase, "odile", history, { question: "Next?", evidenceIds: [] });
-    const one = buildMessages(kase, "odile", history.slice(0, 1), { question: history[1].question, evidenceIds: history[1].evidenceIds });
+    const one = buildMessages(kase, "odile", history.slice(0, 1), {
+      question: history[1].question,
+      evidenceIds: history[1].evidenceIds,
+    });
     // The second turn's request is exactly the first part of the third turn's.
     expect(JSON.stringify(two.slice(0, one.length))).toBe(JSON.stringify(one));
     // And rebuilding from the same transcript is deterministic.
-    expect(JSON.stringify(buildMessages(kase, "odile", structuredClone(history), { question: "Next?", evidenceIds: [] }))).toBe(JSON.stringify(two));
+    expect(
+      JSON.stringify(
+        buildMessages(kase, "odile", structuredClone(history), {
+          question: "Next?",
+          evidenceIds: [],
+        }),
+      ),
+    ).toBe(JSON.stringify(two));
   });
 
   it("gives the client no way to write system text: notes come from ids, questions stay inside their tag", () => {
@@ -70,15 +106,24 @@ describe("server-side conversation rebuild", () => {
     // Exactly one opening and one closing tag survive: the wrapper's own.
     expect(content.match(/<\/question>/g)).toHaveLength(1);
     expect(content.startsWith("<question>\n") && content.endsWith("\n</question>")).toBe(true);
-    expect(() => buildMessages(kase, "gus", [], { question: "x", evidenceIds: ["not_evidence"] })).toThrow("Unknown evidence");
+    expect(() =>
+      buildMessages(kase, "gus", [], { question: "x", evidenceIds: ["not_evidence"] }),
+    ).toThrow("Unknown evidence");
   });
 
   it("remembers what a suspect was shown earlier when deciding what a later exhibit releases", () => {
     expect(shownEvidence(history)).toEqual(["phone_log"]);
-    const earlier = sealedHistory("priya", [{ question: "This?", evidenceIds: ["notebook"], text: "Fine." }]);
-    const messages = buildMessages(kase, "priya", earlier, { question: "And this?", evidenceIds: ["door_log"] });
+    const earlier = sealedHistory("priya", [
+      { question: "This?", evidenceIds: ["notebook"], text: "Fine." },
+    ]);
+    const messages = buildMessages(kase, "priya", earlier, {
+      question: "And this?",
+      evidenceIds: ["door_log"],
+    });
     expect(messages.at(-1)?.role).toBe("system");
-    expect(messages.at(-1)?.content).toContain("You are now willing to say: Tomas has been offered a kitchen of his own");
+    expect(messages.at(-1)?.content).toContain(
+      "You are now willing to say: Tomas has been offered a kitchen of his own",
+    );
   });
 });
 
@@ -96,7 +141,9 @@ describe("turn seals", () => {
     };
     expect(edit((h) => void (h[0].question = "Did you do it?"))).toBe(false);
     expect(edit((h) => void (h[1].evidenceIds = []))).toBe(false);
-    expect(edit((h) => void ((h[0].assistantContent[1] as { text: string }).text = "I did it."))).toBe(false);
+    expect(
+      edit((h) => void ((h[0].assistantContent[1] as { text: string }).text = "I did it.")),
+    ).toBe(false);
     expect(edit((h) => void h[0].assistantContent.shift())).toBe(false);
     expect(edit((h) => void (h[0].seal = "0".repeat(64)))).toBe(false);
     expect(edit((h) => void (h[0].seal = "not hex"))).toBe(false);

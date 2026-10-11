@@ -38,13 +38,18 @@ export function sealCase(kase: CaseFile, secret?: string): string {
 export function resolveCase(ref: CaseRef, secret?: string): CaseFile {
   if ("id" in ref) {
     // hasOwnProperty, so "__proto__" and friends are not cases.
-    if (!Object.prototype.hasOwnProperty.call(BUILT_IN, ref.id)) throw new RouteError(404, "invalid", "There is no such case.");
+    if (!Object.prototype.hasOwnProperty.call(BUILT_IN, ref.id))
+      throw new RouteError(404, "invalid", "There is no such case.");
     return BUILT_IN[ref.id];
   }
   const opened = decrypt<SealedCase>(ref.sealed, secret);
   // The seal proves we wrote it; the validator proves it is still a case this build can run.
   if (!opened || opened.v !== SEAL_VERSION || !validateCase(opened.kase).ok) {
-    throw new RouteError(410, "invalid", "This generated case can no longer be opened (the server that sealed it has restarted). Generate a new one.");
+    throw new RouteError(
+      410,
+      "invalid",
+      "This generated case can no longer be opened (the server that sealed it has restarted). Generate a new one.",
+    );
   }
   return opened.kase;
 }

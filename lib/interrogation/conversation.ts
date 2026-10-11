@@ -46,7 +46,12 @@ export function shownEvidence(turns: Pick<TurnRecord, "evidenceIds">[]): string[
   return [...new Set(turns.flatMap((t) => t.evidenceIds))];
 }
 
-export function buildMessages(kase: CaseFile, suspectId: string, history: TurnRecord[], ask: Ask): Msg[] {
+export function buildMessages(
+  kase: CaseFile,
+  suspectId: string,
+  history: TurnRecord[],
+  ask: Ask,
+): Msg[] {
   let messages: Msg[] = [];
   const shown: string[] = [];
   const addUserTurn = (turn: Ask) => {
@@ -83,7 +88,12 @@ export function sealTurn(input: SealInput, secret?: string): string {
  * True when every turn's seal matches and the chain is unbroken. An empty
  * history is trivially valid.
  */
-export function verifyHistory(caseId: string, suspectId: string, history: TurnRecord[], secret?: string): boolean {
+export function verifyHistory(
+  caseId: string,
+  suspectId: string,
+  history: TurnRecord[],
+  secret?: string,
+): boolean {
   let previous: string | null = null;
   for (let index = 0; index < history.length; index++) {
     const turn = history[index];

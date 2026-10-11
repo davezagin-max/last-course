@@ -3,7 +3,11 @@ import fixtures from "@/fixtures/interrogate.json";
 import { jsonRoute } from "@/lib/api";
 import { CaseRefSchema, resolveCase } from "@/lib/case/registry";
 import type { FixtureStore } from "@/lib/demo";
-import { MAX_EVIDENCE_PER_TURN, MAX_QUESTION_CHARS, MAX_TURNS } from "@/lib/interrogation/conversation";
+import {
+  MAX_EVIDENCE_PER_TURN,
+  MAX_QUESTION_CHARS,
+  MAX_TURNS,
+} from "@/lib/interrogation/conversation";
 import { runTurn, type TurnData } from "@/lib/interrogation/turn";
 
 /**
@@ -20,7 +24,10 @@ const EvidenceIds = z.array(z.string().min(1).max(64)).max(MAX_EVIDENCE_PER_TURN
 const Turn = z.object({
   question: z.string().min(1).max(MAX_QUESTION_CHARS),
   evidenceIds: EvidenceIds,
-  assistantContent: z.array(z.looseObject({ type: z.string().max(40) })).min(1).max(16),
+  assistantContent: z
+    .array(z.looseObject({ type: z.string().max(40) }))
+    .min(1)
+    .max(16),
   seal: z.string().regex(/^[0-9a-f]{64}$/),
 });
 

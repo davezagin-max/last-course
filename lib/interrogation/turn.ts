@@ -73,7 +73,11 @@ export async function runTurn(input: TurnInput): Promise<LiveResult<TurnData>> {
 
   const question = input.ask.question.trim();
   if (!question || question.length > MAX_QUESTION_CHARS) {
-    throw new RouteError(400, "invalid", `A question must be between 1 and ${MAX_QUESTION_CHARS} characters.`);
+    throw new RouteError(
+      400,
+      "invalid",
+      `A question must be between 1 and ${MAX_QUESTION_CHARS} characters.`,
+    );
   }
   const known = new Set(kase.evidence.map((e) => e.id));
   const evidenceIds = [...new Set(input.ask.evidenceIds)];
@@ -81,7 +85,11 @@ export async function runTurn(input: TurnInput): Promise<LiveResult<TurnData>> {
     throw new RouteError(400, "invalid", "That evidence is not part of this case.");
   }
   if (input.history.length >= MAX_TURNS) {
-    throw new RouteError(409, "invalid", `${suspect.short} has answered ${MAX_TURNS} questions and will not take any more. Question someone else, or make your accusation.`);
+    throw new RouteError(
+      409,
+      "invalid",
+      `${suspect.short} has answered ${MAX_TURNS} questions and will not take any more. Question someone else, or make your accusation.`,
+    );
   }
 
   // A history that does not verify is discarded, never trusted and never an error:
@@ -107,7 +115,8 @@ export async function runTurn(input: TurnInput): Promise<LiveResult<TurnData>> {
   const cost = () => ({ model: answer.model, usage, costUsd });
 
   if (answer.refusal) return { refusal: answer.refusal, ...cost() };
-  if (!answer.ok) throw new RouteError(502, "server", `${suspect.short}'s answer was cut off. Ask again.`);
+  if (!answer.ok)
+    throw new RouteError(502, "server", `${suspect.short}'s answer was cut off. Ask again.`);
 
   const guard = checkAnswer(answer.text, guardContext(kase, suspectId));
   if (!guard.ok) {
@@ -155,7 +164,13 @@ export async function runTurn(input: TurnInput): Promise<LiveResult<TurnData>> {
     costUsd += extraction.costUsd;
     models = `${answer.model} + ${extraction.model}`;
     if (extraction.ok && extraction.parsed) {
-      ({ claims, leads } = normalizeExtraction(kase, suspectId, answer.text, extraction.parsed, shown));
+      ({ claims, leads } = normalizeExtraction(
+        kase,
+        suspectId,
+        answer.text,
+        extraction.parsed,
+        shown,
+      ));
     } else {
       extractionFailed = true;
     }

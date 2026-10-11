@@ -6,7 +6,11 @@ import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
-const display = Playfair_Display({ variable: "--font-display-serif", subsets: ["latin"], weight: ["500", "700"] });
+const display = Playfair_Display({
+  variable: "--font-display-serif",
+  subsets: ["latin"],
+  weight: ["500", "700"],
+});
 
 export const metadata: Metadata = {
   title: "Last Course: a murder mystery in a Michelin-star kitchen",

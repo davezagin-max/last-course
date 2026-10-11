@@ -55,7 +55,10 @@ export function Interrogation(props: Props) {
   }, [latest, busy, suspect.id]);
 
   return (
-    <section aria-label={`Interrogation of ${suspect.name}`} className="flex min-w-0 flex-col rounded-lg border border-border bg-surface">
+    <section
+      aria-label={`Interrogation of ${suspect.name}`}
+      className="flex min-w-0 flex-col rounded-lg border border-border bg-surface"
+    >
       <header className="flex items-center gap-3 border-b border-border px-4 py-3">
         <Portrait monogram={suspect.monogram} size={48} />
         <div className="min-w-0">
@@ -76,11 +79,19 @@ export function Interrogation(props: Props) {
       >
         <Bubble who={suspect.short}>{suspect.opening}</Bubble>
         {turns.map((turn) => (
-          <Exchange key={turn.n} turn={turn} suspect={suspect.short} fresh={turn.n === props.typingTurn} {...props} titles={titles} />
+          <Exchange
+            key={turn.n}
+            turn={turn}
+            suspect={suspect.short}
+            fresh={turn.n === props.typingTurn}
+            {...props}
+            titles={titles}
+          />
         ))}
         {isLive && turns.length > 0 && liveTurns === 0 && (
           <p className="border-l-2 border-accent pl-3 text-sm text-muted">
-            You are live now. {suspect.short} answers from the same case file but has no memory of the sample answers above.
+            You are live now. {suspect.short} answers from the same case file but has no memory of
+            the sample answers above.
           </p>
         )}
         {busy && (
@@ -94,7 +105,10 @@ export function Interrogation(props: Props) {
           </p>
         )}
         {error && (
-          <p role="alert" className="rounded-md border border-danger bg-danger-soft px-3 py-2 text-sm text-danger">
+          <p
+            role="alert"
+            className="rounded-md border border-danger bg-danger-soft px-3 py-2 text-sm text-danger"
+          >
             {error}
           </p>
         )}
@@ -120,7 +134,9 @@ export function Interrogation(props: Props) {
                     }`}
                   >
                     {q.presents.length > 0 && (
-                      <span className="label text-accent!">Show: {q.presents.map((id) => titles.get(id) ?? id).join(", ")}</span>
+                      <span className="label text-accent!">
+                        Show: {q.presents.map((id) => titles.get(id) ?? id).join(", ")}
+                      </span>
                     )}
                     <span>{q.text}</span>
                     {q.asked && <span className="text-xs text-muted">Asked</span>}
@@ -130,7 +146,8 @@ export function Interrogation(props: Props) {
             </ul>
             {locked > 0 && (
               <p className="text-xs text-muted">
-                {locked} more {locked === 1 ? "question opens" : "questions open"} up as you find evidence to put in front of {suspect.short}.
+                {locked} more {locked === 1 ? "question opens" : "questions open"} up as you find
+                evidence to put in front of {suspect.short}.
               </p>
             )}
           </>
@@ -139,10 +156,16 @@ export function Interrogation(props: Props) {
         {isLive ? (
           outOfTurns ? (
             <p className="text-sm text-muted">
-              {suspect.short} has answered {MAX_TURNS} questions and will not take any more. Question someone else, or make your accusation.
+              {suspect.short} has answered {MAX_TURNS} questions and will not take any more.
+              Question someone else, or make your accusation.
             </p>
           ) : (
-            <FreeForm {...props} suspect={suspect.short} shown={shownTo(state, suspect.id)} titles={titles} />
+            <FreeForm
+              {...props}
+              suspect={suspect.short}
+              shown={shownTo(state, suspect.id)}
+              titles={titles}
+            />
           )
         ) : (
           <div className="flex flex-wrap items-center gap-x-3 gap-y-2 rounded-md border border-dashed border-border px-3 py-2 text-sm text-muted">
@@ -151,7 +174,11 @@ export function Interrogation(props: Props) {
                 ? "Demo mode plays the questions above. To ask anything you like, in your own words:"
                 : `This case has no recorded answers, so it cannot be played in demo mode. With a key, ${suspect.short} will answer anything you ask, live:`}
             </span>
-            <button type="button" onClick={props.onAddKey} className="rounded-md border border-accent px-2.5 py-1 text-xs font-medium text-accent hover:bg-accent-soft">
+            <button
+              type="button"
+              onClick={props.onAddKey}
+              className="rounded-md border border-accent px-2.5 py-1 text-xs font-medium text-accent hover:bg-accent-soft"
+            >
               Add your key
             </button>
           </div>
@@ -166,7 +193,9 @@ function Bubble({ who, children }: { who: string; children: React.ReactNode }) {
   return (
     <div className="max-w-[46rem]">
       <p className="label mb-1">{who}</p>
-      <div className="rounded-md rounded-tl-none border border-border bg-raised px-3.5 py-2.5 text-[0.95rem] leading-relaxed">{children}</div>
+      <div className="rounded-md rounded-tl-none border border-border bg-raised px-3.5 py-2.5 text-[0.95rem] leading-relaxed">
+        {children}
+      </div>
     </div>
   );
 }
@@ -182,7 +211,9 @@ function Exchange({
   onOpenNotebook,
 }: Props & { turn: PlayedTurn; suspect: string; fresh: boolean; titles: Map<string, string> }) {
   const mine = new Set(turn.claimIds);
-  const conflicts = contradictions.filter((c) => [c.a, c.b].some((s) => s.type === "claim" && mine.has(s.id))).length;
+  const conflicts = contradictions.filter((c) =>
+    [c.a, c.b].some((s) => s.type === "claim" && mine.has(s.id)),
+  ).length;
   const notes = turn.claimIds.length;
   return (
     <div className={`flex flex-col gap-3 ${fresh ? "rise" : ""}`}>
@@ -203,15 +234,26 @@ function Exchange({
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1 pl-1 text-xs text-muted">
         {turn.blocked ? (
           <span className="text-danger">
-            The output guard caught an out-of-character answer and replaced it. That exchange was dropped from {suspect}&apos;s memory.
+            The output guard caught an out-of-character answer and replaced it. That exchange was
+            dropped from {suspect}&apos;s memory.
           </span>
         ) : (
           <>
-            <button type="button" onClick={onOpenNotebook} className="underline-offset-2 hover:text-fg hover:underline">
-              {notes === 0 ? "Nothing checkable in that answer" : `${notes} ${notes === 1 ? "note" : "notes"} in the notebook`}
+            <button
+              type="button"
+              onClick={onOpenNotebook}
+              className="underline-offset-2 hover:text-fg hover:underline"
+            >
+              {notes === 0
+                ? "Nothing checkable in that answer"
+                : `${notes} ${notes === 1 ? "note" : "notes"} in the notebook`}
             </button>
             {conflicts > 0 && (
-              <button type="button" onClick={onOpenNotebook} className="font-semibold text-danger underline-offset-2 hover:underline">
+              <button
+                type="button"
+                onClick={onOpenNotebook}
+                className="font-semibold text-danger underline-offset-2 hover:underline"
+              >
                 {conflicts} {conflicts === 1 ? "conflict" : "conflicts"}
               </button>
             )}
@@ -227,8 +269,14 @@ function Exchange({
             New exhibit: {pub.evidence.find((e) => e.id === id)?.title ?? id}
           </button>
         ))}
-        {turn.note === "history_reset" && <span>The server could not verify the earlier conversation, so {suspect} answered without it.</span>}
-        {turn.note === "extraction_failed" && <span>The notebook call failed for this answer; nothing was filed.</span>}
+        {turn.note === "history_reset" && (
+          <span>
+            The server could not verify the earlier conversation, so {suspect} answered without it.
+          </span>
+        )}
+        {turn.note === "extraction_failed" && (
+          <span>The notebook call failed for this answer; nothing was filed.</span>
+        )}
       </div>
     </div>
   );
@@ -274,13 +322,19 @@ function FreeForm({
           placeholder={`Your question for ${suspect}`}
           className="min-w-0 flex-1 rounded-md border border-border bg-bg px-3 py-2 text-sm"
         />
-        <button type="submit" disabled={busy || !text.trim()} className="rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-fg disabled:opacity-50">
+        <button
+          type="submit"
+          disabled={busy || !text.trim()}
+          className="rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-fg disabled:opacity-50"
+        >
           Ask
         </button>
       </div>
       {unseen.length > 0 && (
         <fieldset className="flex flex-wrap items-center gap-1.5">
-          <legend className="sr-only">Exhibits to put in front of {suspect} with this question</legend>
+          <legend className="sr-only">
+            Exhibits to put in front of {suspect} with this question
+          </legend>
           <span aria-hidden className="text-xs text-muted">
             Show with it:
           </span>
@@ -291,7 +345,9 @@ function FreeForm({
               <label
                 key={id}
                 className={`cursor-pointer rounded border px-2 py-1 text-xs has-focus-visible:outline-2 has-focus-visible:outline-accent ${
-                  on ? "border-accent bg-accent-soft text-fg" : "border-border text-muted hover:border-accent"
+                  on
+                    ? "border-accent bg-accent-soft text-fg"
+                    : "border-border text-muted hover:border-accent"
                 } ${full ? "cursor-not-allowed opacity-50" : ""}`}
               >
                 <input
@@ -299,7 +355,9 @@ function FreeForm({
                   className="sr-only"
                   checked={on}
                   disabled={full}
-                  onChange={() => setPresents(on ? selected.filter((x) => x !== id) : [...selected, id])}
+                  onChange={() =>
+                    setPresents(on ? selected.filter((x) => x !== id) : [...selected, id])
+                  }
                 />
                 {titles.get(id) ?? pub.evidence.find((e) => e.id === id)?.title ?? id}
               </label>

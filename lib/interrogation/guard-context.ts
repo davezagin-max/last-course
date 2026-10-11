@@ -10,6 +10,7 @@ export function guardContext(kase: CaseFile, suspectId: string): GuardContext {
   return {
     protectedText: RULES.join("\n"),
     poisonNames: kase.items.filter((item) => item.kind === "poison").map((item) => item.name),
+    vehicleNames: kase.items.filter((item) => item.kind === "vehicle").map((item) => item.name),
     castNames: [...new Set(kase.suspects.flatMap((s) => [...nameParts(s.name), s.short]))],
     speakerNames: speaker ? [...new Set([...nameParts(speaker.name), speaker.short])] : [],
   };

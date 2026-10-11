@@ -142,15 +142,25 @@ function conflictsWith(
   const claim = other.type === "claim" ? claims.get(other.id) : undefined;
   switch (contradiction.rule) {
     case "two_places":
-      return fact.type === "presence" && fact.person === contradiction.subject && fact.place !== claim?.place;
+      return (
+        fact.type === "presence" &&
+        fact.person === contradiction.subject &&
+        fact.place !== claim?.place
+      );
     case "denied":
-      return (fact.type === "presence" || fact.type === "absent") && fact.person === contradiction.subject && fact.place === claim?.place;
+      return (
+        (fact.type === "presence" || fact.type === "absent") &&
+        fact.person === contradiction.subject &&
+        fact.place === claim?.place
+      );
     case "empty":
       return fact.type === "empty" && fact.place === claim?.place;
     case "possession":
       return fact.type === "possession" && fact.item === contradiction.subject;
     case "relationship":
-      return fact.type === "relationship" && [fact.a, fact.b].sort().join("|") === contradiction.subject;
+      return (
+        fact.type === "relationship" && [fact.a, fact.b].sort().join("|") === contradiction.subject
+      );
     case "timing":
       return fact.type === "timing" && fact.event === contradiction.subject;
   }
@@ -182,7 +192,8 @@ export function eliminationText(names: Names, elimination: Elimination, methods:
         )
         .join(" and ");
       const opening = `${capitalize(act)} ${PLACE_AT[detail.place]}, ${formatSpans(detail.open)}.`;
-      if (detail.open.length === 0) return `${capitalize(act)} ${PLACE_AT[detail.place]}, and the evidence leaves no time at all for that.`;
+      if (detail.open.length === 0)
+        return `${capitalize(act)} ${PLACE_AT[detail.place]}, and the evidence leaves no time at all for that.`;
       return `${opening} ${who} was ${elsewhere}.`;
     }
     case "sequence":

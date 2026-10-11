@@ -55,7 +55,10 @@ function sessionReducer(session: Session, action: SessionAction): Session {
       const entry = session.cases.find((c) => c.pub.id === action.caseId);
       const game = session.games[action.caseId];
       if (!entry || !game) return session;
-      return { ...session, games: { ...session.games, [action.caseId]: reduce(entry.pub, game, action.action) } };
+      return {
+        ...session,
+        games: { ...session.games, [action.caseId]: reduce(entry.pub, game, action.action) },
+      };
     }
     case "add": {
       const id = action.entry.pub.id;
@@ -63,12 +66,16 @@ function sessionReducer(session: Session, action: SessionAction): Session {
       return {
         ...session,
         // Re-running a generation refreshes the sealed reference but keeps any progress.
-        cases: known ? session.cases.map((c) => (c.pub.id === id ? action.entry : c)) : [...session.cases, action.entry],
+        cases: known
+          ? session.cases.map((c) => (c.pub.id === id ? action.entry : c))
+          : [...session.cases, action.entry],
         games: known ? session.games : { ...session.games, [id]: initialState(action.entry.pub) },
       };
     }
     case "open":
-      return session.cases.some((c) => c.pub.id === action.caseId) ? { ...session, activeId: action.caseId } : session;
+      return session.cases.some((c) => c.pub.id === action.caseId)
+        ? { ...session, activeId: action.caseId }
+        : session;
   }
 }
 
@@ -81,7 +88,15 @@ const TABS = [
 ] as const;
 type TabId = (typeof TABS)[number]["id"];
 
-const IDLE: GenerationView = { status: "idle", drafting: null, chars: 0, attempts: [], error: null, meta: null, caseId: null };
+const IDLE: GenerationView = {
+  status: "idle",
+  drafting: null,
+  chars: 0,
+  attempts: [],
+  error: null,
+  meta: null,
+  caseId: null,
+};
 
 const subscribeToNothing = () => () => {};
 
@@ -91,7 +106,11 @@ const subscribeToNothing = () => () => {};
  * mounted in its place.
  */
 export function Game({ initialCase }: { initialCase: PublicCase }) {
-  const raw = useSyncExternalStore(subscribeToNothing, () => readSaved(initialCase.id), () => null);
+  const raw = useSyncExternalStore(
+    subscribeToNothing,
+    () => readSaved(initialCase.id),
+    () => null,
+  );
   const saved = useMemo(() => parseSaved(initialCase, raw), [initialCase, raw]);
   return <Table key={saved ? "restored" : "fresh"} initialCase={initialCase} saved={saved} />;
 }
@@ -112,7 +131,7 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [lastMeta, setLastMeta] = useState<ApiMeta | null>(null);
-  const [typingTurn, setTypingTurn] = useState<number | null>(null);
+  const [typing, setTyping] = useState<{ caseId: string; n: number } | null>(null);
   const [exhibitId, setExhibitId] = useState<string | null>(null);
   const [accusing, setAccusing] = useState(false);
   const [accuseError, setAccuseError] = useState<string | null>(null);
@@ -153,17 +172,24 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
       return;
     }
     // The new turn takes the next index; type its answer out once.
-    setTypingTurn(state.turns.length);
+    setTyping({ caseId, n: state.turns.length });
     dispatch({
       type: "game",
       caseId,
-      action: { type: "answered", suspect, question: request.text, presents: request.presents, data: response.data, meta: response.meta },
+      action: {
+        type: "answered",
+        suspect,
+        question: request.text,
+        presents: request.presents,
+        data: response.data,
+        meta: response.meta,
+      },
     });
   }
 
   /** Changing view ends any typing animation, so coming back shows the finished transcript. */
   function show(next: TabId) {
-    setTypingTurn(null);
+    setTyping(null);
     setTab(next);
   }
 
@@ -171,13 +197,21 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
     setAccusing(true);
     setAccuseError(null);
     const caseId = pub.id;
-    const response = await callApi<Reveal>("/api/accuse", { case: ref, accusation, found: state.found, claims: state.claims }, apiKey);
+    const response = await callApi<Reveal>(
+      "/api/accuse",
+      { case: ref, accusation, found: state.found, claims: state.claims },
+      apiKey,
+    );
     setAccusing(false);
     if (!response.ok) {
       setAccuseError(response.error.message);
       return;
     }
-    dispatch({ type: "game", caseId, action: { type: "revealed", accusation, reveal: response.data } });
+    dispatch({
+      type: "game",
+      caseId,
+      action: { type: "revealed", accusation, reveal: response.data },
+    });
     window.scrollTo({ top: 0 });
   }
 
@@ -189,16 +223,33 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
         setGeneration((view) => {
           if (event.type === "drafting") return { ...view, drafting: event.attempt, chars: 0 };
           if (event.type === "progress") return { ...view, chars: event.chars };
-          return { ...view, attempts: [...view.attempts.filter((a) => a.n !== event.attempt.n), event.attempt] };
+          return {
+            ...view,
+            attempts: [...view.attempts.filter((a) => a.n !== event.attempt.n), event.attempt],
+          };
         }),
     });
     if (!response.ok) {
-      setGeneration((view) => ({ ...view, status: "error", drafting: null, error: response.error.message, meta: response.meta ?? null }));
+      setGeneration((view) => ({
+        ...view,
+        status: "error",
+        drafting: null,
+        error: response.error.message,
+        meta: response.meta ?? null,
+      }));
       return;
     }
     const { publicCase, ref: sealed, attempts } = response.data;
     dispatch({ type: "add", entry: { pub: publicCase, ref: sealed, generated: true } });
-    setGeneration({ status: "done", drafting: null, chars: 0, attempts, error: null, meta: response.meta, caseId: publicCase.id });
+    setGeneration({
+      status: "done",
+      drafting: null,
+      chars: 0,
+      attempts,
+      error: null,
+      meta: response.meta,
+      caseId: publicCase.id,
+    });
   }
 
   function openCase(caseId: string) {
@@ -209,7 +260,9 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
     show("question");
   }
 
-  const exhibit = exhibitId ? (pub.evidence.find((e) => e.id === exhibitId && state.found.includes(e.id)) ?? null) : null;
+  const exhibit = exhibitId
+    ? (pub.evidence.find((e) => e.id === exhibitId && state.found.includes(e.id)) ?? null)
+    : null;
   const solved = state.reveal !== null;
 
   return (
@@ -218,17 +271,23 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
         <div className="mx-auto flex w-full max-w-[90rem] flex-col gap-3 px-4 pb-4 pt-5 lg:px-6">
           <div className="flex flex-wrap items-start justify-between gap-x-6 gap-y-3">
             <div className="min-w-0">
-              <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.28em] text-brass">Last Course</p>
+              <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.28em] text-brass">
+                Last Course
+              </p>
               <h1 className="font-display text-3xl leading-tight sm:text-4xl">{pub.title}</h1>
               <p className="text-sm text-band-muted">
-                {pub.restaurant} · {pub.date} · The victim: {pub.victim.name}, {lowerFirst(pub.victim.role)}
+                {pub.restaurant} · {pub.date} · The victim: {pub.victim.name},{" "}
+                {lowerFirst(pub.victim.role)}
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-2">
               <dl className="flex items-stretch divide-x divide-band-border rounded-md border border-band-border text-center">
                 <Stat label="Exhibits" value={`${state.found.length}/${pub.evidence.length}`} />
                 <Stat label="Conflicts" value={String(conflictCount)} alert={conflictCount > 0} />
-                <Stat label="Theories left" value={`${theories.survivors.length}/${theories.total}`} />
+                <Stat
+                  label="Theories left"
+                  value={`${theories.survivors.length}/${theories.total}`}
+                />
               </dl>
               <ThemeToggle className="border-band-border! text-band-fg! hover:bg-white/10!" />
             </div>
@@ -241,7 +300,10 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
           </div>
           <details className="text-sm text-band-muted md:hidden">
             <summary className="cursor-pointer leading-relaxed">
-              {pub.tagline} <span className="whitespace-nowrap font-medium text-brass underline underline-offset-2">Read the briefing</span>
+              {pub.tagline}{" "}
+              <span className="whitespace-nowrap font-medium text-brass underline underline-offset-2">
+                Read the briefing
+              </span>
             </summary>
             <div className="mt-2 flex flex-col gap-2 leading-relaxed">
               {pub.briefing.map((paragraph) => (
@@ -250,7 +312,10 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
             </div>
           </details>
         </div>
-        <nav aria-label="Views" className="mx-auto w-full max-w-[90rem] overflow-x-auto px-4 lg:px-6">
+        <nav
+          aria-label="Views"
+          className="mx-auto w-full max-w-[90rem] overflow-x-auto px-4 lg:px-6"
+        >
           <ul className="flex gap-1">
             {TABS.map((t) => {
               const current = tab === t.id;
@@ -261,11 +326,17 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
                     aria-current={current ? "page" : undefined}
                     onClick={() => show(t.id)}
                     className={`whitespace-nowrap rounded-t-md border border-b-0 px-4 py-2 text-sm font-medium ${
-                      current ? "border-band-border bg-bg text-fg" : "border-transparent text-band-muted hover:text-band-fg"
+                      current
+                        ? "border-band-border bg-bg text-fg"
+                        : "border-transparent text-band-muted hover:text-band-fg"
                     }`}
                   >
                     {t.id === "accuse" && solved ? "The reveal" : t.label}
-                    {t.id === "board" && <span className="ml-1.5 font-mono text-xs opacity-70">{state.found.length}</span>}
+                    {t.id === "board" && (
+                      <span className="ml-1.5 font-mono text-xs opacity-70">
+                        {state.found.length}
+                      </span>
+                    )}
                   </button>
                 </li>
               );
@@ -291,10 +362,12 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
                         onClick={() => {
                           play({ type: "select", suspect: s.id });
                           setError(null);
-                          setTypingTurn(null);
+                          setTyping(null);
                         }}
                         className={`flex w-full items-center gap-2.5 rounded-md border px-2.5 py-2 text-left ${
-                          active ? "border-accent bg-accent-soft" : "border-border bg-surface hover:border-accent"
+                          active
+                            ? "border-accent bg-accent-soft"
+                            : "border-border bg-surface hover:border-accent"
                         }`}
                       >
                         <Portrait monogram={s.monogram} size={40} active={active} />
@@ -303,7 +376,10 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
                           <span className="block truncate text-xs text-muted">{s.role}</span>
                         </span>
                         {asked > 0 && (
-                          <span className="shrink-0 rounded bg-raised px-1.5 font-mono text-xs text-muted" title={`${asked} asked`}>
+                          <span
+                            className="shrink-0 rounded bg-raised px-1.5 font-mono text-xs text-muted"
+                            title={`${asked} asked`}
+                          >
                             {asked}
                             <span className="sr-only"> questions asked</span>
                           </span>
@@ -329,15 +405,26 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
               busy={busy}
               error={error}
               lastMeta={lastMeta}
-              typingTurn={typingTurn}
+              typingTurn={typing?.caseId === pub.id ? typing.n : null}
               contradictions={contradictions}
               onAsk={ask}
               onOpenExhibit={setExhibitId}
-              onOpenNotebook={() => document.getElementById("notebook")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+              onOpenNotebook={() =>
+                document
+                  .getElementById("notebook")
+                  ?.scrollIntoView({ behavior: "smooth", block: "start" })
+              }
               onAddKey={openKeyModal}
             />
 
-            <Notebook pub={pub} state={state} names={names} found={found} contradictions={contradictions} onOpenExhibit={setExhibitId} />
+            <Notebook
+              pub={pub}
+              state={state}
+              names={names}
+              found={found}
+              contradictions={contradictions}
+              onOpenExhibit={setExhibitId}
+            />
           </div>
         )}
 
@@ -357,7 +444,15 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
           />
         )}
 
-        {tab === "timeline" && <Timeline pub={pub} state={state} names={names} found={found} contradictions={contradictions} />}
+        {tab === "timeline" && (
+          <Timeline
+            pub={pub}
+            state={state}
+            names={names}
+            found={found}
+            contradictions={contradictions}
+          />
+        )}
 
         {tab === "accuse" && (
           <Accusation
@@ -378,7 +473,11 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
 
         {tab === "cases" && (
           <CaseFiles
-            cases={session.cases.map((c) => ({ pub: c.pub, generated: c.generated, asked: session.games[c.pub.id]?.turns.length ?? 0 }))}
+            cases={session.cases.map((c) => ({
+              pub: c.pub,
+              generated: c.generated,
+              asked: session.games[c.pub.id]?.turns.length ?? 0,
+            }))}
             activeId={pub.id}
             isLive={isLive}
             generation={generation}
@@ -404,7 +503,9 @@ function lowerFirst(text: string): string {
 function Stat({ label, value, alert = false }: { label: string; value: string; alert?: boolean }) {
   return (
     <div className="flex flex-col-reverse px-3 py-1.5">
-      <dt className="text-[0.625rem] font-semibold uppercase tracking-[0.14em] text-band-muted">{label}</dt>
+      <dt className="text-[0.625rem] font-semibold uppercase tracking-[0.14em] text-band-muted">
+        {label}
+      </dt>
       <dd className={`font-mono text-sm ${alert ? "text-brass" : "text-band-fg"}`}>{value}</dd>
     </div>
   );

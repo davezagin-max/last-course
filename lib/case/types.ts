@@ -83,7 +83,13 @@ export interface Victim {
   blurb: string;
 }
 
-export const CLAIM_KINDS = ["location", "sighting", "timing", "possession", "relationship"] as const;
+export const CLAIM_KINDS = [
+  "location",
+  "sighting",
+  "timing",
+  "possession",
+  "relationship",
+] as const;
 export type ClaimKind = (typeof CLAIM_KINDS)[number];
 
 /**
@@ -237,7 +243,14 @@ export type Fact =
    * the vehicle `item` could only have been dosed (administer), at `place`
    * during the span.
    */
-  | { type: "window"; step: "acquire" | "administer"; item: string; place: PlaceId; from: Minute; to: Minute }
+  | {
+      type: "window";
+      step: "acquire" | "administer";
+      item: string;
+      place: PlaceId;
+      from: Minute;
+      to: Minute;
+    }
   | { type: "motive"; motive: string; holds: boolean }
   | { type: "possession"; person: string; item: string; from: Minute; to: Minute; holds: boolean }
   | { type: "relationship"; a: string; b: string; holds: boolean }

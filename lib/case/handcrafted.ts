@@ -66,7 +66,15 @@ export const THE_FOURTH_COURSE: CaseFile = {
         "Your opinions of the brigade: Tomas wants your job. Priya has some history with Vale she never discusses. Marit's 'wild' produce is suspiciously uniform. Gus has washed your pots for six years, never asked for anything, and is the one person you would trust with your keys.",
         "When you got back to the pass at 20:53 Tomas was there. A few minutes before nine he stepped away and you bumped his tickets with your own PIN until he came back a little after nine. You did not ask why.",
       ],
-      sightings: [{ subject: "tomas", place: "pass", from: t("20:53"), to: t("20:58"), note: "calling tickets when you came back from the office" }],
+      sightings: [
+        {
+          subject: "tomas",
+          place: "pass",
+          from: t("20:53"),
+          to: t("20:58"),
+          note: "calling tickets when you came back from the office",
+        },
+      ],
       alibi: [
         { place: "pass", from: t("20:00"), to: t("21:34"), lie: "odile_pass" },
         { place: "dining_room", from: t("21:34"), to: t("21:40"), lie: null },
@@ -78,19 +86,42 @@ export const THE_FOURTH_COURSE: CaseFile = {
           says: "I did not leave my pass from the first ticket at eight until the dining room started screaming at 21:34.",
           truth: "She was in the office on the phone from 20:41 to 20:53.",
           why: "A chef who leaves her pass on a Saturday looks finished, and the call was from insolvency practitioners.",
-          asserts: [{ kind: "location", subject: "odile", place: "pass", from: t("20:00"), to: t("21:34"), object: null, negated: false }],
+          asserts: [
+            {
+              kind: "location",
+              subject: "odile",
+              place: "pass",
+              from: t("20:00"),
+              to: t("21:34"),
+              object: null,
+              negated: false,
+            },
+          ],
           breaksWith: ["phone_log"],
-          admits: "Twelve minutes. She took a call from Calloway & Finch, insolvency practitioners, in the office at 20:41 and was back on the pass at 20:53. Verjus owes more than it earns.",
+          admits:
+            "Twelve minutes. She took a call from Calloway & Finch, insolvency practitioners, in the office at 20:41 and was back on the pass at 20:53. Verjus owes more than it earns.",
         },
         {
           id: "odile_stranger",
           topic: "whether she knew Vale",
           says: "I knew a critic was in my dining room. I did not know Augustin Vale. Critics are weather.",
-          truth: "They cooked together in Lyon thirty years ago; he lent her the deposit for the building and came to help her.",
+          truth:
+            "They cooked together in Lyon thirty years ago; he lent her the deposit for the building and came to help her.",
           why: "A friendly review arranged between old colleagues would taint her star and his reputation.",
-          asserts: [{ kind: "relationship", subject: "odile", place: null, from: null, to: null, object: VICTIM_ID, negated: true }],
+          asserts: [
+            {
+              kind: "relationship",
+              subject: "odile",
+              place: null,
+              from: null,
+              to: null,
+              object: VICTIM_ID,
+              negated: true,
+            },
+          ],
           breaksWith: ["notebook", "lineup_sheet"],
-          admits: "They stood on the same line in Lyon thirty years ago. He lent her the deposit on the building. He came to write the review that would have kept her doors open; she needed him alive.",
+          admits:
+            "They stood on the same line in Lyon thirty years ago. He lent her the deposit on the building. He came to write the review that would have kept her doors open; she needed him alive.",
         },
       ],
       deflections: [
@@ -105,7 +136,8 @@ export const THE_FOURTH_COURSE: CaseFile = {
       short: "Tomas",
       role: "Sous chef",
       monogram: "TV",
-      blurb: "Runs the pass at Odile's elbow. Fast, loud, and widely expected to have his own kitchen within the year.",
+      blurb:
+        "Runs the pass at Odile's elbow. Fast, loud, and widely expected to have his own kitchen within the year.",
       opening: "I've told the uniformed lot everything twice. Fine. Third time. Go.",
       voice:
         "Fast and defensive, sentences that run into each other, kitchen slang, gallows humour that he regrets halfway through. He is shaken: his own hands grated the root. Swears mildly ('God', 'hell') and nothing stronger. Loyal to Priya. Resents Odile and half admires her.",
@@ -121,7 +153,15 @@ export const THE_FOURTH_COURSE: CaseFile = {
         "Three years ago Priya was a contestant on the television show The Final Plate. Vale was the guest judge and called her entremet 'a wedding cake for a divorce' on air. She went out in the semi-final and never talks about it.",
         "You did not go near the planters in the alley. You know monkshood grows there because Marit warned everyone.",
       ],
-      sightings: [{ subject: "gus", place: "pass", from: t("20:51"), to: t("20:52"), note: "walked the copper dish back up himself and set it by the lamps" }],
+      sightings: [
+        {
+          subject: "gus",
+          place: "pass",
+          from: t("20:51"),
+          to: t("20:52"),
+          note: "walked the copper dish back up himself and set it by the lamps",
+        },
+      ],
       alibi: [
         { place: "pass", from: t("20:00"), to: t("21:34"), lie: "tomas_pass" },
         { place: "dining_room", from: t("21:34"), to: t("21:40"), lie: null },
@@ -131,11 +171,23 @@ export const THE_FOURTH_COURSE: CaseFile = {
           id: "tomas_pass",
           topic: "whether he left the pass",
           says: "From eight o'clock until that plate went out I was on the pass. I don't get to leave.",
-          truth: "He was in the alley from 20:58 to 21:03 taking a call about a job at a rival restaurant.",
+          truth:
+            "He was in the alley from 20:58 to 21:03 taking a call about a job at a rival restaurant.",
           why: "Odile would fire him if she knew he was leaving and taking her cooks, and the alley is where the monkshood grows.",
-          asserts: [{ kind: "location", subject: "tomas", place: "pass", from: t("20:00"), to: t("21:16"), object: null, negated: false }],
+          asserts: [
+            {
+              kind: "location",
+              subject: "tomas",
+              place: "pass",
+              from: t("20:00"),
+              to: t("21:16"),
+              object: null,
+              negated: false,
+            },
+          ],
           breaksWith: ["bump_log", "door_log"],
-          admits: "He stepped out to the alley at 20:58 and was back on the pass by 21:03. It was a phone call from Dominic Achterberg of Brasa, offering him the head chef job. He did not touch the planter.",
+          admits:
+            "He stepped out to the alley at 20:58 and was back on the pass by 21:03. It was a phone call from Dominic Achterberg of Brasa, offering him the head chef job. He did not touch the planter.",
         },
       ],
       deflections: [
@@ -150,7 +202,8 @@ export const THE_FOURTH_COURSE: CaseFile = {
       short: "Priya",
       role: "Pastry chef",
       monogram: "PN",
-      blurb: "Makes the last three courses in a glass-walled corner the whole dining room can watch.",
+      blurb:
+        "Makes the last three courses in a glass-walled corner the whole dining room can watch.",
       opening: "Sit, if you like. Mind the trays, they're still setting.",
       voice:
         "Warm, composed, exact. Thinks in grams and degrees and reaches for them when nervous. Dry humour. Protective of Tomas. Does not like being pitied, and bristles when her television appearance comes up.",
@@ -166,8 +219,20 @@ export const THE_FOURTH_COURSE: CaseFile = {
         "At lineup (16:30) Chef announced that table seven was Augustin Vale, booked as Marsh, a friend of the house, and wrote it on the lineup sheet clipped by the office door. Nobody in the kitchen feared that review.",
       ],
       sightings: [
-        { subject: "gus", place: "pass", from: t("20:51"), to: t("20:52"), note: "set one small copper dish on the pass, in both hands" },
-        { subject: "tomas", place: "alley", from: t("20:58"), to: t("21:03"), note: "stepped out of the alley door and came back with his phone" },
+        {
+          subject: "gus",
+          place: "pass",
+          from: t("20:51"),
+          to: t("20:52"),
+          note: "set one small copper dish on the pass, in both hands",
+        },
+        {
+          subject: "tomas",
+          place: "alley",
+          from: t("20:58"),
+          to: t("21:03"),
+          note: "stepped out of the alley door and came back with his phone",
+        },
       ],
       alibi: [
         { place: "pastry", from: t("20:00"), to: t("21:20"), lie: null },
@@ -181,9 +246,20 @@ export const THE_FOURTH_COURSE: CaseFile = {
           says: "I know the byline. I've never met the man.",
           truth: "He judged her on television three years ago and humiliated her on air.",
           why: "She has spent three years being more than that one sentence.",
-          asserts: [{ kind: "relationship", subject: "priya", place: null, from: null, to: null, object: VICTIM_ID, negated: true }],
+          asserts: [
+            {
+              kind: "relationship",
+              subject: "priya",
+              place: null,
+              from: null,
+              to: null,
+              object: VICTIM_ID,
+              negated: true,
+            },
+          ],
           breaksWith: ["notebook"],
-          admits: "Three years ago, The Final Plate, semi-final. He called her entremet 'a wedding cake for a divorce' and four million people laughed. She says she never met him because she is tired of being that sentence.",
+          admits:
+            "Three years ago, The Final Plate, semi-final. He called her entremet 'a wedding cake for a divorce' and four million people laughed. She says she never met him because she is tired of being that sentence.",
         },
         {
           id: "priya_cover",
@@ -191,9 +267,20 @@ export const THE_FOURTH_COURSE: CaseFile = {
           says: "Tomas was at the rail calling tickets the entire time. Five to nine, nine o'clock, five past. I'd have noticed.",
           truth: "She saw him leave by the alley door at 20:58 and return at 21:03.",
           why: "They are leaving Verjus together and have not told Odile.",
-          asserts: [{ kind: "sighting", subject: "tomas", place: "pass", from: t("20:55"), to: t("21:05"), object: null, negated: false }],
+          asserts: [
+            {
+              kind: "sighting",
+              subject: "tomas",
+              place: "pass",
+              from: t("20:55"),
+              to: t("21:05"),
+              object: null,
+              negated: false,
+            },
+          ],
           breaksWith: ["door_log", "bump_log"],
-          admits: "He stepped out at 20:58 and was back at 21:03. It was a phone call about a job: he has been offered a kitchen of his own and has asked her to come. She was protecting a job, not a murderer.",
+          admits:
+            "He stepped out at 20:58 and was back at 21:03. It was a phone call about a job: he has been offered a kitchen of his own and has asked her to come. She was protecting a job, not a murderer.",
         },
       ],
       deflections: [
@@ -208,7 +295,8 @@ export const THE_FOURTH_COURSE: CaseFile = {
       short: "Marit",
       role: "Forager and cold station",
       monogram: "MS",
-      blurb: "Supplies the wild plants Verjus is known for, and planted the monkshood in the alley.",
+      blurb:
+        "Supplies the wild plants Verjus is known for, and planted the monkshood in the alley.",
       opening: "You want to know about the plant. Everyone wants to know about the plant.",
       voice:
         "Blunt, unhurried, literal. Short sentences with no decoration, the occasional botanical name. Norwegian directness: she finds lying tiring and small talk worse. Not rude, just uninterested in being liked.",
@@ -223,7 +311,15 @@ export const THE_FOURTH_COURSE: CaseFile = {
         "Gus keeps an old, yellowed newspaper cutting taped inside his locker door and closes the door when anyone walks past. He once cooked professionally: he holds a knife like someone properly taught.",
         "A missing plant would have been dug with something flat-edged, like a bench scraper or a dish scraper, by someone who could stand in the alley for a few minutes without anybody asking why.",
       ],
-      sightings: [{ subject: "tomas", place: "alley", from: t("20:58"), to: t("21:03"), note: "went out the alley door and came back with his phone in his hand" }],
+      sightings: [
+        {
+          subject: "tomas",
+          place: "alley",
+          from: t("20:58"),
+          to: t("21:03"),
+          note: "went out the alley door and came back with his phone in his hand",
+        },
+      ],
       alibi: [{ place: "cold_station", from: t("20:00"), to: t("21:40"), lie: "marit_station" }],
       lies: [
         {
@@ -232,9 +328,20 @@ export const THE_FOURTH_COURSE: CaseFile = {
           says: "I was at my station, cold side, from eight until the shouting started. I do not wander.",
           truth: "She was in the dry store from 20:38 to 20:57 relabelling farmed produce as wild.",
           why: "Her livelihood depends on the word 'wild', and Vale had been asking questions about it.",
-          asserts: [{ kind: "location", subject: "marit", place: "cold_station", from: t("20:00"), to: t("21:34"), object: null, negated: false }],
+          asserts: [
+            {
+              kind: "location",
+              subject: "marit",
+              place: "cold_station",
+              from: t("20:00"),
+              to: t("21:34"),
+              object: null,
+              negated: false,
+            },
+          ],
           breaksWith: ["keypad_log"],
-          admits: "Nineteen minutes in the dry store, 20:38 to 20:57, peeling farm stickers off crates and writing 'wild' on them. Half of what she sells as foraged comes from a grower in the valley. Vale had written asking where her ramps come from in November.",
+          admits:
+            "Nineteen minutes in the dry store, 20:38 to 20:57, peeling farm stickers off crates and writing 'wild' on them. Half of what she sells as foraged comes from a grower in the valley. Vale had written asking where her ramps come from in November.",
         },
       ],
       deflections: [
@@ -249,7 +356,8 @@ export const THE_FOURTH_COURSE: CaseFile = {
       short: "Gus",
       role: "Kitchen porter",
       monogram: "GP",
-      blurb: "Sixty-one. Six years at the dish pit. Nobody at Verjus has ever heard him raise his voice.",
+      blurb:
+        "Sixty-one. Six years at the dish pit. Nobody at Verjus has ever heard him raise his voice.",
       opening: "Come in, sir. Mind the floor, it's wet. It is always wet.",
       voice:
         "Gentle, unhurried, courteous. Calls the detective 'sir'. Speaks in plain sentences with the occasional piece of old-kitchen philosophy. Never angry, never hurried, a little sad. He deflects by being modest: he is only the porter, he only washes things.",
@@ -265,8 +373,20 @@ export const THE_FOURTH_COURSE: CaseFile = {
         "At lineup Chef told the brigade who was at table seven, and you initialled the lineup sheet.",
       ],
       sightings: [
-        { subject: "marit", place: "dry_store", from: t("20:38"), to: t("20:57"), note: "went into the dry store and stayed nearly twenty minutes" },
-        { subject: "tomas", place: "alley", from: t("20:58"), to: t("21:03"), note: "stepped out to the alley just before nine" },
+        {
+          subject: "marit",
+          place: "dry_store",
+          from: t("20:38"),
+          to: t("20:57"),
+          note: "went into the dry store and stayed nearly twenty minutes",
+        },
+        {
+          subject: "tomas",
+          place: "alley",
+          from: t("20:58"),
+          to: t("21:03"),
+          note: "stepped out to the alley just before nine",
+        },
       ],
       alibi: [{ place: "dish_pit", from: t("20:00"), to: t("21:40"), lie: "gus_pit" }],
       lies: [
@@ -276,19 +396,42 @@ export const THE_FOURTH_COURSE: CaseFile = {
           says: "From eight until they came running through with the news, I did not leave the dish pit. Ask the machine.",
           truth: "He was in the alley from 20:44 to 20:49 and at the pass at 20:51.",
           why: "Those seven minutes are the murder.",
-          asserts: [{ kind: "location", subject: "gus", place: "dish_pit", from: t("20:00"), to: t("21:34"), object: null, negated: false }],
+          asserts: [
+            {
+              kind: "location",
+              subject: "gus",
+              place: "dish_pit",
+              from: t("20:00"),
+              to: t("21:34"),
+              object: null,
+              negated: false,
+            },
+          ],
           breaksWith: ["machine_log", "bin_cage", "guest_video"],
-          admits: "He concedes only what the exhibit proves, and explains it innocently. Shown the machine log: he took the bins out at about quarter to nine for five minutes and left a rack against the cycle button so nobody would shout for plates; the bin cage's fob lock will show it. Shown the bin cage: scraps go in the food bin, that is what it is for. Shown the video: he walked the dish up himself because it was Chef's copper.",
+          admits:
+            "He concedes only what the exhibit proves, and explains it innocently. Shown the machine log: he took the bins out at about quarter to nine for five minutes and left a rack against the cycle button so nobody would shout for plates; the bin cage's fob lock will show it. Shown the bin cage: scraps go in the food bin, that is what it is for. Shown the video: he walked the dish up himself because it was Chef's copper.",
         },
         {
           id: "gus_stranger",
           topic: "whether he knew Vale",
           says: "Chef said a name at lineup. I don't hold on to names from the dining room. I never knew the man.",
-          truth: "Vale's review closed his restaurant in 2012 and he has kept the clipping ever since.",
+          truth:
+            "Vale's review closed his restaurant in 2012 and he has kept the clipping ever since.",
           why: "It is his motive.",
-          asserts: [{ kind: "relationship", subject: "gus", place: null, from: null, to: null, object: VICTIM_ID, negated: true }],
+          asserts: [
+            {
+              kind: "relationship",
+              subject: "gus",
+              place: null,
+              from: null,
+              to: null,
+              object: VICTIM_ID,
+              negated: true,
+            },
+          ],
           breaksWith: ["locker_clipping"],
-          admits: "Pereira's had fourteen tables and his wife did the flowers. Vale came once, on a Tuesday, in the rain, and needed four hundred words to close it. He has known the name for fifteen years. But knowing a name is not the same as doing a thing about it.",
+          admits:
+            "Pereira's had fourteen tables and his wife did the flowers. Vale came once, on a Tuesday, in the rain, and needed four hundred words to close it. He has known the name for fifteen years. But knowing a name is not the same as doing a thing about it.",
         },
         {
           id: "gus_dish_time",
@@ -296,9 +439,20 @@ export const THE_FOURTH_COURSE: CaseFile = {
           says: "I rinsed the dish, put back what was in it, and sent it straight up. Twenty to nine, no later.",
           truth: "He carried it back to the pass himself at 20:51, after his trip to the alley.",
           why: "If the dish was back by 20:40, the swap happened on the pass and has nothing to do with him.",
-          asserts: [{ kind: "timing", subject: "gus", place: null, from: t("20:40"), to: null, object: "dish_returned", negated: false }],
+          asserts: [
+            {
+              kind: "timing",
+              subject: "gus",
+              place: null,
+              from: t("20:40"),
+              to: null,
+              object: "dish_returned",
+              negated: false,
+            },
+          ],
           breaksWith: ["guest_video"],
-          admits: "Then he had the time wrong: in the pit the clock is whatever rack you are on. He walked the dish up himself because it was Chef's copper and he would not trust it to a bus tub twice.",
+          admits:
+            "Then he had the time wrong: in the pit the clock is whatever rack you are on. He walked the dish up himself because it was Chef's copper and he would not trust it to a bus tub twice.",
         },
       ],
       deflections: [
@@ -357,7 +511,11 @@ export const THE_FOURTH_COURSE: CaseFile = {
       { person: VICTIM_ID, place: "dining_room", from: t("20:05"), to: t("21:40") },
     ],
     relationships: [
-      { a: "odile", b: VICTIM_ID, note: "Cooked together in Lyon thirty years ago; he lent her the deposit for Verjus." },
+      {
+        a: "odile",
+        b: VICTIM_ID,
+        note: "Cooked together in Lyon thirty years ago; he lent her the deposit for Verjus.",
+      },
       { a: "priya", b: VICTIM_ID, note: "He judged her on The Final Plate three years ago." },
       { a: "gus", b: VICTIM_ID, note: "His 2011 review closed Pereira's." },
     ],
@@ -369,20 +527,75 @@ export const THE_FOURTH_COURSE: CaseFile = {
   },
 
   methods: [
-    { id: "root_on_turbot", label: "Monkshood root, grated over the turbot in place of horseradish", poison: "monkshood_root", vehicle: "turbot" },
-    { id: "root_in_consomme", label: "Monkshood root, steeped into the consommé", poison: "monkshood_root", vehicle: "consomme" },
-    { id: "tablets_in_sauce", label: "Heart tablets, crushed into the turbot's beurre blanc", poison: "heart_tablets", vehicle: "turbot" },
-    { id: "bait_in_butter", label: "Rodent bait from the dry store, worked into the butter", poison: "rodent_bait", vehicle: "butter" },
+    {
+      id: "root_on_turbot",
+      label: "Monkshood root, grated over the turbot in place of horseradish",
+      poison: "monkshood_root",
+      vehicle: "turbot",
+    },
+    {
+      id: "root_in_consomme",
+      label: "Monkshood root, steeped into the consommé",
+      poison: "monkshood_root",
+      vehicle: "consomme",
+    },
+    {
+      id: "tablets_in_sauce",
+      label: "Heart tablets, crushed into the turbot's beurre blanc",
+      poison: "heart_tablets",
+      vehicle: "turbot",
+    },
+    {
+      id: "bait_in_butter",
+      label: "Rodent bait from the dry store, worked into the butter",
+      poison: "rodent_bait",
+      vehicle: "butter",
+    },
   ],
 
   motives: [
-    { id: "odile_review", suspect: "odile", label: "To stop a review she feared would cost Verjus its star", revealedBy: [] },
-    { id: "odile_debt", suspect: "odile", label: "To be free of the money she owed him", revealedBy: ["phone_log"] },
-    { id: "tomas_takeover", suspect: "tomas", label: "To sink Verjus and walk its brigade into a rival kitchen", revealedBy: ["tomas_brasa", "priya_brasa"] },
-    { id: "priya_humiliation", suspect: "priya", label: "Payback for humiliating her on national television", revealedBy: ["notebook"] },
-    { id: "marit_fraud", suspect: "marit", label: "To stop him exposing her 'wild' produce as farmed", revealedBy: ["keypad_log"] },
-    { id: "gus_loyalty", suspect: "gus", label: "Misplaced loyalty: to protect Odile from a bad review", revealedBy: [] },
-    { id: "gus_revenge", suspect: "gus", label: "Revenge for the review that closed his own restaurant", revealedBy: ["locker_clipping"] },
+    {
+      id: "odile_review",
+      suspect: "odile",
+      label: "To stop a review she feared would cost Verjus its star",
+      revealedBy: [],
+    },
+    {
+      id: "odile_debt",
+      suspect: "odile",
+      label: "To be free of the money she owed him",
+      revealedBy: ["phone_log"],
+    },
+    {
+      id: "tomas_takeover",
+      suspect: "tomas",
+      label: "To sink Verjus and walk its brigade into a rival kitchen",
+      revealedBy: ["tomas_brasa", "priya_brasa"],
+    },
+    {
+      id: "priya_humiliation",
+      suspect: "priya",
+      label: "Payback for humiliating her on national television",
+      revealedBy: ["notebook"],
+    },
+    {
+      id: "marit_fraud",
+      suspect: "marit",
+      label: "To stop him exposing her 'wild' produce as farmed",
+      revealedBy: ["keypad_log"],
+    },
+    {
+      id: "gus_loyalty",
+      suspect: "gus",
+      label: "Misplaced loyalty: to protect Odile from a bad review",
+      revealedBy: [],
+    },
+    {
+      id: "gus_revenge",
+      suspect: "gus",
+      label: "Revenge for the review that closed his own restaurant",
+      revealedBy: ["locker_clipping"],
+    },
   ],
 
   evidence: [
@@ -441,7 +654,16 @@ export const THE_FOURTH_COURSE: CaseFile = {
       detail:
         "Two frames from the tablet above the pass. 20:38, table four's turbot: in the corner the copper dish holds a pale, knobbly root with a green crown. Horseradish. 20:56, table seven's consommé: the same dish in the same corner, but the root in it is dark, smooth, and tapered. Whatever was grated at 21:11 was already sitting on the pass by 20:56.",
       foundAt: "pass",
-      facts: [{ type: "window", step: "administer", item: "turbot", place: "pass", from: t("20:38"), to: t("20:56") }],
+      facts: [
+        {
+          type: "window",
+          step: "administer",
+          item: "turbot",
+          place: "pass",
+          from: t("20:38"),
+          to: t("20:56"),
+        },
+      ],
       unlock: { type: "lead", any: ["odile_photos"] },
     },
     {
@@ -451,7 +673,16 @@ export const THE_FOURTH_COURSE: CaseFile = {
       detail:
         "The planter nearest the bins. One monkshood plant is gone: a clean, flat-edged cut in the soil, the blue flowers dropped behind the planter. The linen driver's proof-of-delivery photograph, stamped 20:31, shows the planter full and undisturbed. The root was taken after 20:31 and before it was grated at 21:11.",
       foundAt: "alley",
-      facts: [{ type: "window", step: "acquire", item: "monkshood_root", place: "alley", from: t("20:31"), to: t("21:11") }],
+      facts: [
+        {
+          type: "window",
+          step: "acquire",
+          item: "monkshood_root",
+          place: "alley",
+          from: t("20:31"),
+          to: t("21:11"),
+        },
+      ],
       unlock: { type: "lead", any: ["marit_planter"] },
     },
     {
@@ -475,7 +706,9 @@ export const THE_FOURTH_COURSE: CaseFile = {
       detail:
         "The office landline: answered 20:41, hung up 20:53. The caller is Calloway & Finch, insolvency practitioners, who record their calls. Odile Renard's voice is on the recording for all twelve minutes. The office is up the back stairs; nobody takes that call from the pass.",
       foundAt: "office",
-      facts: [{ type: "presence", person: "odile", place: "office", from: t("20:41"), to: t("20:53") }],
+      facts: [
+        { type: "presence", person: "odile", place: "office", from: t("20:41"), to: t("20:53") },
+      ],
       unlock: { type: "lead", any: ["tomas_chef_left"] },
     },
     {
@@ -507,11 +740,14 @@ export const THE_FOURTH_COURSE: CaseFile = {
     {
       id: "bump_log",
       title: "Pass screen bump log",
-      summary: "Tomas cleared tickets without a break from 20:36 to 20:57. Then seven minutes of nothing.",
+      summary:
+        "Tomas cleared tickets without a break from 20:36 to 20:57. Then seven minutes of nothing.",
       detail:
         "Every ticket that leaves the pass is cleared ('bumped') on the pass screen with a personal PIN. Tomas Varga's PIN clears a ticket every minute or two from 20:36 to 20:57. From 20:57 to 21:04 the tickets are cleared with Odile Renard's PIN instead. Tomas's PIN returns at 21:04.",
       foundAt: "pass",
-      facts: [{ type: "presence", person: "tomas", place: "pass", from: t("20:36"), to: t("20:57") }],
+      facts: [
+        { type: "presence", person: "tomas", place: "pass", from: t("20:36"), to: t("20:57") },
+      ],
       unlock: { type: "lead", any: ["tomas_bumps"] },
     },
     {
@@ -527,11 +763,14 @@ export const THE_FOURTH_COURSE: CaseFile = {
     {
       id: "bin_cage",
       title: "Bin cage fob log",
-      summary: "The porter's fob opened the bin cage at 20:45. A horseradish root was in the food bin.",
+      summary:
+        "The porter's fob opened the bin cage at 20:45. A horseradish root was in the food bin.",
       detail:
         "The bin cage in the alley opens with a fob. The fob marked PORTER opened it at 20:45; it was locked again at 20:48. On top of the food-waste bin: a horseradish root, pale and knobbly, green crown still on, one side grated flat. It is the root from the 20:38 photograph.",
       foundAt: "alley",
-      facts: [{ type: "presence", person: "gus", place: "alley", from: t("20:45"), to: t("20:48") }],
+      facts: [
+        { type: "presence", person: "gus", place: "alley", from: t("20:45"), to: t("20:48") },
+      ],
       unlock: { type: "lead", any: ["gus_bins"] },
     },
     {
@@ -563,22 +802,114 @@ export const THE_FOURTH_COURSE: CaseFile = {
   ],
 
   leads: [
-    { id: "odile_flourish", suspect: "odile", requires: [], reveal: "Table seven's turbot got the VIP flourish: fresh root grated over the plate at the pass. The laboratory should start with what was grated onto that plate." },
-    { id: "odile_photos", suspect: "odile", requires: [], reveal: "A tablet above the pass photographs every VIP plate, and the copper dish is in the corner of every frame." },
-    { id: "tomas_flourish", suspect: "tomas", requires: [], reveal: "He grated the root over Vale's turbot himself and wants the shavings tested." },
-    { id: "tomas_chef_left", suspect: "tomas", requires: [], reveal: "Chef left the pass at about twenty to nine and was gone a good ten minutes." },
-    { id: "tomas_bumps", suspect: "tomas", requires: [], reveal: "The pass screen's bump log records whose PIN cleared every ticket." },
-    { id: "tomas_lineup", suspect: "tomas", requires: [], reveal: "Chef told the whole brigade at lineup that table seven was Augustin Vale, a friend of the house, and wrote it on the lineup sheet." },
-    { id: "tomas_brasa", suspect: "tomas", requires: ["bump_log"], reveal: "He has been offered the head chef job at Brasa by Dominic Achterberg and means to take cooks with him." },
-    { id: "priya_video", suspect: "priya", requires: [], reveal: "The family at table twelve filmed her through the pastry-station glass at about quarter to nine." },
-    { id: "priya_marit", suspect: "priya", requires: [], reveal: "Marit was missing from the cold station from about twenty to nine, and the dry-store keypad logs everyone who goes in." },
-    { id: "priya_lineup", suspect: "priya", requires: [], reveal: "Chef announced at lineup who was at table seven and wrote it on the lineup sheet by the office door." },
-    { id: "priya_brasa", suspect: "priya", requires: ["door_log"], reveal: "Tomas has been offered a kitchen of his own at Brasa and has asked her to come with him." },
-    { id: "marit_planter", suspect: "marit", requires: [], reveal: "The monkshood grows in the alley planter nearest the bins, and the linen driver photographs that wall at every drop." },
-    { id: "marit_locker", suspect: "marit", requires: [], reveal: "Gus keeps an old newspaper cutting taped inside his locker door and hides it when anyone passes." },
-    { id: "gus_machine", suspect: "gus", requires: [], reveal: "The dish machine keeps a log of every cycle." },
-    { id: "gus_marit", suspect: "gus", requires: [], reveal: "Marit went into the dry store a little before twenty to nine and stayed nearly twenty minutes." },
-    { id: "gus_bins", suspect: "gus", requires: ["machine_log"], reveal: "He took the bins out at about quarter to nine, and the bin cage's fob lock will show it." },
+    {
+      id: "odile_flourish",
+      suspect: "odile",
+      requires: [],
+      reveal:
+        "Table seven's turbot got the VIP flourish: fresh root grated over the plate at the pass. The laboratory should start with what was grated onto that plate.",
+    },
+    {
+      id: "odile_photos",
+      suspect: "odile",
+      requires: [],
+      reveal:
+        "A tablet above the pass photographs every VIP plate, and the copper dish is in the corner of every frame.",
+    },
+    {
+      id: "tomas_flourish",
+      suspect: "tomas",
+      requires: [],
+      reveal: "He grated the root over Vale's turbot himself and wants the shavings tested.",
+    },
+    {
+      id: "tomas_chef_left",
+      suspect: "tomas",
+      requires: [],
+      reveal: "Chef left the pass at about twenty to nine and was gone a good ten minutes.",
+    },
+    {
+      id: "tomas_bumps",
+      suspect: "tomas",
+      requires: [],
+      reveal: "The pass screen's bump log records whose PIN cleared every ticket.",
+    },
+    {
+      id: "tomas_lineup",
+      suspect: "tomas",
+      requires: [],
+      reveal:
+        "Chef told the whole brigade at lineup that table seven was Augustin Vale, a friend of the house, and wrote it on the lineup sheet.",
+    },
+    {
+      id: "tomas_brasa",
+      suspect: "tomas",
+      requires: ["bump_log"],
+      reveal:
+        "He has been offered the head chef job at Brasa by Dominic Achterberg and means to take cooks with him.",
+    },
+    {
+      id: "priya_video",
+      suspect: "priya",
+      requires: [],
+      reveal:
+        "The family at table twelve filmed her through the pastry-station glass at about quarter to nine.",
+    },
+    {
+      id: "priya_marit",
+      suspect: "priya",
+      requires: [],
+      reveal:
+        "Marit was missing from the cold station from about twenty to nine, and the dry-store keypad logs everyone who goes in.",
+    },
+    {
+      id: "priya_lineup",
+      suspect: "priya",
+      requires: [],
+      reveal:
+        "Chef announced at lineup who was at table seven and wrote it on the lineup sheet by the office door.",
+    },
+    {
+      id: "priya_brasa",
+      suspect: "priya",
+      requires: ["door_log"],
+      reveal:
+        "Tomas has been offered a kitchen of his own at Brasa and has asked her to come with him.",
+    },
+    {
+      id: "marit_planter",
+      suspect: "marit",
+      requires: [],
+      reveal:
+        "The monkshood grows in the alley planter nearest the bins, and the linen driver photographs that wall at every drop.",
+    },
+    {
+      id: "marit_locker",
+      suspect: "marit",
+      requires: [],
+      reveal:
+        "Gus keeps an old newspaper cutting taped inside his locker door and hides it when anyone passes.",
+    },
+    {
+      id: "gus_machine",
+      suspect: "gus",
+      requires: [],
+      reveal: "The dish machine keeps a log of every cycle.",
+    },
+    {
+      id: "gus_marit",
+      suspect: "gus",
+      requires: [],
+      reveal:
+        "Marit went into the dry store a little before twenty to nine and stayed nearly twenty minutes.",
+    },
+    {
+      id: "gus_bins",
+      suspect: "gus",
+      requires: ["machine_log"],
+      reveal:
+        "He took the bins out at about quarter to nine, and the bin cage's fob lock will show it.",
+    },
   ],
 
   solution: {
@@ -601,46 +932,211 @@ export const THE_FOURTH_COURSE: CaseFile = {
   },
 
   questions: [
-    { id: "odile-know-vale", suspect: "odile", text: "Did you know the man at table seven?", presents: [] },
-    { id: "odile-where", suspect: "odile", text: "Where were you between eight o'clock and the moment he collapsed?", presents: [] },
-    { id: "odile-flourish", suspect: "odile", text: "What was different about table seven's turbot?", presents: [] },
-    { id: "odile-photos", suspect: "odile", text: "Is there any record of what crossed the pass?", presents: [] },
-    { id: "odile-dish", suspect: "odile", text: "Who handled the copper dish that night?", presents: [] },
-    { id: "odile-brigade", suspect: "odile", text: "Who in your kitchen would want him dead?", presents: [] },
-    { id: "odile-show-phone-log", suspect: "odile", text: "The office line was in use from 20:41 to 20:53. You told me you never left the pass.", presents: ["phone_log"] },
-    { id: "odile-show-lineup", suspect: "odile", text: "This is your handwriting: 'Friend of the house.' You knew exactly who he was.", presents: ["lineup_sheet"] },
+    {
+      id: "odile-know-vale",
+      suspect: "odile",
+      text: "Did you know the man at table seven?",
+      presents: [],
+    },
+    {
+      id: "odile-where",
+      suspect: "odile",
+      text: "Where were you between eight o'clock and the moment he collapsed?",
+      presents: [],
+    },
+    {
+      id: "odile-flourish",
+      suspect: "odile",
+      text: "What was different about table seven's turbot?",
+      presents: [],
+    },
+    {
+      id: "odile-photos",
+      suspect: "odile",
+      text: "Is there any record of what crossed the pass?",
+      presents: [],
+    },
+    {
+      id: "odile-dish",
+      suspect: "odile",
+      text: "Who handled the copper dish that night?",
+      presents: [],
+    },
+    {
+      id: "odile-brigade",
+      suspect: "odile",
+      text: "Who in your kitchen would want him dead?",
+      presents: [],
+    },
+    {
+      id: "odile-show-phone-log",
+      suspect: "odile",
+      text: "The office line was in use from 20:41 to 20:53. You told me you never left the pass.",
+      presents: ["phone_log"],
+    },
+    {
+      id: "odile-show-lineup",
+      suspect: "odile",
+      text: "This is your handwriting: 'Friend of the house.' You knew exactly who he was.",
+      presents: ["lineup_sheet"],
+    },
 
-    { id: "tomas-grated", suspect: "tomas", text: "You plated the fourth course. Walk me through it.", presents: [] },
-    { id: "tomas-where", suspect: "tomas", text: "Did you leave the pass at any point during service?", presents: [] },
+    {
+      id: "tomas-grated",
+      suspect: "tomas",
+      text: "You plated the fourth course. Walk me through it.",
+      presents: [],
+    },
+    {
+      id: "tomas-where",
+      suspect: "tomas",
+      text: "Did you leave the pass at any point during service?",
+      presents: [],
+    },
     { id: "tomas-dish", suspect: "tomas", text: "Tell me about the copper dish.", presents: [] },
-    { id: "tomas-priya", suspect: "tomas", text: "What is there between Priya Nair and Augustin Vale?", presents: [] },
-    { id: "tomas-lineup", suspect: "tomas", text: "What did Chef tell the brigade about table seven?", presents: [] },
-    { id: "tomas-show-bump-log", suspect: "tomas", text: "Your PIN is on every ticket until 20:57. Then nothing for seven minutes.", presents: ["bump_log"] },
-    { id: "tomas-show-photos", suspect: "tomas", text: "Look at the copper dish in the 20:38 photograph. Now the one from 20:56.", presents: ["pass_photos"] },
+    {
+      id: "tomas-priya",
+      suspect: "tomas",
+      text: "What is there between Priya Nair and Augustin Vale?",
+      presents: [],
+    },
+    {
+      id: "tomas-lineup",
+      suspect: "tomas",
+      text: "What did Chef tell the brigade about table seven?",
+      presents: [],
+    },
+    {
+      id: "tomas-show-bump-log",
+      suspect: "tomas",
+      text: "Your PIN is on every ticket until 20:57. Then nothing for seven minutes.",
+      presents: ["bump_log"],
+    },
+    {
+      id: "tomas-show-photos",
+      suspect: "tomas",
+      text: "Look at the copper dish in the 20:38 photograph. Now the one from 20:56.",
+      presents: ["pass_photos"],
+    },
 
-    { id: "priya-know-vale", suspect: "priya", text: "Had you met Augustin Vale before Saturday?", presents: [] },
-    { id: "priya-where", suspect: "priya", text: "Where were you between half past eight and nine?", presents: [] },
-    { id: "priya-tomas", suspect: "priya", text: "Could Tomas have left the pass without you noticing?", presents: [] },
-    { id: "priya-dish", suspect: "priya", text: "Did you see anyone near the copper dish?", presents: [] },
-    { id: "priya-marit", suspect: "priya", text: "Was everyone at their station during the push?", presents: [] },
-    { id: "priya-lineup", suspect: "priya", text: "Did the kitchen know who was at table seven?", presents: [] },
-    { id: "priya-show-notebook", suspect: "priya", text: "His notebook says: 'Pastry is N., the girl from The Final Plate.'", presents: ["notebook"] },
-    { id: "priya-show-door-log", suspect: "priya", text: "The alley door opened at 20:58 and again at 21:03. You said Tomas never left the pass.", presents: ["door_log"] },
+    {
+      id: "priya-know-vale",
+      suspect: "priya",
+      text: "Had you met Augustin Vale before Saturday?",
+      presents: [],
+    },
+    {
+      id: "priya-where",
+      suspect: "priya",
+      text: "Where were you between half past eight and nine?",
+      presents: [],
+    },
+    {
+      id: "priya-tomas",
+      suspect: "priya",
+      text: "Could Tomas have left the pass without you noticing?",
+      presents: [],
+    },
+    {
+      id: "priya-dish",
+      suspect: "priya",
+      text: "Did you see anyone near the copper dish?",
+      presents: [],
+    },
+    {
+      id: "priya-marit",
+      suspect: "priya",
+      text: "Was everyone at their station during the push?",
+      presents: [],
+    },
+    {
+      id: "priya-lineup",
+      suspect: "priya",
+      text: "Did the kitchen know who was at table seven?",
+      presents: [],
+    },
+    {
+      id: "priya-show-notebook",
+      suspect: "priya",
+      text: "His notebook says: 'Pastry is N., the girl from The Final Plate.'",
+      presents: ["notebook"],
+    },
+    {
+      id: "priya-show-door-log",
+      suspect: "priya",
+      text: "The alley door opened at 20:58 and again at 21:03. You said Tomas never left the pass.",
+      presents: ["door_log"],
+    },
 
-    { id: "marit-monkshood", suspect: "marit", text: "The poison was aconite. You know plants. Where would it come from?", presents: [] },
+    {
+      id: "marit-monkshood",
+      suspect: "marit",
+      text: "The poison was aconite. You know plants. Where would it come from?",
+      presents: [],
+    },
     { id: "marit-where", suspect: "marit", text: "Where were you during service?", presents: [] },
-    { id: "marit-root", suspect: "marit", text: "Could someone mistake monkshood root for horseradish?", presents: [] },
+    {
+      id: "marit-root",
+      suspect: "marit",
+      text: "Could someone mistake monkshood root for horseradish?",
+      presents: [],
+    },
     { id: "marit-gus", suspect: "marit", text: "What do you make of Gus?", presents: [] },
-    { id: "marit-show-keypad", suspect: "marit", text: "Your code opened the dry store at 20:38. You came out at 20:57.", presents: ["keypad_log"] },
-    { id: "marit-show-planter", suspect: "marit", text: "One of your monkshood plants is gone. Root and all.", presents: ["planter"] },
+    {
+      id: "marit-show-keypad",
+      suspect: "marit",
+      text: "Your code opened the dry store at 20:38. You came out at 20:57.",
+      presents: ["keypad_log"],
+    },
+    {
+      id: "marit-show-planter",
+      suspect: "marit",
+      text: "One of your monkshood plants is gone. Root and all.",
+      presents: ["planter"],
+    },
 
     { id: "gus-where", suspect: "gus", text: "Where were you during service?", presents: [] },
-    { id: "gus-know-vale", suspect: "gus", text: "Did you know who was eating at table seven?", presents: [] },
-    { id: "gus-dish", suspect: "gus", text: "The copper dish came through your pit. When did it go back up?", presents: [] },
-    { id: "gus-others", suspect: "gus", text: "Did you see anyone leave their station?", presents: [] },
-    { id: "gus-show-machine-log", suspect: "gus", text: "Four cycles between 20:43 and 20:50, and the door never lifted between them.", presents: ["machine_log"] },
-    { id: "gus-show-video", suspect: "gus", text: "This video has you setting the dish on the pass at 20:51. You told me twenty to nine.", presents: ["guest_video"] },
-    { id: "gus-show-bin-cage", suspect: "gus", text: "Your fob opened the bin cage at 20:45. There was a half-grated horseradish root in the food bin.", presents: ["bin_cage"] },
-    { id: "gus-show-clipping", suspect: "gus", text: "This was taped inside your locker. His review of Pereira's.", presents: ["locker_clipping"] },
+    {
+      id: "gus-know-vale",
+      suspect: "gus",
+      text: "Did you know who was eating at table seven?",
+      presents: [],
+    },
+    {
+      id: "gus-dish",
+      suspect: "gus",
+      text: "The copper dish came through your pit. When did it go back up?",
+      presents: [],
+    },
+    {
+      id: "gus-others",
+      suspect: "gus",
+      text: "Did you see anyone leave their station?",
+      presents: [],
+    },
+    {
+      id: "gus-show-machine-log",
+      suspect: "gus",
+      text: "Four cycles between 20:43 and 20:50, and the door never lifted between them.",
+      presents: ["machine_log"],
+    },
+    {
+      id: "gus-show-video",
+      suspect: "gus",
+      text: "This video has you setting the dish on the pass at 20:51. You told me twenty to nine.",
+      presents: ["guest_video"],
+    },
+    {
+      id: "gus-show-bin-cage",
+      suspect: "gus",
+      text: "Your fob opened the bin cage at 20:45. There was a half-grated horseradish root in the food bin.",
+      presents: ["bin_cage"],
+    },
+    {
+      id: "gus-show-clipping",
+      suspect: "gus",
+      text: "This was taped inside your locker. His review of Pereira's.",
+      presents: ["locker_clipping"],
+    },
   ],
 };

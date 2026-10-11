@@ -57,11 +57,20 @@ export function caseIdFor(wire: CaseWire): string {
 export function judge(wire: CaseWire, n: number): { attempt: Attempt; kase: CaseFile | null } {
   const converted = fromWire(wire, caseIdFor(wire));
   if (!converted.kase) {
-    return { attempt: { n, ok: false, errors: converted.errors, checks: null, stats: null }, kase: null };
+    return {
+      attempt: { n, ok: false, errors: converted.errors, checks: null, stats: null },
+      kase: null,
+    };
   }
   const report = validateCase(converted.kase);
   return {
-    attempt: { n, ok: report.ok, errors: report.errors.map((e) => e.message), checks: report.checks, stats: report.stats },
+    attempt: {
+      n,
+      ok: report.ok,
+      errors: report.errors.map((e) => e.message),
+      checks: report.checks,
+      stats: report.stats,
+    },
     kase: report.ok ? converted.kase : null,
   };
 }
@@ -73,7 +82,10 @@ export async function generateCase(input: {
 }): Promise<LiveResult<GenerateData>> {
   const theme = input.theme.trim().slice(0, MAX_THEME_CHARS);
   let messages: Msg[] = [
-    { role: "user", content: theme ? `${untrusted("theme", theme)}\n\n${GENERATE_REQUEST}` : GENERATE_REQUEST },
+    {
+      role: "user",
+      content: theme ? `${untrusted("theme", theme)}\n\n${GENERATE_REQUEST}` : GENERATE_REQUEST,
+    },
   ];
   let usage = ZERO_USAGE;
   let costUsd = 0;
@@ -117,7 +129,8 @@ export async function generateCase(input: {
       attempt = judged.attempt;
       attempts.push(attempt);
       input.emit({ type: "validated", attempt });
-      if (judged.kase) return { data: { kase: judged.kase, drafts, attempts }, model, usage, costUsd };
+      if (judged.kase)
+        return { data: { kase: judged.kase, drafts, attempts }, model, usage, costUsd };
     } else {
       attempt = {
         n,

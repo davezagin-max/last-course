@@ -62,7 +62,8 @@ export type ExtractionWire = z.infer<ReturnType<typeof extractionSchema>>;
 /** The extractor's instructions. Stable per (case, suspect), so it can be cached. */
 export function extractionSystem(kase: Catalog, suspectId: string): string {
   const speaker = kase.suspects.find((s) => s.id === suspectId);
-  const table = (rows: [string, string][]) => rows.map(([id, label]) => `- ${id}: ${label}`).join("\n");
+  const table = (rows: [string, string][]) =>
+    rows.map(([id, label]) => `- ${id}: ${label}`).join("\n");
   const leads = kase.leads.filter((l) => l.suspect === suspectId);
   return [
     "You fill in a detective's notebook for a murder-mystery game. You are given one question and the witness's answer to it. Extract the checkable claims the witness makes in the answer, and nothing else.",
@@ -76,7 +77,7 @@ export function extractionSystem(kase: Catalog, suspectId: string): string {
       "- possession: someone had, or never had, an object. subject = who. object = the item id.",
       "- relationship: someone knew, or did not know, another person. subject = who. object = the other person's id.",
     ].join("\n"),
-    "Set negated to true for denials (\"I never left\", \"I didn't know him\", \"she wasn't there\"). Use \"none\" for a place or object that does not apply. quote = the exact words from the answer that make the claim, copied character for character, at most one sentence.",
+    'Set negated to true for denials ("I never left", "I didn\'t know him", "she wasn\'t there"). Use "none" for a place or object that does not apply. quote = the exact words from the answer that make the claim, copied character for character, at most one sentence.',
     "Only record what the witness states as fact. Skip opinions, guesses, questions, and anything the witness only attributes to the detective. Skip a claim if you cannot fill it in from the answer alone. At most 8 claims; fewer is normal, and zero is fine.",
     `## People\n${table([...kase.suspects.map((s): [string, string] => [s.id, `${s.name}, ${s.role.toLowerCase()}`]), [VICTIM_ID, `${kase.victim.name}, the victim`]])}`,
     `## Rooms\n${table(PLACES.map((p): [string, string] => [p, PLACE_NAMES[p]]))}`,
@@ -89,12 +90,7 @@ export function extractionSystem(kase: Catalog, suspectId: string): string {
 }
 
 const fold = (text: string) =>
-  text
-    .replace(/[‘’ʼ]/g, "'")
-    .replace(/[“”]/g, '"')
-    .replace(/\s+/g, " ")
-    .trim()
-    .toLowerCase();
+  text.replace(/[‘’ʼ]/g, "'").replace(/[“”]/g, '"').replace(/\s+/g, " ").trim().toLowerCase();
 
 /** Is `quote` really in `answer`? Ignores case, spacing, and curly quotes; allows a trailing full stop. */
 export function quoteAppears(quote: string, answer: string): boolean {
@@ -105,15 +101,22 @@ export function quoteAppears(quote: string, answer: string): boolean {
 type WireClaim = ExtractionWire["claims"][number];
 
 /** Why a single extracted claim is unusable, or null if it is fine. */
-function rejectClaim(kase: Catalog, suspectId: string, answer: string, claim: RecordedClaim): string | null {
+function rejectClaim(
+  kase: Catalog,
+  suspectId: string,
+  answer: string,
+  claim: RecordedClaim,
+): string | null {
   const people = new Set([...kase.suspects.map((s) => s.id), VICTIM_ID]);
   if (claim.speaker !== suspectId) return "wrong speaker";
   if (!people.has(claim.subject)) return "unknown subject";
   if (claim.place !== null && !isPlace(claim.place)) return "unknown place";
   for (const time of [claim.from, claim.to]) {
-    if (time !== null && (!Number.isInteger(time) || time < 0 || time >= 24 * 60)) return "time out of range";
+    if (time !== null && (!Number.isInteger(time) || time < 0 || time >= 24 * 60))
+      return "time out of range";
   }
-  if (claim.to !== null && (claim.from === null || claim.to <= claim.from)) return "span ends before it starts";
+  if (claim.to !== null && (claim.from === null || claim.to <= claim.from))
+    return "span ends before it starts";
   if (!claim.quote || claim.quote.length > MAX_QUOTE_CHARS) return "missing or overlong quote";
   if (!quoteAppears(claim.quote, answer)) return "quote is not in the answer";
   switch (claim.kind) {
@@ -135,13 +138,19 @@ function rejectClaim(kase: Catalog, suspectId: string, answer: string, claim: Re
 }
 
 /** Validates claims that are already in recorded form (used for fixtures and API responses). */
-export function claimProblems(kase: Catalog, suspectId: string, answer: string, claims: RecordedClaim[]): string[] {
+export function claimProblems(
+  kase: Catalog,
+  suspectId: string,
+  answer: string,
+  claims: RecordedClaim[],
+): string[] {
   const problems: string[] = [];
   claims.forEach((claim, index) => {
     const reason = rejectClaim(kase, suspectId, answer, claim);
     if (reason) problems.push(`claim ${index} (${claim.kind}): ${reason}`);
   });
-  if (claims.length > MAX_CLAIMS_PER_ANSWER) problems.push(`more than ${MAX_CLAIMS_PER_ANSWER} claims`);
+  if (claims.length > MAX_CLAIMS_PER_ANSWER)
+    problems.push(`more than ${MAX_CLAIMS_PER_ANSWER} claims`);
   return problems;
 }
 
@@ -202,12 +211,25 @@ export function normalizeExtraction(
       dropped += 1;
       continue;
     }
-    const key = JSON.stringify([claim.kind, claim.subject, claim.place, claim.from, claim.to, claim.object, claim.negated]);
+    const key = JSON.stringify([
+      claim.kind,
+      claim.subject,
+      claim.place,
+      claim.from,
+      claim.to,
+      claim.object,
+      claim.negated,
+    ]);
     if (seen.has(key)) continue;
     seen.add(key);
     if (claims.length < MAX_CLAIMS_PER_ANSWER) claims.push(claim);
     else dropped += 1;
   }
-  const leads = acceptLeads(kase.leads, suspectId, wire.leads.filter((id) => id !== NONE), shown);
+  const leads = acceptLeads(
+    kase.leads,
+    suspectId,
+    wire.leads.filter((id) => id !== NONE),
+    shown,
+  );
   return { claims, leads, dropped };
 }

@@ -29,7 +29,8 @@ const root = path.resolve(import.meta.dirname, "..");
 function walk(dir: string): string[] {
   return readdirSync(dir).flatMap((name) => {
     const full = path.join(dir, name);
-    if (statSync(full).isDirectory()) return name === "node_modules" || name.startsWith(".") ? [] : walk(full);
+    if (statSync(full).isDirectory())
+      return name === "node_modules" || name.startsWith(".") ? [] : walk(full);
     return /\.(ts|tsx)$/.test(name) ? [full] : [];
   });
 }
@@ -38,12 +39,17 @@ function walk(dir: string): string[] {
 function valueImports(file: string): string[] {
   const source = readFileSync(file, "utf8");
   const found: string[] = [];
-  for (const match of source.matchAll(/^import\s+(?!type\b)[^;]*?from\s+"([^"]+)";/gm)) found.push(match[1]);
+  for (const match of source.matchAll(/^import\s+(?!type\b)[^;]*?from\s+"([^"]+)";/gm))
+    found.push(match[1]);
   return found;
 }
 
 function resolve(from: string, spec: string): string | null {
-  const base = spec.startsWith("@/") ? path.join(root, spec.slice(2)) : spec.startsWith(".") ? path.resolve(path.dirname(from), spec) : null;
+  const base = spec.startsWith("@/")
+    ? path.join(root, spec.slice(2))
+    : spec.startsWith(".")
+      ? path.resolve(path.dirname(from), spec)
+      : null;
   if (!base) return null;
   for (const candidate of [base, `${base}.ts`, `${base}.tsx`, path.join(base, "index.ts")]) {
     try {
@@ -67,9 +73,10 @@ function reach(entry: string, seen = new Set<string>()): Set<string> {
 }
 
 describe("client/server boundary", () => {
-  const clientEntries = [...walk(path.join(root, "components")), ...walk(path.join(root, "app"))].filter((file) =>
-    /^\s*"use client";/.test(readFileSync(file, "utf8")),
-  );
+  const clientEntries = [
+    ...walk(path.join(root, "components")),
+    ...walk(path.join(root, "app")),
+  ].filter((file) => /^\s*"use client";/.test(readFileSync(file, "utf8")));
 
   it("finds the client entry points", () => {
     expect(clientEntries.map((f) => path.relative(root, f))).toContain("components/game/Game.tsx");

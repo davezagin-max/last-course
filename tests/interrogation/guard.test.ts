@@ -68,8 +68,13 @@ describe("output guard rules", () => {
   it("catches an outright confession, including one hidden after a denial", () => {
     expect(reasons("I poisoned him.")).toEqual(["confession"]);
     expect(reasons("It was me, sir.")).toEqual(["confession"]);
-    expect(reasons("I didn't mean for the boy to be blamed, but I killed him.")).toEqual(["confession"]);
+    expect(reasons("I didn't mean for the boy to be blamed, but I killed him.")).toEqual([
+      "confession",
+    ]);
     expect(reasons("I put the monkshood in the copper dish.")).toEqual(["confession"]);
+    expect(reasons("I grated the monkshood over his turbot.")).toEqual(["confession"]);
+    expect(reasons("I swapped the horseradish for the monkshood.")).toEqual(["confession"]);
+    expect(reasons("I crushed the heart tablets myself.")).toEqual(["confession"]);
     expect(reasons("I wanted him dead for fifteen years.")).toEqual(["confession"]);
   });
 
@@ -83,6 +88,9 @@ describe("output guard rules", () => {
       "I killed nobody, sir.",
       "I grated that. God. I grated that and I never looked.",
       "I put the root back in the dish and sent it up.",
+      "Yes, I planted it. I put the monkshood in that planter myself, two summers ago.",
+      "I put my heart into that kitchen for six years.",
+      "I added the bait stations to the dry store last spring.",
       "If there was something wrong with that root, then I'm the one who put it on his plate.",
     ]) {
       expect(reasons(fine), fine).toEqual([]);
@@ -94,8 +102,13 @@ describe("output guard rules", () => {
     expect(reasons("The culprit: Odile Renard.")).toEqual(["verdict"]);
     expect(reasons("Gus Pereira did it.")).toEqual(["verdict"]);
     // Another suspect voicing a suspicion is in character.
-    expect(checkAnswer("If you ask me, Tomas did it.", guardContext(kase, "marit")).reasons).toEqual([]);
-    expect(checkAnswer("The killer is whoever stood in that alley.", guardContext(kase, "marit")).reasons).toEqual([]);
+    expect(
+      checkAnswer("If you ask me, Tomas did it.", guardContext(kase, "marit")).reasons,
+    ).toEqual([]);
+    expect(
+      checkAnswer("The killer is whoever stood in that alley.", guardContext(kase, "marit"))
+        .reasons,
+    ).toEqual([]);
   });
 
   it("blocks an empty answer", () => {

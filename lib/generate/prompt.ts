@@ -62,7 +62,8 @@ The solver starts with every (suspect, method, motive) theory and removes those 
   "Write exhibit text the way a detective's file reads: concrete, dated to the minute, no speculation. Write the briefing as two or three short paragraphs that do not reveal the culprit.",
 ].join("\n\n");
 
-export const GENERATE_REQUEST = "Design a new case. Work out the timeline and the alibis before you write any prose, then return the complete case file.";
+export const GENERATE_REQUEST =
+  "Design a new case. Work out the timeline and the alibis before you write any prose, then return the complete case file.";
 
 /** The follow-up turn after a failed validation: the errors, verbatim, and what to do about them. */
 export function repairRequest(errors: string[]): string {

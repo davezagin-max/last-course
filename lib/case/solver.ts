@@ -21,14 +21,7 @@
  * survivor under all the evidence; the UI runs the same function on what the
  * player has found so far.
  */
-import {
-  earliest,
-  intersect,
-  latest,
-  normalize,
-  subtract,
-  type Span,
-} from "./time";
+import { earliest, intersect, latest, normalize, subtract, type Span } from "./time";
 import type { Fact, Method, Motive, PlaceId, Theory } from "./types";
 
 export interface SourcedFact {
@@ -139,13 +132,16 @@ function stepOpportunity(
  */
 function orderSteps(acquire: Opportunity, administer: Opportunity): void {
   const lastUse = latest(administer.open);
-  const before = lastUse === null ? [] : intersect(acquire.open, [{ from: -Infinity, to: lastUse }]);
-  if (measureChanged(acquire.open, before)) acquire.evidence = unique([...acquire.evidence, ...administer.evidence]);
+  const before =
+    lastUse === null ? [] : intersect(acquire.open, [{ from: -Infinity, to: lastUse }]);
+  if (measureChanged(acquire.open, before))
+    acquire.evidence = unique([...acquire.evidence, ...administer.evidence]);
   acquire.open = before;
   const firstTake = earliest(acquire.open);
   const after =
     firstTake === null ? [] : intersect(administer.open, [{ from: firstTake + 1, to: Infinity }]);
-  if (measureChanged(administer.open, after)) administer.evidence = unique([...administer.evidence, ...acquire.evidence]);
+  if (measureChanged(administer.open, after))
+    administer.evidence = unique([...administer.evidence, ...acquire.evidence]);
   administer.open = after;
 }
 
@@ -203,12 +199,22 @@ export function solve(candidates: Candidates, facts: SourcedFact[]): SolveResult
 
     for (const f of poisonFacts) {
       if (f.fact.type === "poison" && f.fact.item !== method.poison) {
-        return { theory, rule: "poison", evidence: [f.evidence], detail: { rule: "poison", item: f.fact.item } };
+        return {
+          theory,
+          rule: "poison",
+          evidence: [f.evidence],
+          detail: { rule: "poison", item: f.fact.item },
+        };
       }
     }
     for (const f of vehicleFacts) {
       if (f.fact.type === "vehicle" && f.fact.item !== method.vehicle) {
-        return { theory, rule: "vehicle", evidence: [f.evidence], detail: { rule: "vehicle", item: f.fact.item } };
+        return {
+          theory,
+          rule: "vehicle",
+          evidence: [f.evidence],
+          detail: { rule: "vehicle", item: f.fact.item },
+        };
       }
     }
     const against = refuted.get(theory.motive);
@@ -220,14 +226,24 @@ export function solve(candidates: Candidates, facts: SourcedFact[]): SolveResult
     const free: Record<Step, Span[]> = { acquire: acquire.open, administer: administer.open };
     for (const opportunity of [acquire, administer]) {
       if (!opportunity.known || opportunity.place === null) continue;
-      const { free: left, blockers } = availableTo(theory.culprit, opportunity.place, opportunity.open, facts);
+      const { free: left, blockers } = availableTo(
+        theory.culprit,
+        opportunity.place,
+        opportunity.open,
+        facts,
+      );
       free[opportunity.step] = left;
       if (left.length === 0) {
         return {
           theory,
           rule: opportunity.step,
           evidence: unique([...opportunity.evidence, ...blockers.map((b) => b.evidence)]),
-          detail: { rule: opportunity.step, place: opportunity.place, open: opportunity.open, blockers },
+          detail: {
+            rule: opportunity.step,
+            place: opportunity.place,
+            open: opportunity.open,
+            blockers,
+          },
         };
       }
     }

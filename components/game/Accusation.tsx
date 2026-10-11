@@ -39,7 +39,8 @@ function AccusationForm({ pub, state, theories, knownMotives, busy, error, onAcc
       <header>
         <h2 className="font-display text-2xl">Make your accusation</h2>
         <p className="text-muted">
-          Name who did it, how, and why. You get one accusation, and it is scored against the case file: 50 for the culprit, 20 for the method, 20 for the motive, 10 for casework.
+          Name who did it, how, and why. You get one accusation, and it is scored against the case
+          file: 50 for the culprit, 20 for the method, 20 for the motive, 10 for casework.
         </p>
       </header>
 
@@ -48,11 +49,13 @@ function AccusationForm({ pub, state, theories, knownMotives, busy, error, onAcc
         <p className="mt-1">
           <span className="font-display text-2xl">{theories.survivors.length}</span>{" "}
           <span className="text-muted">
-            of {theories.total} possible theories still fit the {state.found.length} of {pub.evidence.length} exhibits you have found.
+            of {theories.total} possible theories still fit the {state.found.length} of{" "}
+            {pub.evidence.length} exhibits you have found.
           </span>
         </p>
         <p className="mt-1 text-sm text-muted">
-          A theory is one suspect, one method, one motive. Each exhibit can rule theories out: an alibi for the right minutes, a lab result, a motive that falls apart.
+          A theory is one suspect, one method, one motive. Each exhibit can rule theories out: an
+          alibi for the right minutes, a lab result, a motive that falls apart.
           {theories.survivors.length === 1 && " You are down to one."}
         </p>
       </div>
@@ -64,7 +67,9 @@ function AccusationForm({ pub, state, theories, knownMotives, busy, error, onAcc
             <label
               key={s.id}
               className={`flex cursor-pointer items-center gap-3 rounded-md border px-3 py-2.5 has-focus-visible:outline-2 has-focus-visible:outline-accent ${
-                culprit === s.id ? "border-accent bg-accent-soft" : "border-border bg-raised hover:border-accent"
+                culprit === s.id
+                  ? "border-accent bg-accent-soft"
+                  : "border-border bg-raised hover:border-accent"
               }`}
             >
               <input
@@ -93,7 +98,12 @@ function AccusationForm({ pub, state, theories, knownMotives, busy, error, onAcc
       <fieldset className="flex flex-col gap-2">
         <legend className="label mb-2">How</legend>
         {pub.methods.map((m) => (
-          <Choice key={m.id} name="method" checked={method === m.id} onChange={() => setMethod(m.id)}>
+          <Choice
+            key={m.id}
+            name="method"
+            checked={method === m.id}
+            onChange={() => setMethod(m.id)}
+          >
             {m.label}
           </Choice>
         ))}
@@ -102,13 +112,20 @@ function AccusationForm({ pub, state, theories, knownMotives, busy, error, onAcc
       <fieldset className="flex flex-col gap-2">
         <legend className="label mb-2">Why</legend>
         {culprit === null ? (
-          <p className="text-sm text-muted">Choose a suspect to see the motives you have uncovered for them.</p>
+          <p className="text-sm text-muted">
+            Choose a suspect to see the motives you have uncovered for them.
+          </p>
         ) : (
           <>
             {motives
               .filter((m) => knownMotives.has(m.id))
               .map((m) => (
-                <Choice key={m.id} name="motive" checked={chosenMotive === m.id} onChange={() => setMotive(m.id)}>
+                <Choice
+                  key={m.id}
+                  name="motive"
+                  checked={chosenMotive === m.id}
+                  onChange={() => setMotive(m.id)}
+                >
                   {m.label}
                 </Choice>
               ))}
@@ -117,7 +134,9 @@ function AccusationForm({ pub, state, theories, knownMotives, busy, error, onAcc
             </Choice>
             {hidden > 0 && (
               <p className="text-sm text-muted">
-                {hidden} possible {hidden === 1 ? "motive" : "motives"} for this suspect {hidden === 1 ? "is" : "are"} still undiscovered. Motives come to light through evidence and questioning.
+                {hidden} possible {hidden === 1 ? "motive" : "motives"} for this suspect{" "}
+                {hidden === 1 ? "is" : "are"} still undiscovered. Motives come to light through
+                evidence and questioning.
               </p>
             )}
           </>
@@ -125,7 +144,10 @@ function AccusationForm({ pub, state, theories, knownMotives, busy, error, onAcc
       </fieldset>
 
       {error && (
-        <p role="alert" className="rounded-md border border-danger bg-danger-soft px-3 py-2 text-sm text-danger">
+        <p
+          role="alert"
+          className="rounded-md border border-danger bg-danger-soft px-3 py-2 text-sm text-danger"
+        >
           {error}
         </p>
       )}
@@ -144,14 +166,30 @@ function AccusationForm({ pub, state, theories, knownMotives, busy, error, onAcc
   );
 }
 
-function Choice({ name, checked, onChange, children }: { name: string; checked: boolean; onChange: () => void; children: React.ReactNode }) {
+function Choice({
+  name,
+  checked,
+  onChange,
+  children,
+}: {
+  name: string;
+  checked: boolean;
+  onChange: () => void;
+  children: React.ReactNode;
+}) {
   return (
     <label
       className={`flex cursor-pointer items-start gap-3 rounded-md border px-3 py-2.5 text-sm has-focus-visible:outline-2 has-focus-visible:outline-accent ${
         checked ? "border-accent bg-accent-soft" : "border-border bg-raised hover:border-accent"
       }`}
     >
-      <input type="radio" name={name} checked={checked} onChange={onChange} className="mt-0.5 size-4 accent-(--accent)" />
+      <input
+        type="radio"
+        name={name}
+        checked={checked}
+        onChange={onChange}
+        className="mt-0.5 size-4 accent-(--accent)"
+      />
       <span>{children}</span>
     </label>
   );
@@ -183,11 +221,14 @@ function RevealView({ pub, state, reveal, onRestart }: Props & { reveal: Reveal 
             const full = line.points === line.max;
             return (
               <li key={line.id} className="flex items-start gap-3 px-4 py-3">
-                <span className={`w-16 shrink-0 font-mono text-sm ${full ? "text-success" : line.points > 0 ? "text-fg" : "text-danger"}`}>
+                <span
+                  className={`w-16 shrink-0 font-mono text-sm ${full ? "text-success" : line.points > 0 ? "text-fg" : "text-danger"}`}
+                >
                   {line.points}/{line.max}
                 </span>
                 <span className="min-w-0">
-                  <span className="font-medium">{line.label}.</span> <span className="text-muted">{line.note}</span>
+                  <span className="font-medium">{line.label}.</span>{" "}
+                  <span className="text-muted">{line.note}</span>
                 </span>
               </li>
             );
@@ -212,19 +253,28 @@ function RevealView({ pub, state, reveal, onRestart }: Props & { reveal: Reveal 
         </ol>
         <blockquote className="mt-5 border-t border-border pt-4 font-display text-lg leading-relaxed">
           “{reveal.solution.confession}”
-          <footer className="mt-1 font-sans text-sm text-muted">{reveal.solution.culprit.name}, when the cuffs went on</footer>
+          <footer className="mt-1 font-sans text-sm text-muted">
+            {reveal.solution.culprit.name}, when the cuffs went on
+          </footer>
         </blockquote>
       </div>
 
       <div>
         <h3 className="label mb-1">Why it could not have been anyone else</h3>
-        <p className="mb-2 text-sm text-muted">These reasons are the solver&apos;s own: each is the evidence that eliminates that suspect.</p>
+        <p className="mb-2 text-sm text-muted">
+          These reasons are the solver&apos;s own: each is the evidence that eliminates that
+          suspect.
+        </p>
         <ul className="grid gap-2 sm:grid-cols-2">
           {reveal.cleared.map((c) => (
             <li key={c.suspect} className="rounded-md border border-border bg-surface px-3 py-2.5">
               <p className="font-medium">{c.name}</p>
               <p className="text-sm text-muted">{c.reason}</p>
-              {c.evidence.length > 0 && <p className="mt-1 text-xs text-muted">From: {c.evidence.map((e) => e.title).join(", ")}</p>}
+              {c.evidence.length > 0 && (
+                <p className="mt-1 text-xs text-muted">
+                  From: {c.evidence.map((e) => e.title).join(", ")}
+                </p>
+              )}
             </li>
           ))}
         </ul>
@@ -262,12 +312,17 @@ function RevealView({ pub, state, reveal, onRestart }: Props & { reveal: Reveal 
 
       {reveal.missed.length > 0 && (
         <p className="text-sm text-muted">
-          <span className="font-medium text-fg">Exhibits you never found:</span> {reveal.missed.map((m) => m.title).join(", ")}.
+          <span className="font-medium text-fg">Exhibits you never found:</span>{" "}
+          {reveal.missed.map((m) => m.title).join(", ")}.
         </p>
       )}
 
       <div className="flex flex-wrap items-center gap-3">
-        <button type="button" onClick={onRestart} className="rounded-md bg-accent px-5 py-2.5 font-medium text-accent-fg">
+        <button
+          type="button"
+          onClick={onRestart}
+          className="rounded-md bg-accent px-5 py-2.5 font-medium text-accent-fg"
+        >
           Play this case again
         </button>
         <span className="text-sm text-muted">

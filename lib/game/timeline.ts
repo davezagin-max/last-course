@@ -34,7 +34,10 @@ export interface TimelineRow {
 }
 
 /** Greedy interval packing: each bar takes the first sub-row where it does not overlap its neighbours. */
-export function packRows<T extends { span: Span; row: number; point?: boolean }>(bars: T[], pad = 2): number {
+export function packRows<T extends { span: Span; row: number; point?: boolean }>(
+  bars: T[],
+  pad = 2,
+): number {
   const ends: number[] = [];
   for (const bar of [...bars].sort((a, b) => a.span.from - b.span.from || b.span.to - a.span.to)) {
     let row = ends.findIndex((end) => end <= bar.span.from);
@@ -132,7 +135,12 @@ export function buildTimeline(
           label: `${fact.step === "acquire" ? "Poison could be taken" : "Dish could be tampered with"} · ${PLACE_SHORT[fact.place]}`,
         });
       } else if (fact.type === "empty") {
-        empties.push({ key: `${exhibit.id}:${i}`, place: fact.place, span: { from: fact.from, to: fact.to }, source: exhibit.title });
+        empties.push({
+          key: `${exhibit.id}:${i}`,
+          place: fact.place,
+          span: { from: fact.from, to: fact.to },
+          source: exhibit.title,
+        });
       }
     });
   }

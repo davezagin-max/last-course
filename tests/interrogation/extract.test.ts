@@ -36,7 +36,17 @@ describe("extraction schema (Haiku structured output)", () => {
 
   it("converts to a wire schema with no unsupported keywords", () => {
     const json = JSON.stringify(betaZodOutputFormat(schema).schema);
-    for (const banned of ['"minimum"', '"maximum"', '"minLength"', '"maxLength"', '"minItems"', '"maxItems"', '"anyOf"', '"$ref"', '"null"']) {
+    for (const banned of [
+      '"minimum"',
+      '"maximum"',
+      '"minLength"',
+      '"maxLength"',
+      '"minItems"',
+      '"maxItems"',
+      '"anyOf"',
+      '"$ref"',
+      '"null"',
+    ]) {
       expect(json, banned).not.toContain(banned);
     }
     expect(json).toContain('"additionalProperties":false');
@@ -45,8 +55,12 @@ describe("extraction schema (Haiku structured output)", () => {
   it("only offers ids from this case, and only this suspect's leads", () => {
     const ok = schema.safeParse({ claims: [wire({})], leads: ["tomas_bumps", "none"] });
     expect(ok.success).toBe(true);
-    expect(schema.safeParse({ claims: [wire({ subject: "the_butler" })], leads: [] }).success).toBe(false);
-    expect(schema.safeParse({ claims: [wire({ place: "cellar" })], leads: [] }).success).toBe(false);
+    expect(schema.safeParse({ claims: [wire({ subject: "the_butler" })], leads: [] }).success).toBe(
+      false,
+    );
+    expect(schema.safeParse({ claims: [wire({ place: "cellar" })], leads: [] }).success).toBe(
+      false,
+    );
     expect(schema.safeParse({ claims: [], leads: ["gus_bins"] }).success).toBe(false);
   });
 
@@ -66,7 +80,17 @@ describe("normalizeExtraction: nothing the model returns is trusted", () => {
   it("converts clock strings to minutes and sentinels to nulls", () => {
     const { claims } = run([wire({})]);
     expect(claims).toEqual([
-      { speaker: "tomas", subject: "tomas", kind: "location", place: "pass", from: t("20:00"), to: t("21:16"), object: null, negated: false, quote: "I was on the pass" },
+      {
+        speaker: "tomas",
+        subject: "tomas",
+        kind: "location",
+        place: "pass",
+        from: t("20:00"),
+        to: t("21:16"),
+        object: null,
+        negated: false,
+        quote: "I was on the pass",
+      },
     ]);
   });
 
@@ -79,34 +103,106 @@ describe("normalizeExtraction: nothing the model returns is trusted", () => {
   it("drops unreadable times, impossible times, and a span that runs backwards becomes a moment", () => {
     expect(run([wire({ from: "quarter to nine" })]).claims).toEqual([]);
     expect(run([wire({ from: "25:00" })]).claims).toEqual([]);
-    expect(run([wire({ from: "21:00", to: "20:00" })]).claims[0]).toMatchObject({ from: t("21:00"), to: null });
-    expect(run([wire({ from: "", to: "21:00" })]).claims[0]).toMatchObject({ from: null, to: null });
+    expect(run([wire({ from: "21:00", to: "20:00" })]).claims[0]).toMatchObject({
+      from: t("21:00"),
+      to: null,
+    });
+    expect(run([wire({ from: "", to: "21:00" })]).claims[0]).toMatchObject({
+      from: null,
+      to: null,
+    });
   });
 
   it("enforces what each kind needs", () => {
     expect(run([wire({ place: "none" })]).claims).toEqual([]);
-    expect(run([wire({ kind: "timing", object: "copper_dish", from: "20:50", to: "", quote: "about ten to nine" })]).claims).toEqual([]);
-    expect(run([wire({ kind: "timing", object: "dish_returned", from: "", to: "", quote: "about ten to nine" })]).claims).toEqual([]);
-    expect(run([wire({ kind: "possession", subject: "gus", object: "dish_returned", place: "none", from: "", to: "", quote: "Gus walked the dish back" })]).claims).toEqual([]);
-    expect(run([wire({ kind: "relationship", subject: "tomas", object: "tomas", place: "none", from: "", to: "", quote: "never met the man" })]).claims).toEqual([]);
+    expect(
+      run([
+        wire({
+          kind: "timing",
+          object: "copper_dish",
+          from: "20:50",
+          to: "",
+          quote: "about ten to nine",
+        }),
+      ]).claims,
+    ).toEqual([]);
+    expect(
+      run([
+        wire({
+          kind: "timing",
+          object: "dish_returned",
+          from: "",
+          to: "",
+          quote: "about ten to nine",
+        }),
+      ]).claims,
+    ).toEqual([]);
+    expect(
+      run([
+        wire({
+          kind: "possession",
+          subject: "gus",
+          object: "dish_returned",
+          place: "none",
+          from: "",
+          to: "",
+          quote: "Gus walked the dish back",
+        }),
+      ]).claims,
+    ).toEqual([]);
+    expect(
+      run([
+        wire({
+          kind: "relationship",
+          subject: "tomas",
+          object: "tomas",
+          place: "none",
+          from: "",
+          to: "",
+          quote: "never met the man",
+        }),
+      ]).claims,
+    ).toEqual([]);
   });
 
   it("repairs two easy slips: a self-sighting and a timing with the wrong subject", () => {
     expect(run([wire({ kind: "sighting" })]).claims[0].kind).toBe("location");
-    const timing = run([wire({ kind: "timing", subject: "gus", object: "dish_returned", place: "none", from: "20:50", to: "", quote: "Gus walked the dish back about ten to nine" })]).claims[0];
-    expect(timing).toMatchObject({ kind: "timing", subject: "tomas", object: "dish_returned", from: t("20:50") });
+    const timing = run([
+      wire({
+        kind: "timing",
+        subject: "gus",
+        object: "dish_returned",
+        place: "none",
+        from: "20:50",
+        to: "",
+        quote: "Gus walked the dish back about ten to nine",
+      }),
+    ]).claims[0];
+    expect(timing).toMatchObject({
+      kind: "timing",
+      subject: "tomas",
+      object: "dish_returned",
+      from: t("20:50"),
+    });
   });
 
   it("removes duplicates and caps the list at eight", () => {
-    expect(run([wire({}), wire({}), wire({ quote: "Eight o'clock to the moment that plate went out" })]).claims).toHaveLength(1);
-    const many = Array.from({ length: 12 }, (_, i) => wire({ from: `20:${String(i).padStart(2, "0")}`, to: "" }));
+    expect(
+      run([wire({}), wire({}), wire({ quote: "Eight o'clock to the moment that plate went out" })])
+        .claims,
+    ).toHaveLength(1);
+    const many = Array.from({ length: 12 }, (_, i) =>
+      wire({ from: `20:${String(i).padStart(2, "0")}`, to: "" }),
+    );
     const result = run(many);
     expect(result.claims).toHaveLength(8);
     expect(result.dropped).toBe(4);
   });
 
   it("accepts only this suspect's leads, and held-back leads only once the exhibit was shown", () => {
-    expect(run([], ["tomas_bumps", "tomas_bumps", "none", "gus_bins", "invented"]).leads).toEqual(["tomas_bumps"]);
+    expect(run([], ["tomas_bumps", "tomas_bumps", "none", "gus_bins", "invented"]).leads).toEqual([
+      "tomas_bumps",
+    ]);
     expect(run([], ["tomas_brasa"]).leads).toEqual([]);
     expect(run([], ["tomas_brasa"], ["bump_log"]).leads).toEqual(["tomas_brasa"]);
   });
@@ -125,8 +221,14 @@ describe("claimProblems (the check recorded claims and fixtures go through)", ()
   it("accepts a good claim and names what is wrong with a bad one", () => {
     const good = run([wire({})]).claims;
     expect(claimProblems(kase, "tomas", ANSWER, good)).toEqual([]);
-    expect(claimProblems(kase, "tomas", ANSWER, [{ ...good[0], quote: "not there" }])).toEqual(["claim 0 (location): quote is not in the answer"]);
-    expect(claimProblems(kase, "tomas", ANSWER, [{ ...good[0], speaker: "gus" }])).toEqual(["claim 0 (location): wrong speaker"]);
-    expect(claimProblems(kase, "tomas", ANSWER, [{ ...good[0], from: t("21:16"), to: t("20:00") }])).toEqual(["claim 0 (location): span ends before it starts"]);
+    expect(claimProblems(kase, "tomas", ANSWER, [{ ...good[0], quote: "not there" }])).toEqual([
+      "claim 0 (location): quote is not in the answer",
+    ]);
+    expect(claimProblems(kase, "tomas", ANSWER, [{ ...good[0], speaker: "gus" }])).toEqual([
+      "claim 0 (location): wrong speaker",
+    ]);
+    expect(
+      claimProblems(kase, "tomas", ANSWER, [{ ...good[0], from: t("21:16"), to: t("20:00") }]),
+    ).toEqual(["claim 0 (location): span ends before it starts"]);
   });
 });

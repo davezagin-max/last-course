@@ -92,7 +92,9 @@ export type GameAction =
 /** Evidence a suspect has been shown, in order. A blocked exchange does not count. */
 export function shownTo(state: GameState, suspect: string): string[] {
   return [
-    ...new Set(state.turns.filter((t) => t.suspect === suspect && !t.blocked).flatMap((t) => t.presents)),
+    ...new Set(
+      state.turns.filter((t) => t.suspect === suspect && !t.blocked).flatMap((t) => t.presents),
+    ),
   ];
 }
 
@@ -108,7 +110,9 @@ export function liveHistory(state: GameState, suspect: string): TurnRecord[] {
 export function reduce(pub: PublicCase, state: GameState, action: GameAction): GameState {
   switch (action.type) {
     case "select":
-      return pub.suspects.some((s) => s.id === action.suspect) ? { ...state, suspect: action.suspect } : state;
+      return pub.suspects.some((s) => s.id === action.suspect)
+        ? { ...state, suspect: action.suspect }
+        : state;
 
     case "answered": {
       const { suspect, data } = action;
@@ -125,7 +129,12 @@ export function reduce(pub: PublicCase, state: GameState, action: GameAction): G
       const claims = withIds(suspect, mine.length, data.claims);
       const record: TurnRecord | null =
         !data.blocked && data.seal && action.meta?.mode === "live"
-          ? { question: action.question, evidenceIds: action.presents, assistantContent: data.assistantContent, seal: data.seal }
+          ? {
+              question: action.question,
+              evidenceIds: action.presents,
+              assistantContent: data.assistantContent,
+              seal: data.seal,
+            }
           : null;
 
       // If the server could not verify the earlier turns it answered without them;
@@ -144,7 +153,11 @@ export function reduce(pub: PublicCase, state: GameState, action: GameAction): G
         record,
         claimIds: claims.map((c) => c.id),
         unlocked,
-        note: data.historyReset ? "history_reset" : data.extractionFailed ? "extraction_failed" : null,
+        note: data.historyReset
+          ? "history_reset"
+          : data.extractionFailed
+            ? "extraction_failed"
+            : null,
         meta: action.meta,
       };
       return {
@@ -189,14 +202,21 @@ export function contradictionsIn(pub: PublicCase, state: GameState): Contradicti
 /** How many theories the evidence found so far still allows. */
 export function theoriesLeft(pub: PublicCase, state: GameState): SolveResult {
   return solve(
-    { suspects: pub.suspects.map((s) => s.id), methods: pub.methods, motives: pub.motives, window: pub.window },
+    {
+      suspects: pub.suspects.map((s) => s.id),
+      methods: pub.methods,
+      motives: pub.motives,
+      window: pub.window,
+    },
     sourcedFacts(foundEvidence(pub, state)),
   );
 }
 
 /** Motives the player has uncovered and may name in an accusation. */
 export function knownMotives(pub: PublicCase, state: GameState): Set<string> {
-  return new Set(pub.motives.filter((m) => motiveRevealed(m, state.found, state.leads)).map((m) => m.id));
+  return new Set(
+    pub.motives.filter((m) => motiveRevealed(m, state.found, state.leads)).map((m) => m.id),
+  );
 }
 
 /** Suggested questions for a suspect, with what the player can and has done with each. */

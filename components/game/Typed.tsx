@@ -23,7 +23,8 @@ export function Typed({ text, animate }: { text: string; animate: boolean }) {
     return () => window.clearInterval(timer);
   }, [animate, text]);
 
-  if (shown >= text.length) return <>{text}</>;
+  // If the animation is switched off part-way (a newer answer arrived), show the whole text.
+  if (!animate || shown >= text.length) return <>{text}</>;
   return (
     <span className="relative block">
       <span className="sr-only">{text}</span>

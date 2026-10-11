@@ -12,7 +12,10 @@ import { toPublicCase } from "@/lib/case/public";
 export default function Home() {
   const publicCase = toPublicCase(THE_FOURTH_COURSE);
   // The banner says "sample output" for as long as any fixture is hand-written.
-  const placeholder = [...Object.values(interrogateFixtures), ...Object.values(generateFixtures)].some((f) => f.placeholder);
+  const placeholder = [
+    ...Object.values(interrogateFixtures),
+    ...Object.values(generateFixtures),
+  ].some((f) => f.placeholder);
 
   return (
     <>

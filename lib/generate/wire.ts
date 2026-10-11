@@ -95,13 +95,32 @@ export const CaseWireSchema = z.object({
       deflections: z.array(z.string()),
     }),
   ),
-  movements: z.array(z.object({ person: z.string(), place: place(), from: z.string(), to: z.string() })),
-  relationships: z.array(z.object({ a: z.string(), b: z.string(), note: z.string() })),
-  possessions: z.array(z.object({ person: z.string(), item: z.string(), from: z.string(), to: z.string() })),
-  sightings: z.array(
-    z.object({ observer: z.string(), subject: z.string(), place: place(), from: z.string(), to: z.string(), note: z.string() }),
+  movements: z.array(
+    z.object({ person: z.string(), place: place(), from: z.string(), to: z.string() }),
   ),
-  alibis: z.array(z.object({ suspect: z.string(), place: place(), from: z.string(), to: z.string(), lie: z.string() })),
+  relationships: z.array(z.object({ a: z.string(), b: z.string(), note: z.string() })),
+  possessions: z.array(
+    z.object({ person: z.string(), item: z.string(), from: z.string(), to: z.string() }),
+  ),
+  sightings: z.array(
+    z.object({
+      observer: z.string(),
+      subject: z.string(),
+      place: place(),
+      from: z.string(),
+      to: z.string(),
+      note: z.string(),
+    }),
+  ),
+  alibis: z.array(
+    z.object({
+      suspect: z.string(),
+      place: place(),
+      from: z.string(),
+      to: z.string(),
+      lie: z.string(),
+    }),
+  ),
   lies: z.array(
     z.object({
       id: z.string(),
@@ -115,10 +134,21 @@ export const CaseWireSchema = z.object({
       asserts: z.array(AssertionWire),
     }),
   ),
-  items: z.array(z.object({ id: z.string(), name: z.string(), kind: z.enum(["poison", "vehicle", "object"]) })),
+  items: z.array(
+    z.object({ id: z.string(), name: z.string(), kind: z.enum(["poison", "vehicle", "object"]) }),
+  ),
   events: z.array(z.object({ id: z.string(), label: z.string(), at: z.string() })),
-  methods: z.array(z.object({ id: z.string(), label: z.string(), poison: z.string(), vehicle: z.string() })),
-  motives: z.array(z.object({ id: z.string(), suspect: z.string(), label: z.string(), revealedBy: z.array(z.string()) })),
+  methods: z.array(
+    z.object({ id: z.string(), label: z.string(), poison: z.string(), vehicle: z.string() }),
+  ),
+  motives: z.array(
+    z.object({
+      id: z.string(),
+      suspect: z.string(),
+      label: z.string(),
+      revealedBy: z.array(z.string()),
+    }),
+  ),
   evidence: z.array(
     z.object({
       id: z.string(),
@@ -132,7 +162,14 @@ export const CaseWireSchema = z.object({
       facts: z.array(FactWire),
     }),
   ),
-  leads: z.array(z.object({ id: z.string(), suspect: z.string(), reveal: z.string(), requires: z.array(z.string()) })),
+  leads: z.array(
+    z.object({
+      id: z.string(),
+      suspect: z.string(),
+      reveal: z.string(),
+      requires: z.array(z.string()),
+    }),
+  ),
   solution: z.object({
     culprit: z.string(),
     method: z.string(),
@@ -172,7 +209,8 @@ export function fromWire(wire: CaseWire, id: string): Converted {
     if (minute === null) bad(`${what}: "${text}" is not a 24-hour HH:MM time`);
     return minute ?? 0;
   };
-  const optionalClock = (text: string, what: string): number | null => (text.trim() ? clock(text, what) : null);
+  const optionalClock = (text: string, what: string): number | null =>
+    text.trim() ? clock(text, what) : null;
   const optionalPlace = (value: string): PlaceId | null => (isPlace(value) ? value : null);
   const text = (value: string, what: string, max = LIMITS.text): string => {
     const trimmed = value.trim();
@@ -186,7 +224,9 @@ export function fromWire(wire: CaseWire, id: string): Converted {
   };
 
   if (wire.evidence.length < LIMITS.evidence.min || wire.evidence.length > LIMITS.evidence.max) {
-    bad(`a case needs between ${LIMITS.evidence.min} and ${LIMITS.evidence.max} exhibits; this one has ${wire.evidence.length}`);
+    bad(
+      `a case needs between ${LIMITS.evidence.min} and ${LIMITS.evidence.max} exhibits; this one has ${wire.evidence.length}`,
+    );
   }
 
   const toFact = (f: CaseWire["evidence"][number]["facts"][number], what: string): Fact | null => {
@@ -210,11 +250,25 @@ export function fromWire(wire: CaseWire, id: string): Converted {
           bad(`${what}: a window fact needs step "acquire" or "administer"`);
           return null;
         }
-        return { type: "window", step: f.step, item: f.item, place: room(), from: from(), to: to() };
+        return {
+          type: "window",
+          step: f.step,
+          item: f.item,
+          place: room(),
+          from: from(),
+          to: to(),
+        };
       case "motive":
         return { type: "motive", motive: f.motive, holds: f.holds };
       case "possession":
-        return { type: "possession", person: f.person, item: f.item, from: from(), to: to(), holds: f.holds };
+        return {
+          type: "possession",
+          person: f.person,
+          item: f.item,
+          from: from(),
+          to: to(),
+          holds: f.holds,
+        };
       case "relationship":
         return { type: "relationship", a: f.person, b: f.other, holds: f.holds };
       case "timing":
@@ -222,7 +276,10 @@ export function fromWire(wire: CaseWire, id: string): Converted {
     }
   };
 
-  const toAssertion = (a: CaseWire["lies"][number]["asserts"][number], what: string): ClaimPattern => ({
+  const toAssertion = (
+    a: CaseWire["lies"][number]["asserts"][number],
+    what: string,
+  ): ClaimPattern => ({
     kind: a.kind,
     subject: a.subject,
     place: optionalPlace(a.place),
@@ -242,7 +299,9 @@ export function fromWire(wire: CaseWire, id: string): Converted {
       why: text(l.why, `lie ${l.id}'s reason`),
       admits: text(l.admits, `lie ${l.id}'s admission`),
       breaksWith: list(l.breaksWith, `lie ${l.id}'s breaksWith`),
-      asserts: list(l.asserts, `lie ${l.id}'s assertions`, 4).map((a) => toAssertion(a, `lie ${l.id}`)),
+      asserts: list(l.asserts, `lie ${l.id}'s assertions`, 4).map((a) =>
+        toAssertion(a, `lie ${l.id}`),
+      ),
     }));
     const alibi: AlibiSegment[] = wire.alibis.filter(mine).map((a) => ({
       place: a.place,
@@ -271,7 +330,9 @@ export function fromWire(wire: CaseWire, id: string): Converted {
       opening: text(s.opening, `suspect ${s.id}'s opening line`, LIMITS.short * 2),
       voice: text(s.voice, `suspect ${s.id}'s voice`),
       secret: text(s.secret, `suspect ${s.id}'s secret`),
-      knows: list(s.knows, `suspect ${s.id}'s knowledge`).map((k, i) => text(k, `suspect ${s.id}'s knowledge ${i + 1}`)),
+      knows: list(s.knows, `suspect ${s.id}'s knowledge`).map((k, i) =>
+        text(k, `suspect ${s.id}'s knowledge ${i + 1}`),
+      ),
       sightings,
       alibi,
       lies,
@@ -287,7 +348,8 @@ export function fromWire(wire: CaseWire, id: string): Converted {
     ["alibi", wire.alibis.map((a) => a.suspect)],
     ["sighting", wire.sightings.map((s) => s.observer)],
   ] as const) {
-    for (const owner of owners) if (!known.has(owner)) bad(`a ${what} belongs to unknown suspect "${owner}"`);
+    for (const owner of owners)
+      if (!known.has(owner)) bad(`a ${what} belongs to unknown suspect "${owner}"`);
   }
 
   const evidence: Evidence[] = list(wire.evidence, "evidence", LIMITS.evidence.max).map((e) => {
@@ -300,7 +362,9 @@ export function fromWire(wire: CaseWire, id: string): Converted {
     else if (e.unlockLeads.length > 0) unlock = { type: "lead", any: e.unlockLeads };
     else if (e.unlockEvidence.length > 0) unlock = { type: "evidence", all: e.unlockEvidence };
     else {
-      bad(`evidence ${e.id} has no way to be found: set startsFound, unlockLeads, or unlockEvidence`);
+      bad(
+        `evidence ${e.id} has no way to be found: set startsFound, unlockLeads, or unlockEvidence`,
+      );
       unlock = { type: "start" };
     }
     return {
@@ -320,7 +384,9 @@ export function fromWire(wire: CaseWire, id: string): Converted {
     restaurant: text(wire.restaurant, "the restaurant", LIMITS.short),
     tagline: text(wire.tagline, "the tagline", LIMITS.short * 2),
     date: text(wire.date, "the date", LIMITS.short),
-    briefing: list(wire.briefing, "the briefing", 4).map((p, i) => text(p, `briefing paragraph ${i + 1}`)),
+    briefing: list(wire.briefing, "the briefing", 4).map((p, i) =>
+      text(p, `briefing paragraph ${i + 1}`),
+    ),
     window: { from: clock(wire.windowFrom, "windowFrom"), to: clock(wire.windowTo, "windowTo") },
     victim: {
       id: VICTIM_ID,
@@ -329,7 +395,11 @@ export function fromWire(wire: CaseWire, id: string): Converted {
       blurb: text(wire.victim.blurb, "the victim's blurb", LIMITS.short * 2),
     },
     suspects,
-    items: list(wire.items, "items").map((i) => ({ id: i.id, name: text(i.name, `item ${i.id}'s name`, LIMITS.short), kind: i.kind })),
+    items: list(wire.items, "items").map((i) => ({
+      id: i.id,
+      name: text(i.name, `item ${i.id}'s name`, LIMITS.short),
+      kind: i.kind,
+    })),
     events: list(wire.events, "events").map((e) => ({
       id: e.id,
       label: text(e.label, `event ${e.id}'s label`, LIMITS.short),
@@ -342,7 +412,11 @@ export function fromWire(wire: CaseWire, id: string): Converted {
         from: clock(m.from, `${m.person}'s movement`),
         to: clock(m.to, `${m.person}'s movement`),
       })),
-      relationships: list(wire.relationships, "relationships").map((r) => ({ a: r.a, b: r.b, note: text(r.note, "a relationship note") })),
+      relationships: list(wire.relationships, "relationships").map((r) => ({
+        a: r.a,
+        b: r.b,
+        note: text(r.note, "a relationship note"),
+      })),
       possessions: list(wire.possessions, "possessions").map((p) => ({
         person: p.person,
         item: p.item,
@@ -350,17 +424,34 @@ export function fromWire(wire: CaseWire, id: string): Converted {
         to: clock(p.to, `${p.person}'s possession`),
       })),
     },
-    methods: list(wire.methods, "methods", 6).map((m) => ({ ...m, label: text(m.label, `method ${m.id}'s label`, LIMITS.short * 2) })),
-    motives: list(wire.motives, "motives").map((m) => ({ ...m, label: text(m.label, `motive ${m.id}'s label`, LIMITS.short * 2) })),
+    methods: list(wire.methods, "methods", 6).map((m) => ({
+      ...m,
+      label: text(m.label, `method ${m.id}'s label`, LIMITS.short * 2),
+    })),
+    motives: list(wire.motives, "motives").map((m) => ({
+      ...m,
+      label: text(m.label, `motive ${m.id}'s label`, LIMITS.short * 2),
+    })),
     evidence,
-    leads: list(wire.leads, "leads", 24).map((l) => ({ ...l, reveal: text(l.reveal, `lead ${l.id}'s reveal`) })),
+    leads: list(wire.leads, "leads", 24).map((l) => ({
+      ...l,
+      reveal: text(l.reveal, `lead ${l.id}'s reveal`),
+    })),
     solution: {
       culprit: wire.solution.culprit,
       method: wire.solution.method,
       motive: wire.solution.motive,
-      acquire: { place: wire.solution.acquirePlace, at: clock(wire.solution.acquireAt, "the solution's acquireAt") },
-      administer: { place: wire.solution.administerPlace, at: clock(wire.solution.administerAt, "the solution's administerAt") },
-      narrative: list(wire.solution.narrative, "the solution's narrative", 10).map((n, i) => text(n, `narrative step ${i + 1}`)),
+      acquire: {
+        place: wire.solution.acquirePlace,
+        at: clock(wire.solution.acquireAt, "the solution's acquireAt"),
+      },
+      administer: {
+        place: wire.solution.administerPlace,
+        at: clock(wire.solution.administerAt, "the solution's administerAt"),
+      },
+      narrative: list(wire.solution.narrative, "the solution's narrative", 10).map((n, i) =>
+        text(n, `narrative step ${i + 1}`),
+      ),
       confession: text(wire.solution.confession, "the confession"),
     },
     // A generated case is played live; there are no recorded answers to suggest.

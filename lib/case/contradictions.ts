@@ -15,26 +15,15 @@
  * A pair of two evidence facts is never reported: the validator already
  * guarantees evidence is consistent with the truth, and so with itself.
  */
-import {
-  TIMING_TOLERANCE,
-  claimSpan,
-  spansConflict,
-  type ClaimSpan,
-} from "./claims";
+import { TIMING_TOLERANCE, claimSpan, spansConflict, type ClaimSpan } from "./claims";
 import type { Span } from "./time";
 import type { Claim, Fact, PlaceId } from "./types";
 
 export type Source =
-  | { type: "claim"; id: string; speaker: string }
-  | { type: "evidence"; id: string };
+  { type: "claim"; id: string; speaker: string } | { type: "evidence"; id: string };
 
 export type ContradictionRule =
-  | "two_places"
-  | "denied"
-  | "empty"
-  | "possession"
-  | "relationship"
-  | "timing";
+  "two_places" | "denied" | "empty" | "possession" | "relationship" | "timing";
 
 export interface Contradiction {
   id: string;
@@ -55,9 +44,23 @@ export interface Contradiction {
 }
 
 type Assertion =
-  | { kind: "at"; person: string; place: PlaceId; when: ClaimSpan; positive: boolean; source: Source }
+  | {
+      kind: "at";
+      person: string;
+      place: PlaceId;
+      when: ClaimSpan;
+      positive: boolean;
+      source: Source;
+    }
   | { kind: "empty"; place: PlaceId; when: ClaimSpan; source: Source }
-  | { kind: "has"; person: string; item: string; when: ClaimSpan | null; positive: boolean; source: Source }
+  | {
+      kind: "has";
+      person: string;
+      item: string;
+      when: ClaimSpan | null;
+      positive: boolean;
+      source: Source;
+    }
   | { kind: "knows"; pair: string; positive: boolean; source: Source }
   | { kind: "when"; event: string; at: number; source: Source };
 
@@ -70,7 +73,16 @@ function fromClaim(claim: Claim, evening: Span): Assertion[] {
     case "sighting": {
       const when = claimSpan(claim, evening);
       if (!claim.place || !when) return [];
-      return [{ kind: "at", person: claim.subject, place: claim.place, when, positive: !claim.negated, source }];
+      return [
+        {
+          kind: "at",
+          person: claim.subject,
+          place: claim.place,
+          when,
+          positive: !claim.negated,
+          source,
+        },
+      ];
     }
     case "timing":
       if (!claim.object || claim.from === null) return [];
@@ -89,7 +101,14 @@ function fromClaim(claim: Claim, evening: Span): Assertion[] {
       ];
     case "relationship":
       if (!claim.object) return [];
-      return [{ kind: "knows", pair: pairKey(claim.subject, claim.object), positive: !claim.negated, source }];
+      return [
+        {
+          kind: "knows",
+          pair: pairKey(claim.subject, claim.object),
+          positive: !claim.negated,
+          source,
+        },
+      ];
   }
 }
 
@@ -98,13 +117,40 @@ function fromFact(evidence: string, fact: Fact): Assertion[] {
   const stretch = (from: number, to: number): ClaimSpan => ({ span: { from, to }, point: false });
   switch (fact.type) {
     case "presence":
-      return [{ kind: "at", person: fact.person, place: fact.place, when: stretch(fact.from, fact.to), positive: true, source }];
+      return [
+        {
+          kind: "at",
+          person: fact.person,
+          place: fact.place,
+          when: stretch(fact.from, fact.to),
+          positive: true,
+          source,
+        },
+      ];
     case "absent":
-      return [{ kind: "at", person: fact.person, place: fact.place, when: stretch(fact.from, fact.to), positive: false, source }];
+      return [
+        {
+          kind: "at",
+          person: fact.person,
+          place: fact.place,
+          when: stretch(fact.from, fact.to),
+          positive: false,
+          source,
+        },
+      ];
     case "empty":
       return [{ kind: "empty", place: fact.place, when: stretch(fact.from, fact.to), source }];
     case "possession":
-      return [{ kind: "has", person: fact.person, item: fact.item, when: stretch(fact.from, fact.to), positive: fact.holds, source }];
+      return [
+        {
+          kind: "has",
+          person: fact.person,
+          item: fact.item,
+          when: stretch(fact.from, fact.to),
+          positive: fact.holds,
+          source,
+        },
+      ];
     case "relationship":
       return [{ kind: "knows", pair: pairKey(fact.a, fact.b), positive: fact.holds, source }];
     case "timing":
@@ -126,8 +172,10 @@ function compare(x: Assertion, y: Assertion): Hit | null {
     if (x.person !== y.person) return null;
     const span = spansConflict(x.when, y.when);
     if (!span) return null;
-    if (x.positive && y.positive && x.place !== y.place) return { rule: "two_places", subject: x.person, span };
-    if (x.positive !== y.positive && x.place === y.place) return { rule: "denied", subject: x.person, span };
+    if (x.positive && y.positive && x.place !== y.place)
+      return { rule: "two_places", subject: x.person, span };
+    if (x.positive !== y.positive && x.place === y.place)
+      return { rule: "denied", subject: x.person, span };
     return null;
   }
   if ((x.kind === "at" && y.kind === "empty") || (x.kind === "empty" && y.kind === "at")) {
@@ -150,7 +198,11 @@ function compare(x: Assertion, y: Assertion): Hit | null {
   }
   if (x.kind === "when" && y.kind === "when") {
     if (x.event !== y.event || Math.abs(x.at - y.at) <= TIMING_TOLERANCE) return null;
-    return { rule: "timing", subject: x.event, span: { from: Math.min(x.at, y.at), to: Math.max(x.at, y.at) } };
+    return {
+      rule: "timing",
+      subject: x.event,
+      span: { from: Math.min(x.at, y.at), to: Math.max(x.at, y.at) },
+    };
   }
   return null;
 }
@@ -191,7 +243,15 @@ export function detectContradictions(
       const [a, b] = x.source.type === "evidence" ? [y.source, x.source] : [x.source, y.source];
       const id = `${hit.rule}:${[sourceKey(a), sourceKey(b)].sort().join("~")}`;
       if (!found.has(id)) {
-        found.set(id, { id, rule: hit.rule, basis: basisOf(a, b), a, b, subject: hit.subject, span: hit.span });
+        found.set(id, {
+          id,
+          rule: hit.rule,
+          basis: basisOf(a, b),
+          a,
+          b,
+          subject: hit.subject,
+          span: hit.span,
+        });
       }
     }
   }

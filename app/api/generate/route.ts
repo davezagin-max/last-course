@@ -4,7 +4,13 @@ import { streamRoute } from "@/lib/api";
 import { toPublicCase, type CaseRef, type PublicCase } from "@/lib/case/public";
 import { sealCase } from "@/lib/case/registry";
 import type { FixtureStore } from "@/lib/demo";
-import { MAX_THEME_CHARS, generateCase, type Attempt, type GenerateData, type GenerateEvent } from "@/lib/generate/run";
+import {
+  MAX_THEME_CHARS,
+  generateCase,
+  type Attempt,
+  type GenerateData,
+  type GenerateEvent,
+} from "@/lib/generate/run";
 
 /**
  * Generates a new case and streams each draft's verdict as it happens.
