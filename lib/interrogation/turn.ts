@@ -109,7 +109,6 @@ export async function runTurn(input: TurnInput): Promise<LiveResult<TurnData>> {
   if (answer.refusal) return { refusal: answer.refusal, ...cost() };
   if (!answer.ok) throw new RouteError(502, "server", `${suspect.short}'s answer was cut off. Ask again.`);
 
-  const base = { historyReset: !verified, extractionFailed: false };
   const guard = checkAnswer(answer.text, guardContext(kase, suspectId));
   if (!guard.ok) {
     return {
@@ -121,7 +120,8 @@ export async function runTurn(input: TurnInput): Promise<LiveResult<TurnData>> {
         leads: [],
         blocked: true,
         blockedFor: guard.reasons,
-        ...base,
+        historyReset: !verified,
+        extractionFailed: false,
       },
       ...cost(),
     };

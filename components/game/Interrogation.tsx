@@ -24,6 +24,8 @@ interface Props {
   busy: boolean;
   error: string | null;
   lastMeta: ApiMeta | null;
+  /** The turn whose answer has just arrived and should be typed out, if any. */
+  typingTurn: number | null;
   contradictions: Contradiction[];
   onAsk: (request: AskRequest) => void;
   onOpenExhibit: (id: string) => void;
@@ -47,7 +49,9 @@ export function Interrogation(props: Props) {
   useEffect(() => {
     // Keep the newest exchange in view by scrolling the transcript itself, never the page.
     const el = log.current;
-    if (el) el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+    if (!el) return;
+    const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    el.scrollTo({ top: el.scrollHeight, behavior: calm ? "auto" : "smooth" });
   }, [latest, busy, suspect.id]);
 
   return (
@@ -72,8 +76,13 @@ export function Interrogation(props: Props) {
       >
         <Bubble who={suspect.short}>{suspect.opening}</Bubble>
         {turns.map((turn) => (
-          <Exchange key={turn.n} turn={turn} suspect={suspect.short} fresh={turn.n === latest - 1} {...props} titles={titles} />
+          <Exchange key={turn.n} turn={turn} suspect={suspect.short} fresh={turn.n === props.typingTurn} {...props} titles={titles} />
         ))}
+        {isLive && turns.length > 0 && liveTurns === 0 && (
+          <p className="border-l-2 border-accent pl-3 text-sm text-muted">
+            You are live now. {suspect.short} answers from the same case file but has no memory of the sample answers above.
+          </p>
+        )}
         {busy && (
           <p className="flex items-center gap-2 text-sm text-muted">
             <span className="font-medium text-fg">{suspect.short}</span> is choosing their words
@@ -125,13 +134,7 @@ export function Interrogation(props: Props) {
               </p>
             )}
           </>
-        ) : (
-          !isLive && (
-            <p className="rounded-md border border-border bg-raised px-3 py-3 text-sm text-muted">
-              This case has no recorded answers, so it cannot be played in demo mode. Add your key and {suspect.short} will answer anything you ask, live.
-            </p>
-          )
-        )}
+        ) : null}
 
         {isLive ? (
           outOfTurns ? (
@@ -143,7 +146,11 @@ export function Interrogation(props: Props) {
           )
         ) : (
           <div className="flex flex-wrap items-center gap-x-3 gap-y-2 rounded-md border border-dashed border-border px-3 py-2 text-sm text-muted">
-            <span>Demo mode plays the questions above. To ask anything you like, in your own words:</span>
+            <span>
+              {questions.length > 0
+                ? "Demo mode plays the questions above. To ask anything you like, in your own words:"
+                : `This case has no recorded answers, so it cannot be played in demo mode. With a key, ${suspect.short} will answer anything you ask, live:`}
+            </span>
             <button type="button" onClick={props.onAddKey} className="rounded-md border border-accent px-2.5 py-1 text-xs font-medium text-accent hover:bg-accent-soft">
               Add your key
             </button>

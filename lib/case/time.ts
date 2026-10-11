@@ -85,17 +85,8 @@ export function subtract(base: Span[], cuts: Span[]): Span[] {
   return out;
 }
 
-export function measure(spans: Span[]): number {
-  return normalize(spans).reduce((total, s) => total + (s.to - s.from), 0);
-}
-
 export function overlapMinutes(a: Span, b: Span): number {
   return Math.max(0, Math.min(a.to, b.to) - Math.max(a.from, b.from));
-}
-
-/** True when `outer` covers every minute of `inner`. */
-export function covers(outer: Span[], inner: Span): boolean {
-  return subtract([inner], outer).length === 0;
 }
 
 export function earliest(spans: Span[]): Minute | null {

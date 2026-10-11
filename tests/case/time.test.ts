@@ -1,12 +1,10 @@
 import { describe, expect, it } from "vitest";
 import {
-  covers,
   earliest,
   formatClock,
   formatSpan,
   intersect,
   latest,
-  measure,
   normalize,
   parseClock,
   subtract,
@@ -59,14 +57,12 @@ describe("interval arithmetic on half-open spans", () => {
     expect(subtract(base, [])).toEqual(base);
   });
 
-  it("measures, bounds, and tests coverage", () => {
+  it("finds the first and last minute inside a set of spans", () => {
     const open = [s("20:44", "20:49"), s("20:58", "21:03")];
-    expect(measure(open)).toBe(10);
     expect(earliest(open)).toBe(parseClock("20:44"));
     // The last minute inside a half-open span ending 21:03 is 21:02.
     expect(latest(open)).toBe(parseClock("21:02"));
     expect(earliest([])).toBeNull();
-    expect(covers([s("20:41", "20:53")], s("20:44", "20:49"))).toBe(true);
-    expect(covers([s("20:41", "20:47")], s("20:44", "20:49"))).toBe(false);
+    expect(latest([])).toBeNull();
   });
 });

@@ -70,7 +70,7 @@ export function Timeline({ pub, state, names, found, contradictions }: Props) {
       <div className="overflow-x-auto rounded-lg border border-border bg-surface" tabIndex={0} role="group" aria-label="Timeline chart. Scrolls sideways on small screens.">
         <div className="grid min-w-[52rem] grid-cols-[7.5rem_minmax(0,1fr)_1.25rem]">
           {/* Clock */}
-          <div className="border-b border-border" />
+          <div className="sticky left-0 z-10 border-b border-border bg-surface" />
           <div className="relative h-8 border-b border-border">
             {ticks.map((m) => (
               <span key={m} className="absolute top-2 -translate-x-1/2 font-mono text-[0.6875rem] text-muted" style={{ left: `${pct(m)}%` }}>
@@ -83,7 +83,7 @@ export function Timeline({ pub, state, names, found, contradictions }: Props) {
           {/* What the evidence establishes about the evening as a whole. */}
           {(data.bands.length > 0 || data.markers.length > 0) && (
             <>
-              <div className="label border-b border-border px-3 py-2.5">Established</div>
+              <div className="label sticky left-0 z-10 border-b border-border bg-surface px-3 py-2.5">Established</div>
               <Track ticks={ticks} pct={pct} data={data} place={place} className="border-b border-border py-1.5">
                 <ul className="relative flex flex-col gap-1">
                   {data.bands.map((band) => (
@@ -116,7 +116,7 @@ export function Timeline({ pub, state, names, found, contradictions }: Props) {
 
           {data.rows.map((row) => (
             <div key={row.suspect.id} className="col-span-3 grid grid-cols-subgrid border-b border-border last:border-b-0">
-              <div className="flex items-center gap-2 px-3">
+              <div className="sticky left-0 z-10 flex items-center gap-2 bg-surface px-3">
                 <Portrait monogram={row.suspect.monogram} size={30} />
                 <span className="truncate text-sm font-medium">{row.suspect.short}</span>
               </div>
@@ -142,7 +142,7 @@ export function Timeline({ pub, state, names, found, contradictions }: Props) {
 
           {data.empties.length > 0 && (
             <div className="col-span-3 grid grid-cols-subgrid border-t border-border">
-              <div className="flex items-center px-3 text-sm font-medium">Empty rooms</div>
+              <div className="sticky left-0 z-10 flex items-center bg-surface px-3 text-sm font-medium">Empty rooms</div>
               <Track ticks={ticks} pct={pct} data={data} place={place} className="py-1.5">
                 <ul className="relative" style={{ height: LANE_H }}>
                   {data.empties.map((e) => (

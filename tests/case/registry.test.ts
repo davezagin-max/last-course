@@ -2,13 +2,13 @@ import { describe, expect, it } from "vitest";
 import { RouteError } from "@/lib/api";
 import { THE_FOURTH_COURSE as kase } from "@/lib/case/handcrafted";
 import { toPublicCase } from "@/lib/case/public";
-import { CaseRefSchema, DEFAULT_CASE_ID, resolveCase, sealCase } from "@/lib/case/registry";
+import { CaseRefSchema, resolveCase, sealCase } from "@/lib/case/registry";
 
 const SECRET = "a-test-secret-of-sufficient-length";
 
 describe("case registry", () => {
   it("resolves the built-in case by id and refuses unknown ids", () => {
-    expect(resolveCase({ id: DEFAULT_CASE_ID })).toBe(kase);
+    expect(resolveCase({ id: "the-fourth-course" })).toBe(kase);
     expect(() => resolveCase({ id: "__proto__" })).toThrow(RouteError);
     expect(() => resolveCase({ id: "nope" })).toThrow("There is no such case.");
   });

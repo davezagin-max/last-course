@@ -18,6 +18,8 @@ export interface GenerationView {
   status: "idle" | "running" | "done" | "error";
   /** Which draft the model is working on, while running. */
   drafting: number | null;
+  /** Characters of that draft written so far. */
+  chars: number;
   attempts: Attempt[];
   error: string | null;
   meta: ApiMeta | null;
@@ -134,6 +136,7 @@ export function CaseFiles({ cases, activeId, isLive, generation, sampleTheme, ma
                   <span>.</span>
                   <span>.</span>
                 </span>
+                {generation.chars > 0 && <span className="ml-auto font-mono text-xs">{generation.chars.toLocaleString("en-US")} characters</span>}
               </li>
             )}
           </ol>

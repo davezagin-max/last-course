@@ -1,0 +1,1197 @@
+{
+  "title": "Salt and Smoke",
+  "restaurant": "Brine & Ember",
+  "tagline": "The woman who owned the pier came for dinner. She did not leave.",
+  "date": "Friday 6 March",
+  "briefing": [
+    "Friday night at Brine & Ember, the seafood grill at the end of Harrow Pier. At the kitchen counter sits Leonora Hask, who owns the building, the pier under it, and a third of the restaurant.",
+    "At 20:41 she is served the fourth course: smoked eel in its own broth. At 21:12 she slides off her stool. The hospital finds a prescription sedative in her blood, far more than anyone takes on purpose, on top of the heart medication she took every day.",
+    "Five people cooked and served that night. Each has a reason to wish she had stayed at home. Work out who put it in her bowl, how, and why."
+  ],
+  "windowFrom": "19:30",
+  "windowTo": "21:30",
+  "victim": {
+    "name": "Leonora Hask",
+    "role": "Landlord and silent partner",
+    "blurb": "Sixty-three. Owns Harrow Pier. Records every conversation she has on a dictaphone."
+  },
+  "suspects": [
+    {
+      "id": "ines",
+      "name": "Inés Okoro",
+      "short": "Inés",
+      "role": "Head chef",
+      "monogram": "IO",
+      "blurb": "Opened Brine & Ember on a handshake with Hask nine years ago. The handshake has not aged well.",
+      "opening": "Ask what you need to. I have a walk-in full of fish that will not keep for your investigation.",
+      "voice": "Controlled and precise, with a temper she keeps on a short lead. Speaks in complete sentences. Measures everything, including how much she tells you.",
+      "secret": "Before service you had a shouting match with Leonora Hask in the office, from 19:35 to 19:45: she told you she was selling the pier and the restaurant with it. You tell the detective you never left the pass.",
+      "knows": [
+        "You ran the pass all evening except for ten minutes in the office with Leonora Hask, 19:35 to 19:45.",
+        "The eel broth for the counter was strained into its pot and photographed for the restaurant's social feed at 20:28. The pot then sat on the pass until her bowl was ladled and served at 20:41.",
+        "The kitchen display screen logs every ticket you clear, with your login.",
+        "The walk-in logs every time its door opens, for the health inspector.",
+        "At 20:33 Dmitri came off the grill to the pass for a couple of minutes. He never comes to the pass during service. You did not see what he did there."
+      ],
+      "deflections": [
+        "I do not follow you. Ask me about the kitchen.",
+        "That is not a question I can do anything with."
+      ]
+    },
+    {
+      "id": "dmitri",
+      "name": "Dmitri Vasko",
+      "short": "Dmitri",
+      "role": "Grill cook",
+      "monogram": "DV",
+      "blurb": "Eleven years on the grill. Owes money in more than one direction.",
+      "opening": "Go on, then. I've got coals to rake out.",
+      "voice": "Gruff, economical, a little too relaxed. Short answers. Turns questions back on other people. Never raises his voice and never volunteers a time unless pushed.",
+      "secret": "Leonora Hask lent you eighteen thousand pounds two years ago and had written to say she wanted it back by the end of the month.",
+      "knows": [
+        "You worked the grill on the hot line all evening.",
+        "Bea, the manager, keeps prescription sleeping tablets in the office desk. Everyone knows it.",
+        "The float in the till has been short for months, and Bea is the one who does the cash drops.",
+        "You tell the detective that at about 20:22 you went to the walk-in for more eel and were back in four minutes."
+      ],
+      "deflections": [
+        "No idea what you mean. Ask me about the grill.",
+        "You've lost me. Next."
+      ]
+    },
+    {
+      "id": "bea",
+      "name": "Beatrix Lund",
+      "short": "Bea",
+      "role": "General manager",
+      "monogram": "BL",
+      "blurb": "Runs the floor and the books. The sedatives in the office desk are hers.",
+      "opening": "I'll help however I can. I'd like it noted that I'm the one who called the ambulance.",
+      "voice": "Brisk, polished, front-of-house charm stretched thin. Over-explains when nervous. Uses people's full names.",
+      "secret": "You have been moving cash out of the float for months to cover a debt, and Leonora Hask had asked for the books on Monday. On Friday you slipped into the office from 20:05 to 20:09, took your evening tablet, and photographed the bottle for your medication app. You tell the detective you never left the floor.",
+      "knows": [
+        "You were on the floor all evening except four minutes in the office, 20:05 to 20:09.",
+        "The sedatives in the office desk are yours. Your medication app has a photograph of the bottle taken at 20:08 with thirteen tablets in it. When the police found the bottle it held three.",
+        "From 20:12 you were at the host stand seating late tables; the reservation tablet has your login on every one.",
+        "Before service Chef and Leonora Hask had a row in the office. Leonora records everything on a dictaphone she keeps in her bag.",
+        "Leonora lent Dmitri money, and the letter calling it in is in her bag too."
+      ],
+      "deflections": [
+        "I'm sorry, I don't understand the question. Could you ask it another way?",
+        "That isn't something I'd know anything about."
+      ]
+    },
+    {
+      "id": "colm",
+      "name": "Colm Darragh",
+      "short": "Colm",
+      "role": "Oyster counter",
+      "monogram": "CD",
+      "blurb": "Shucks at the cold counter in full view of the dining room. Grew up on this pier.",
+      "opening": "Mind your sleeve on the ice. What do you want to know?",
+      "voice": "Easy-going, wry, a storyteller who drifts and then lands on the point. Pier slang. Goes quiet and flat when his father comes up.",
+      "secret": "Your father ran the fish stall on Harrow Pier for thirty years until Leonora Hask ended his lease to build this restaurant. He died the following winter. You tell the detective she was only ever a name on your payslip.",
+      "knows": [
+        "You were at the oyster counter all evening. A guest was livestreaming you shucking from about 20:02 until nearly half past.",
+        "From the counter you can see the corridor to the office. At about 20:22 Dmitri went up it to the office and came back four minutes later with nothing in his hands.",
+        "Noor was not at pastry for a good while after eight. She was out in the alley on her phone."
+      ],
+      "deflections": [
+        "Couldn't tell you. Ask me about oysters.",
+        "That's a strange one. Try me on something from Friday."
+      ]
+    },
+    {
+      "id": "noor",
+      "name": "Noor Haddad",
+      "short": "Noor",
+      "role": "Pastry cook",
+      "monogram": "NH",
+      "blurb": "Two years at Brine & Ember on a work permit that Hask's company sponsors.",
+      "opening": "I've already said I didn't see anything. But ask.",
+      "voice": "Quiet, careful, formal English. Answers exactly the question asked and no more. Frightened, and trying not to show it.",
+      "secret": "Leonora Hask's company sponsors your work permit, and she had hinted she would withdraw it when the restaurant was sold. From 20:01 to 20:27 you were in the alley on a video call with your immigration lawyer. You tell the detective you never left the pastry station.",
+      "knows": [
+        "You were at pastry all evening except from 20:01 to 20:27, when you were in the alley on a video call.",
+        "Colm's father had the fish stall on this pier until Mrs Hask ended his lease. Colm keeps the eviction notice folded in his knife roll."
+      ],
+      "deflections": [
+        "I do not understand. Please ask about Friday.",
+        "I cannot answer that. I only make the desserts."
+      ]
+    }
+  ],
+  "movements": [
+    {
+      "person": "ines",
+      "place": "pass",
+      "from": "19:30",
+      "to": "19:35"
+    },
+    {
+      "person": "ines",
+      "place": "office",
+      "from": "19:35",
+      "to": "19:45"
+    },
+    {
+      "person": "ines",
+      "place": "pass",
+      "from": "19:45",
+      "to": "21:12"
+    },
+    {
+      "person": "ines",
+      "place": "dining_room",
+      "from": "21:12",
+      "to": "21:30"
+    },
+    {
+      "person": "dmitri",
+      "place": "hot_line",
+      "from": "19:30",
+      "to": "20:22"
+    },
+    {
+      "person": "dmitri",
+      "place": "office",
+      "from": "20:22",
+      "to": "20:26"
+    },
+    {
+      "person": "dmitri",
+      "place": "hot_line",
+      "from": "20:26",
+      "to": "20:33"
+    },
+    {
+      "person": "dmitri",
+      "place": "pass",
+      "from": "20:33",
+      "to": "20:35"
+    },
+    {
+      "person": "dmitri",
+      "place": "hot_line",
+      "from": "20:35",
+      "to": "21:30"
+    },
+    {
+      "person": "bea",
+      "place": "dining_room",
+      "from": "19:30",
+      "to": "20:05"
+    },
+    {
+      "person": "bea",
+      "place": "office",
+      "from": "20:05",
+      "to": "20:09"
+    },
+    {
+      "person": "bea",
+      "place": "dining_room",
+      "from": "20:09",
+      "to": "21:30"
+    },
+    {
+      "person": "colm",
+      "place": "cold_station",
+      "from": "19:30",
+      "to": "21:30"
+    },
+    {
+      "person": "noor",
+      "place": "pastry",
+      "from": "19:30",
+      "to": "20:01"
+    },
+    {
+      "person": "noor",
+      "place": "alley",
+      "from": "20:01",
+      "to": "20:27"
+    },
+    {
+      "person": "noor",
+      "place": "pastry",
+      "from": "20:27",
+      "to": "21:30"
+    },
+    {
+      "person": "victim",
+      "place": "dining_room",
+      "from": "19:30",
+      "to": "19:35"
+    },
+    {
+      "person": "victim",
+      "place": "office",
+      "from": "19:35",
+      "to": "19:45"
+    },
+    {
+      "person": "victim",
+      "place": "dining_room",
+      "from": "19:45",
+      "to": "21:30"
+    }
+  ],
+  "relationships": [
+    {
+      "a": "colm",
+      "b": "victim",
+      "note": "She ended his father's lease on the pier fish stall."
+    }
+  ],
+  "possessions": [],
+  "sightings": [
+    {
+      "observer": "ines",
+      "subject": "dmitri",
+      "place": "pass",
+      "from": "20:33",
+      "to": "20:35",
+      "note": "came off the grill to the pass, which he never does during service"
+    },
+    {
+      "observer": "colm",
+      "subject": "dmitri",
+      "place": "office",
+      "from": "20:22",
+      "to": "20:26",
+      "note": "went up the corridor to the office and came back empty-handed"
+    },
+    {
+      "observer": "colm",
+      "subject": "noor",
+      "place": "alley",
+      "from": "20:05",
+      "to": "20:25",
+      "note": "out in the alley on her phone"
+    }
+  ],
+  "alibis": [
+    {
+      "suspect": "ines",
+      "place": "pass",
+      "from": "19:30",
+      "to": "21:12",
+      "lie": "ines_pass"
+    },
+    {
+      "suspect": "ines",
+      "place": "dining_room",
+      "from": "21:12",
+      "to": "21:30",
+      "lie": ""
+    },
+    {
+      "suspect": "dmitri",
+      "place": "hot_line",
+      "from": "19:30",
+      "to": "20:22",
+      "lie": ""
+    },
+    {
+      "suspect": "dmitri",
+      "place": "walk_in",
+      "from": "20:22",
+      "to": "20:26",
+      "lie": "dmitri_walk_in"
+    },
+    {
+      "suspect": "dmitri",
+      "place": "hot_line",
+      "from": "20:26",
+      "to": "21:30",
+      "lie": "dmitri_grill"
+    },
+    {
+      "suspect": "bea",
+      "place": "dining_room",
+      "from": "19:30",
+      "to": "21:30",
+      "lie": "bea_floor"
+    },
+    {
+      "suspect": "colm",
+      "place": "cold_station",
+      "from": "19:30",
+      "to": "21:30",
+      "lie": ""
+    },
+    {
+      "suspect": "noor",
+      "place": "pastry",
+      "from": "19:30",
+      "to": "21:30",
+      "lie": "noor_station"
+    }
+  ],
+  "lies": [
+    {
+      "id": "ines_pass",
+      "suspect": "ines",
+      "topic": "whether she left the pass",
+      "says": "I was on my pass from the first ticket until she fell.",
+      "truth": "She was in the office arguing with Hask from 19:35 to 19:45.",
+      "why": "The argument was about the sale of the restaurant, which is her motive.",
+      "admits": "Ten minutes, before service properly started. Hask told her she was selling the pier. They shouted. Then she went back to work.",
+      "breaksWith": [
+        "dictaphone"
+      ],
+      "asserts": [
+        {
+          "kind": "location",
+          "subject": "ines",
+          "place": "pass",
+          "from": "19:30",
+          "to": "21:12",
+          "object": "",
+          "negated": false
+        }
+      ]
+    },
+    {
+      "id": "dmitri_walk_in",
+      "suspect": "dmitri",
+      "topic": "where he went at twenty past eight",
+      "says": "About twenty past eight I went to the walk-in for more eel. Four minutes.",
+      "truth": "He went to the office and took ten of Bea's sedative tablets from the desk.",
+      "why": "It is the moment he armed himself.",
+      "admits": "All right, it was the office, not the walk-in. He went to look at next week's rota on the desk. He says he touched nothing else.",
+      "breaksWith": [
+        "walk_in_log"
+      ],
+      "asserts": [
+        {
+          "kind": "location",
+          "subject": "dmitri",
+          "place": "walk_in",
+          "from": "20:22",
+          "to": "20:26",
+          "object": "",
+          "negated": false
+        }
+      ]
+    },
+    {
+      "id": "dmitri_grill",
+      "suspect": "dmitri",
+      "topic": "whether he went to the pass",
+      "says": "After that I didn't leave the grill. I never go to the pass in service.",
+      "truth": "He was at the pass from 20:33 to 20:35, where the broth pot stood.",
+      "why": "It is the moment he used what he took.",
+      "admits": "He stepped up to ask Chef about a ticket. Two minutes. He says he never touched the pot.",
+      "breaksWith": [
+        "second_frame"
+      ],
+      "asserts": [
+        {
+          "kind": "location",
+          "subject": "dmitri",
+          "place": "pass",
+          "from": "20:28",
+          "to": "20:41",
+          "object": "",
+          "negated": true
+        }
+      ]
+    },
+    {
+      "id": "bea_floor",
+      "suspect": "bea",
+      "topic": "whether she left the floor",
+      "says": "I was on the floor the entire evening. A manager doesn't get to disappear.",
+      "truth": "She was in the office from 20:05 to 20:09.",
+      "why": "The office is where the books are, and the books are short.",
+      "admits": "Four minutes. She took her evening tablet and logged it in her app. She did not want to explain what else is in that office.",
+      "breaksWith": [
+        "med_app"
+      ],
+      "asserts": [
+        {
+          "kind": "location",
+          "subject": "bea",
+          "place": "dining_room",
+          "from": "19:30",
+          "to": "21:12",
+          "object": "",
+          "negated": false
+        }
+      ]
+    },
+    {
+      "id": "colm_stranger",
+      "suspect": "colm",
+      "topic": "whether he knew Hask",
+      "says": "She was a name on my payslip. I never knew the woman.",
+      "truth": "She ended his father's thirty-year lease on the pier fish stall.",
+      "why": "It is a motive, and it is his father.",
+      "admits": "His father had the stall for thirty years. She gave him ninety days. He does not forgive her and he did not poison her.",
+      "breaksWith": [
+        "eviction_notice"
+      ],
+      "asserts": [
+        {
+          "kind": "relationship",
+          "subject": "colm",
+          "place": "none",
+          "from": "",
+          "to": "",
+          "object": "victim",
+          "negated": true
+        }
+      ]
+    },
+    {
+      "id": "noor_station",
+      "suspect": "noor",
+      "topic": "whether she left pastry",
+      "says": "I did not leave the pastry station all night.",
+      "truth": "She was in the alley from 20:01 to 20:27 on a video call with her immigration lawyer.",
+      "why": "She is afraid that anything about her permit will be used against her.",
+      "admits": "She was in the alley for twenty-six minutes speaking to her lawyer about the permit Mrs Hask's company sponsors.",
+      "breaksWith": [
+        "call_log"
+      ],
+      "asserts": [
+        {
+          "kind": "location",
+          "subject": "noor",
+          "place": "pastry",
+          "from": "19:30",
+          "to": "21:12",
+          "object": "",
+          "negated": false
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "id": "sedative_tablets",
+      "name": "sedative tablets",
+      "kind": "poison"
+    },
+    {
+      "id": "ant_powder",
+      "name": "ant powder",
+      "kind": "poison"
+    },
+    {
+      "id": "eel_broth",
+      "name": "the smoked eel broth",
+      "kind": "vehicle"
+    },
+    {
+      "id": "house_bitters",
+      "name": "the house bitters",
+      "kind": "vehicle"
+    },
+    {
+      "id": "mignonette",
+      "name": "the oyster mignonette",
+      "kind": "vehicle"
+    }
+  ],
+  "events": [
+    {
+      "id": "broth_strained",
+      "label": "the eel broth is strained and photographed",
+      "at": "20:28"
+    },
+    {
+      "id": "broth_served",
+      "label": "the eel course is served at the counter",
+      "at": "20:41"
+    },
+    {
+      "id": "collapse",
+      "label": "Hask collapses",
+      "at": "21:12"
+    }
+  ],
+  "methods": [
+    {
+      "id": "sedatives_in_broth",
+      "label": "Sedative tablets, crushed into the smoked eel broth",
+      "poison": "sedative_tablets",
+      "vehicle": "eel_broth"
+    },
+    {
+      "id": "sedatives_in_bitters",
+      "label": "Sedative tablets, dissolved in her glass of house bitters",
+      "poison": "sedative_tablets",
+      "vehicle": "house_bitters"
+    },
+    {
+      "id": "powder_in_broth",
+      "label": "Ant powder from under the sink, stirred into the eel broth",
+      "poison": "ant_powder",
+      "vehicle": "eel_broth"
+    },
+    {
+      "id": "powder_in_mignonette",
+      "label": "Ant powder, shaken into the oyster mignonette",
+      "poison": "ant_powder",
+      "vehicle": "mignonette"
+    }
+  ],
+  "motives": [
+    {
+      "id": "ines_sale",
+      "suspect": "ines",
+      "label": "To stop her selling the restaurant out from under the kitchen",
+      "revealedBy": [
+        "dictaphone"
+      ]
+    },
+    {
+      "id": "dmitri_debt",
+      "suspect": "dmitri",
+      "label": "To wipe out the loan she was calling in",
+      "revealedBy": [
+        "loan_letter"
+      ]
+    },
+    {
+      "id": "bea_books",
+      "suspect": "bea",
+      "label": "To keep her from opening the books on Monday",
+      "revealedBy": [
+        "cash_ledger"
+      ]
+    },
+    {
+      "id": "colm_father",
+      "suspect": "colm",
+      "label": "Revenge for his father's stall",
+      "revealedBy": [
+        "eviction_notice"
+      ]
+    },
+    {
+      "id": "noor_permit",
+      "suspect": "noor",
+      "label": "To stop her withdrawing the work permit",
+      "revealedBy": [
+        "call_log"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "tox_screen",
+      "title": "Hospital toxicology",
+      "summary": "A prescription sedative, many times the normal dose.",
+      "detail": "Harrow General, blood drawn 21:40. A prescription sedative at roughly ten times a single dose, on top of the heart medication the patient took daily. Together, fatal. No insecticide, no other poison.",
+      "foundAt": "none",
+      "startsFound": true,
+      "unlockLeads": [],
+      "unlockEvidence": [],
+      "facts": [
+        {
+          "type": "poison",
+          "person": "",
+          "other": "",
+          "place": "none",
+          "from": "",
+          "to": "",
+          "item": "sedative_tablets",
+          "event": "",
+          "motive": "",
+          "step": "none",
+          "holds": false
+        }
+      ]
+    },
+    {
+      "id": "counter_ticket",
+      "title": "Kitchen counter ticket",
+      "summary": "Her courses, timed.",
+      "detail": "Ticket for the kitchen counter, one cover, 'Hask'. Eel broth strained 20:28. Fourth course, smoked eel in broth, served 20:41. A line in the manager's handwriting: 'guest collapsed 21:12, ambulance called'.",
+      "foundAt": "pass",
+      "startsFound": true,
+      "unlockLeads": [],
+      "unlockEvidence": [],
+      "facts": [
+        {
+          "type": "timing",
+          "person": "",
+          "other": "",
+          "place": "none",
+          "from": "20:28",
+          "to": "",
+          "item": "",
+          "event": "broth_strained",
+          "motive": "",
+          "step": "none",
+          "holds": false
+        },
+        {
+          "type": "timing",
+          "person": "",
+          "other": "",
+          "place": "none",
+          "from": "20:41",
+          "to": "",
+          "item": "",
+          "event": "broth_served",
+          "motive": "",
+          "step": "none",
+          "holds": false
+        },
+        {
+          "type": "timing",
+          "person": "",
+          "other": "",
+          "place": "none",
+          "from": "21:12",
+          "to": "",
+          "item": "",
+          "event": "collapse",
+          "motive": "",
+          "step": "none",
+          "holds": false
+        }
+      ]
+    },
+    {
+      "id": "bowl_residue",
+      "title": "Residue in her bowl",
+      "summary": "The sedative was in the eel broth and nowhere else.",
+      "detail": "Laboratory analysis of the fourth-course bowl: crushed sedative tablet, undissolved grains still on the rim. Her glass of bitters, the oyster shells, and the mignonette are clean.",
+      "foundAt": "dining_room",
+      "startsFound": true,
+      "unlockLeads": [],
+      "unlockEvidence": [],
+      "facts": [
+        {
+          "type": "vehicle",
+          "person": "",
+          "other": "",
+          "place": "none",
+          "from": "",
+          "to": "",
+          "item": "eel_broth",
+          "event": "",
+          "motive": "",
+          "step": "none",
+          "holds": false
+        }
+      ]
+    },
+    {
+      "id": "med_app",
+      "title": "Bea's medication app",
+      "summary": "At 20:08 the bottle held thirteen tablets. By the end of the night, three.",
+      "detail": "Beatrix Lund's medication app. Entry at 20:08: a photograph of her sedative bottle on the office desk, thirteen tablets, her hand in frame. The police found the bottle in the same drawer with three tablets in it. Ten tablets left that drawer between 20:08 and the moment the broth was served at 20:41.",
+      "foundAt": "office",
+      "startsFound": false,
+      "unlockLeads": [
+        "bea_tablets"
+      ],
+      "unlockEvidence": [],
+      "facts": [
+        {
+          "type": "presence",
+          "person": "bea",
+          "other": "",
+          "place": "office",
+          "from": "20:05",
+          "to": "20:09",
+          "item": "",
+          "event": "",
+          "motive": "",
+          "step": "none",
+          "holds": false
+        },
+        {
+          "type": "window",
+          "person": "",
+          "other": "",
+          "place": "office",
+          "from": "20:08",
+          "to": "20:41",
+          "item": "sedative_tablets",
+          "event": "",
+          "motive": "",
+          "step": "acquire",
+          "holds": false
+        }
+      ]
+    },
+    {
+      "id": "office_door",
+      "title": "Office door sensor",
+      "summary": "After Bea left at 20:09, the office was entered once: 20:22 to 20:26.",
+      "detail": "The office door has a contact sensor wired to the alarm panel. Opened 20:05, closed 20:09. Opened 20:22, closed 20:26. Not opened again until the police arrived.",
+      "foundAt": "office",
+      "startsFound": false,
+      "unlockLeads": [],
+      "unlockEvidence": [
+        "med_app"
+      ],
+      "facts": [
+        {
+          "type": "empty",
+          "person": "",
+          "other": "",
+          "place": "office",
+          "from": "20:09",
+          "to": "20:22",
+          "item": "",
+          "event": "",
+          "motive": "",
+          "step": "none",
+          "holds": false
+        },
+        {
+          "type": "empty",
+          "person": "",
+          "other": "",
+          "place": "office",
+          "from": "20:26",
+          "to": "20:45",
+          "item": "",
+          "event": "",
+          "motive": "",
+          "step": "none",
+          "holds": false
+        }
+      ]
+    },
+    {
+      "id": "broth_photo",
+      "title": "The broth photograph",
+      "summary": "The pot sat on the pass from 20:28 until it was served at 20:41.",
+      "detail": "Posted to the restaurant's feed at 20:28: the eel broth, freshly strained, in its copper pot on the pass. The broth was clear when it was strained. Her bowl was ladled from that pot at 20:41. Whatever went into it went in on the pass, in those thirteen minutes.",
+      "foundAt": "pass",
+      "startsFound": false,
+      "unlockLeads": [
+        "ines_broth"
+      ],
+      "unlockEvidence": [],
+      "facts": [
+        {
+          "type": "window",
+          "person": "",
+          "other": "",
+          "place": "pass",
+          "from": "20:28",
+          "to": "20:41",
+          "item": "eel_broth",
+          "event": "",
+          "motive": "",
+          "step": "administer",
+          "holds": false
+        }
+      ]
+    },
+    {
+      "id": "kds_log",
+      "title": "Kitchen display log",
+      "summary": "Inés cleared tickets at the pass without a break from 19:46 to 20:30.",
+      "detail": "The pass display records who clears each ticket. Inés Okoro's login clears one every minute or so from 19:46 to 20:30. Nothing under her login before 19:46.",
+      "foundAt": "pass",
+      "startsFound": false,
+      "unlockLeads": [
+        "ines_display"
+      ],
+      "unlockEvidence": [],
+      "facts": [
+        {
+          "type": "presence",
+          "person": "ines",
+          "other": "",
+          "place": "pass",
+          "from": "19:46",
+          "to": "20:30",
+          "item": "",
+          "event": "",
+          "motive": "",
+          "step": "none",
+          "holds": false
+        }
+      ]
+    },
+    {
+      "id": "host_tablet",
+      "title": "Reservation tablet",
+      "summary": "Bea seated tables at the host stand from 20:12 to 20:45.",
+      "detail": "The reservation tablet at the host stand. Under Beatrix Lund's login: five late tables checked in and walked to their seats between 20:12 and 20:45, the stand never left for more than a minute.",
+      "foundAt": "dining_room",
+      "startsFound": false,
+      "unlockLeads": [
+        "bea_host"
+      ],
+      "unlockEvidence": [],
+      "facts": [
+        {
+          "type": "presence",
+          "person": "bea",
+          "other": "",
+          "place": "dining_room",
+          "from": "20:12",
+          "to": "20:45",
+          "item": "",
+          "event": "",
+          "motive": "",
+          "step": "none",
+          "holds": false
+        }
+      ]
+    },
+    {
+      "id": "livestream",
+      "title": "A guest's livestream",
+      "summary": "Colm shucking at the oyster counter, on camera, 20:02 to 20:28.",
+      "detail": "A guest at the oyster counter streamed twenty-six minutes of Colm Darragh opening oysters, 20:02 to 20:28. He does not leave the frame.",
+      "foundAt": "dining_room",
+      "startsFound": false,
+      "unlockLeads": [
+        "colm_stream"
+      ],
+      "unlockEvidence": [],
+      "facts": [
+        {
+          "type": "presence",
+          "person": "colm",
+          "other": "",
+          "place": "cold_station",
+          "from": "20:02",
+          "to": "20:28",
+          "item": "",
+          "event": "",
+          "motive": "",
+          "step": "none",
+          "holds": false
+        }
+      ]
+    },
+    {
+      "id": "call_log",
+      "title": "Noor's call log",
+      "summary": "A video call from the alley, 20:01 to 20:27, with an immigration lawyer.",
+      "detail": "Noor Haddad's phone: a video call to Farrow & Pell, immigration solicitors, 20:01 to 20:27. The lawyer's own recording shows her standing by the alley bins throughout. The subject is the work permit sponsored by Hask Holdings.",
+      "foundAt": "alley",
+      "startsFound": false,
+      "unlockLeads": [
+        "colm_noor"
+      ],
+      "unlockEvidence": [],
+      "facts": [
+        {
+          "type": "presence",
+          "person": "noor",
+          "other": "",
+          "place": "alley",
+          "from": "20:01",
+          "to": "20:27",
+          "item": "",
+          "event": "",
+          "motive": "",
+          "step": "none",
+          "holds": false
+        },
+        {
+          "type": "motive",
+          "person": "",
+          "other": "",
+          "place": "none",
+          "from": "",
+          "to": "",
+          "item": "",
+          "event": "",
+          "motive": "noor_permit",
+          "step": "none",
+          "holds": true
+        }
+      ]
+    },
+    {
+      "id": "walk_in_log",
+      "title": "Walk-in door log",
+      "summary": "Nobody opened the walk-in between 20:10 and 20:40.",
+      "detail": "The walk-in logs each door opening for the health inspector. Last opened 20:09. Next opened 20:40. Thirty-one minutes with the door shut.",
+      "foundAt": "walk_in",
+      "startsFound": false,
+      "unlockLeads": [
+        "ines_walk_in"
+      ],
+      "unlockEvidence": [],
+      "facts": [
+        {
+          "type": "empty",
+          "person": "",
+          "other": "",
+          "place": "walk_in",
+          "from": "20:10",
+          "to": "20:40",
+          "item": "",
+          "event": "",
+          "motive": "",
+          "step": "none",
+          "holds": false
+        }
+      ]
+    },
+    {
+      "id": "dictaphone",
+      "title": "Hask's dictaphone",
+      "summary": "Hask and Inés, in the office, 19:35 to 19:45. She was selling.",
+      "detail": "From Leonora Hask's bag. A recording timed 19:35 to 19:45, in the office: 'I've had an offer for the pier, Inés, and I'm taking it.' Inés Okoro's voice, raised, for most of the ten minutes that follow.",
+      "foundAt": "dining_room",
+      "startsFound": false,
+      "unlockLeads": [
+        "bea_row"
+      ],
+      "unlockEvidence": [],
+      "facts": [
+        {
+          "type": "presence",
+          "person": "ines",
+          "other": "",
+          "place": "office",
+          "from": "19:35",
+          "to": "19:45",
+          "item": "",
+          "event": "",
+          "motive": "",
+          "step": "none",
+          "holds": false
+        },
+        {
+          "type": "motive",
+          "person": "",
+          "other": "",
+          "place": "none",
+          "from": "",
+          "to": "",
+          "item": "",
+          "event": "",
+          "motive": "ines_sale",
+          "step": "none",
+          "holds": true
+        }
+      ]
+    },
+    {
+      "id": "eviction_notice",
+      "title": "Notice in Colm's knife roll",
+      "summary": "Hask ended the lease on Darragh's Fish, his father's stall.",
+      "detail": "Folded into Colm Darragh's knife roll: a notice to quit, Hask Holdings to P. Darragh, Darragh's Fish, Harrow Pier. Ninety days. Dated nine years ago, the spring this restaurant was built.",
+      "foundAt": "cold_station",
+      "startsFound": false,
+      "unlockLeads": [
+        "noor_colm"
+      ],
+      "unlockEvidence": [],
+      "facts": [
+        {
+          "type": "relationship",
+          "person": "colm",
+          "other": "victim",
+          "place": "none",
+          "from": "",
+          "to": "",
+          "item": "",
+          "event": "",
+          "motive": "",
+          "step": "none",
+          "holds": true
+        },
+        {
+          "type": "motive",
+          "person": "",
+          "other": "",
+          "place": "none",
+          "from": "",
+          "to": "",
+          "item": "",
+          "event": "",
+          "motive": "colm_father",
+          "step": "none",
+          "holds": true
+        }
+      ]
+    },
+    {
+      "id": "loan_letter",
+      "title": "Letter in Hask's bag",
+      "summary": "She was calling in Dmitri's loan: eighteen thousand pounds by the end of the month.",
+      "detail": "Unsent, in Leonora Hask's bag, addressed to Dmitri Vasko: 'I have been patient for two years. I am selling the pier and closing my accounts. Eighteen thousand pounds, by the 31st, or I go to a solicitor.'",
+      "foundAt": "dining_room",
+      "startsFound": false,
+      "unlockLeads": [
+        "bea_loan"
+      ],
+      "unlockEvidence": [],
+      "facts": [
+        {
+          "type": "motive",
+          "person": "",
+          "other": "",
+          "place": "none",
+          "from": "",
+          "to": "",
+          "item": "",
+          "event": "",
+          "motive": "dmitri_debt",
+          "step": "none",
+          "holds": true
+        }
+      ]
+    },
+    {
+      "id": "cash_ledger",
+      "title": "The float ledger",
+      "summary": "The till float has been short every week for five months.",
+      "detail": "The cash ledger from the office safe. The float is short by a few hundred pounds every week since October, each shortfall initialled B.L. A note clipped to it in Hask's hand: 'Books to me Monday.'",
+      "foundAt": "office",
+      "startsFound": false,
+      "unlockLeads": [
+        "dmitri_float"
+      ],
+      "unlockEvidence": [],
+      "facts": [
+        {
+          "type": "motive",
+          "person": "",
+          "other": "",
+          "place": "none",
+          "from": "",
+          "to": "",
+          "item": "",
+          "event": "",
+          "motive": "bea_books",
+          "step": "none",
+          "holds": true
+        }
+      ]
+    },
+    {
+      "id": "second_frame",
+      "title": "The second frame",
+      "summary": "A photograph at 20:34 shows a grill cook's forearm over the broth pot.",
+      "detail": "The same phone took a second, unposted picture of the pass at 20:34. At the edge of the frame a forearm reaches over the copper pot: rolled sleeve, burn scars, the anchor tattoo Dmitri Vasko has on his left arm. The pot's lid is in his other hand.",
+      "foundAt": "pass",
+      "startsFound": false,
+      "unlockLeads": [
+        "ines_arm"
+      ],
+      "unlockEvidence": [],
+      "facts": [
+        {
+          "type": "presence",
+          "person": "dmitri",
+          "other": "",
+          "place": "pass",
+          "from": "20:33",
+          "to": "20:35",
+          "item": "",
+          "event": "",
+          "motive": "",
+          "step": "none",
+          "holds": false
+        }
+      ]
+    }
+  ],
+  "leads": [
+    {
+      "id": "bea_tablets",
+      "suspect": "bea",
+      "requires": [],
+      "reveal": "The sedatives in the office desk are hers, and her medication app has a photograph of the bottle from 20:08."
+    },
+    {
+      "id": "bea_host",
+      "suspect": "bea",
+      "requires": [],
+      "reveal": "From 20:12 she was at the host stand, and the reservation tablet has her login on every table she seated."
+    },
+    {
+      "id": "bea_row",
+      "suspect": "bea",
+      "requires": [],
+      "reveal": "Chef and Leonora Hask had a row in the office before service, and Leonora records everything on a dictaphone."
+    },
+    {
+      "id": "bea_loan",
+      "suspect": "bea",
+      "requires": [],
+      "reveal": "Leonora lent Dmitri money, and the letter calling it in is in her bag."
+    },
+    {
+      "id": "ines_broth",
+      "suspect": "ines",
+      "requires": [],
+      "reveal": "The broth was strained and photographed at 20:28 and sat on the pass until her bowl went out at 20:41."
+    },
+    {
+      "id": "ines_display",
+      "suspect": "ines",
+      "requires": [],
+      "reveal": "The kitchen display logs every ticket she cleared, with her login."
+    },
+    {
+      "id": "ines_walk_in",
+      "suspect": "ines",
+      "requires": [],
+      "reveal": "The walk-in logs every time its door opens."
+    },
+    {
+      "id": "ines_arm",
+      "suspect": "ines",
+      "requires": [
+        "broth_photo"
+      ],
+      "reveal": "Dmitri came to the pass at 20:33, which he never does, and whoever took the broth photograph took a second one a few minutes later."
+    },
+    {
+      "id": "colm_stream",
+      "suspect": "colm",
+      "requires": [],
+      "reveal": "A guest was livestreaming him at the oyster counter from about 20:02 until nearly half past."
+    },
+    {
+      "id": "colm_noor",
+      "suspect": "colm",
+      "requires": [],
+      "reveal": "Noor was out in the alley on her phone for a good while after eight."
+    },
+    {
+      "id": "noor_colm",
+      "suspect": "noor",
+      "requires": [],
+      "reveal": "Colm's father had the fish stall on this pier until Hask ended the lease, and Colm keeps the notice in his knife roll."
+    },
+    {
+      "id": "dmitri_float",
+      "suspect": "dmitri",
+      "requires": [],
+      "reveal": "The till float has been short for months, and Bea does the cash drops."
+    }
+  ],
+  "solution": {
+    "culprit": "dmitri",
+    "method": "sedatives_in_broth",
+    "motive": "dmitri_debt",
+    "acquirePlace": "office",
+    "acquireAt": "20:24",
+    "administerPlace": "pass",
+    "administerAt": "20:34",
+    "narrative": [
+      "Leonora Hask had lent Dmitri Vasko eighteen thousand pounds, and on Friday she had a letter in her bag calling it in by the end of the month.",
+      "Everyone at Brine & Ember knew the manager kept sedatives in the office desk, and everyone knew Hask took heart medication every day.",
+      "At 20:22, between tickets, Dmitri walked up the corridor to the office. He took ten tablets from the bottle Bea had photographed fourteen minutes earlier, and was back at the grill by 20:26. He would later say he had gone to the walk-in, whose door had not opened in half an hour.",
+      "He crushed the tablets under a pan at his station.",
+      "At 20:33 he came to the pass, where the strained broth stood in its copper pot, lifted the lid, and tipped them in. A second photograph caught his arm.",
+      "At 20:41 her bowl was ladled from that pot. At 21:12 she fell."
+    ],
+    "confession": "Eighteen thousand. She said it like a table number. I only meant for her to sleep through Monday, sign nothing, see no solicitor. I didn't know about her heart. Nobody tells the grill cook anything."
+  }
+}

@@ -3589,7 +3589,47 @@
         }
       },
       {
-        "at": 4200,
+        "at": 700,
+        "event": {
+          "type": "progress",
+          "attempt": 1,
+          "chars": 5600
+        }
+      },
+      {
+        "at": 1400,
+        "event": {
+          "type": "progress",
+          "attempt": 1,
+          "chars": 11200
+        }
+      },
+      {
+        "at": 2100,
+        "event": {
+          "type": "progress",
+          "attempt": 1,
+          "chars": 16900
+        }
+      },
+      {
+        "at": 2800,
+        "event": {
+          "type": "progress",
+          "attempt": 1,
+          "chars": 22500
+        }
+      },
+      {
+        "at": 3500,
+        "event": {
+          "type": "progress",
+          "attempt": 1,
+          "chars": 28101
+        }
+      },
+      {
+        "at": 4000,
         "event": {
           "type": "validated",
           "attempt": {
@@ -3650,14 +3690,54 @@
         }
       },
       {
-        "at": 5000,
+        "at": 4700,
         "event": {
           "type": "drafting",
           "attempt": 2
         }
       },
       {
-        "at": 9000,
+        "at": 5400,
+        "event": {
+          "type": "progress",
+          "attempt": 2,
+          "chars": 5600
+        }
+      },
+      {
+        "at": 6100,
+        "event": {
+          "type": "progress",
+          "attempt": 2,
+          "chars": 11200
+        }
+      },
+      {
+        "at": 6800,
+        "event": {
+          "type": "progress",
+          "attempt": 2,
+          "chars": 16900
+        }
+      },
+      {
+        "at": 7500,
+        "event": {
+          "type": "progress",
+          "attempt": 2,
+          "chars": 22500
+        }
+      },
+      {
+        "at": 8200,
+        "event": {
+          "type": "progress",
+          "attempt": 2,
+          "chars": 28113
+        }
+      },
+      {
+        "at": 8700,
         "event": {
           "type": "validated",
           "attempt": {

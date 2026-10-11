@@ -81,7 +81,7 @@ const TABS = [
 ] as const;
 type TabId = (typeof TABS)[number]["id"];
 
-const IDLE: GenerationView = { status: "idle", drafting: null, attempts: [], error: null, meta: null, caseId: null };
+const IDLE: GenerationView = { status: "idle", drafting: null, chars: 0, attempts: [], error: null, meta: null, caseId: null };
 
 const subscribeToNothing = () => () => {};
 
@@ -112,6 +112,7 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [lastMeta, setLastMeta] = useState<ApiMeta | null>(null);
+  const [typingTurn, setTypingTurn] = useState<number | null>(null);
   const [exhibitId, setExhibitId] = useState<string | null>(null);
   const [accusing, setAccusing] = useState(false);
   const [accuseError, setAccuseError] = useState<string | null>(null);
@@ -151,11 +152,19 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
       setError(response.error.message);
       return;
     }
+    // The new turn takes the next index; type its answer out once.
+    setTypingTurn(state.turns.length);
     dispatch({
       type: "game",
       caseId,
       action: { type: "answered", suspect, question: request.text, presents: request.presents, data: response.data, meta: response.meta },
     });
+  }
+
+  /** Changing view ends any typing animation, so coming back shows the finished transcript. */
+  function show(next: TabId) {
+    setTypingTurn(null);
+    setTab(next);
   }
 
   async function accuse(accusation: AccusationInput) {
@@ -177,11 +186,11 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
     const body = { ...(isLive ? {} : { demoId: SAMPLE_DEMO_ID }), theme };
     const response = await streamApi<GeneratedCase, GenerateEvent>("/api/generate", body, apiKey, {
       onEvent: (event) =>
-        setGeneration((view) =>
-          event.type === "drafting"
-            ? { ...view, drafting: event.attempt }
-            : { ...view, attempts: [...view.attempts.filter((a) => a.n !== event.attempt.n), event.attempt] },
-        ),
+        setGeneration((view) => {
+          if (event.type === "drafting") return { ...view, drafting: event.attempt, chars: 0 };
+          if (event.type === "progress") return { ...view, chars: event.chars };
+          return { ...view, attempts: [...view.attempts.filter((a) => a.n !== event.attempt.n), event.attempt] };
+        }),
     });
     if (!response.ok) {
       setGeneration((view) => ({ ...view, status: "error", drafting: null, error: response.error.message, meta: response.meta ?? null }));
@@ -189,7 +198,7 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
     }
     const { publicCase, ref: sealed, attempts } = response.data;
     dispatch({ type: "add", entry: { pub: publicCase, ref: sealed, generated: true } });
-    setGeneration({ status: "done", drafting: null, attempts, error: null, meta: response.meta, caseId: publicCase.id });
+    setGeneration({ status: "done", drafting: null, chars: 0, attempts, error: null, meta: response.meta, caseId: publicCase.id });
   }
 
   function openCase(caseId: string) {
@@ -197,7 +206,7 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
     setError(null);
     setAccuseError(null);
     setLastMeta(null);
-    setTab("question");
+    show("question");
   }
 
   const exhibit = exhibitId ? (pub.evidence.find((e) => e.id === exhibitId && state.found.includes(e.id)) ?? null) : null;
@@ -250,7 +259,7 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
                   <button
                     type="button"
                     aria-current={current ? "page" : undefined}
-                    onClick={() => setTab(t.id)}
+                    onClick={() => show(t.id)}
                     className={`whitespace-nowrap rounded-t-md border border-b-0 px-4 py-2 text-sm font-medium ${
                       current ? "border-band-border bg-bg text-fg" : "border-transparent text-band-muted hover:text-band-fg"
                     }`}
@@ -282,6 +291,7 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
                         onClick={() => {
                           play({ type: "select", suspect: s.id });
                           setError(null);
+                          setTypingTurn(null);
                         }}
                         className={`flex w-full items-center gap-2.5 rounded-md border px-2.5 py-2 text-left ${
                           active ? "border-accent bg-accent-soft" : "border-border bg-surface hover:border-accent"
@@ -305,7 +315,7 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
               </ul>
               <button
                 type="button"
-                onClick={() => setTab("accuse")}
+                onClick={() => show("accuse")}
                 className="mt-3 hidden w-full rounded-md border border-accent px-3 py-2 text-sm font-medium text-accent hover:bg-accent-soft lg:block"
               >
                 {solved ? "See the reveal" : "Make an accusation"}
@@ -319,6 +329,7 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
               busy={busy}
               error={error}
               lastMeta={lastMeta}
+              typingTurn={typingTurn}
               contradictions={contradictions}
               onAsk={ask}
               onOpenExhibit={setExhibitId}
@@ -341,7 +352,7 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
             onOpenExhibit={setExhibitId}
             onQuestion={(suspect) => {
               play({ type: "select", suspect });
-              setTab("question");
+              show("question");
             }}
           />
         )}
@@ -359,7 +370,7 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
             onAccuse={accuse}
             onRestart={() => {
               play({ type: "reset" });
-              setTab("question");
+              show("question");
               setLastMeta(null);
             }}
           />

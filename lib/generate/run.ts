@@ -30,7 +30,14 @@ export interface Attempt {
   stats: ValidationReport["stats"] | null;
 }
 
-export type GenerateEvent = { type: "drafting"; attempt: number } | { type: "validated"; attempt: Attempt };
+export type GenerateEvent =
+  | { type: "drafting"; attempt: number }
+  /** How much of the current draft has been written so far. */
+  | { type: "progress"; attempt: number; chars: number }
+  | { type: "validated"; attempt: Attempt };
+
+/** Report progress about this often, in characters of draft. */
+const PROGRESS_STEP = 2500;
 
 /** What the route stores in a fixture. The browser only ever gets `present`ed data. */
 export interface GenerateData {
@@ -76,6 +83,8 @@ export async function generateCase(input: {
 
   for (let n = 1; n <= MAX_ATTEMPTS; n++) {
     input.emit({ type: "drafting", attempt: n });
+    let written = 0;
+    let reported = 0;
     const result = await callClaude<CaseWire>({
       client: input.client,
       model: MODELS.opus,
@@ -85,6 +94,15 @@ export async function generateCase(input: {
       cacheSystem: true,
       messages,
       schema: CaseWireSchema,
+      // Streamed: a whole case is too long for one non-streaming response, and
+      // the stream lets the page show the draft growing instead of a blank wait.
+      onText: (delta) => {
+        written += delta.length;
+        if (written - reported >= PROGRESS_STEP) {
+          reported = written;
+          input.emit({ type: "progress", attempt: n, chars: written });
+        }
+      },
       maxTokens: 48_000,
     });
     usage = addUsage(usage, result.usage);
