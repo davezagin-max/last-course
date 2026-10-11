@@ -54,6 +54,11 @@ export function parseSaved(pub: PublicCase, raw: string | null): GameState | nul
 }
 
 export function save(state: GameState): void {
+  // Pin what was there at page load before overwriting it. The page saves in an
+  // effect, and a child's effects run before its parent has asked what was
+  // saved; without this, the first render's fresh game would erase the progress
+  // the player came back for.
+  readSaved(state.caseId);
   try {
     window.localStorage.setItem(key(state.caseId), JSON.stringify(state));
   } catch {
