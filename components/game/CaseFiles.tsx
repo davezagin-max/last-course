@@ -10,12 +10,16 @@ import type { Attempt } from "@/lib/generate/run";
 export interface CaseEntry {
   pub: PublicCase;
   generated: boolean;
+  /** A hand-written stand-in for a generated case, loaded by the demo replay. */
+  sample: boolean;
   /** Questions asked so far in this case. */
   asked: number;
 }
 
 export interface GenerationView {
   status: "idle" | "running" | "done" | "error";
+  /** The run on screen is a demo replay, not a live call. */
+  replay: boolean;
   /** Which draft the model is working on, while running. */
   drafting: number | null;
   /** Characters of that draft written so far. */
@@ -31,6 +35,8 @@ interface Props {
   cases: CaseEntry[];
   activeId: string;
   isLive: boolean;
+  /** Which demo data is still hand-written rather than recorded from a real run. */
+  samples: { answers: boolean; generation: boolean };
   generation: GenerationView;
   sampleTheme: string;
   maxTheme: number;
@@ -44,6 +50,7 @@ export function CaseFiles({
   cases,
   activeId,
   isLive,
+  samples,
   generation,
   sampleTheme,
   maxTheme,
@@ -54,6 +61,8 @@ export function CaseFiles({
 }: Props) {
   const [theme, setTheme] = useState("");
   const running = generation.status === "running";
+  // A replay of the hand-written sample must never read as a real model run.
+  const sampleRun = generation.replay && samples.generation;
 
   return (
     <section aria-label="Case files" className="mx-auto flex w-full max-w-4xl flex-col gap-8">
@@ -64,14 +73,20 @@ export function CaseFiles({
           the same validator before you are allowed to play it.
         </p>
         <ul className="mt-4 grid gap-3 sm:grid-cols-2">
-          {cases.map(({ pub, generated, asked }) => {
+          {cases.map(({ pub, generated, sample, asked }) => {
             const active = pub.id === activeId;
             return (
               <li
                 key={pub.id}
                 className={`flex flex-col gap-2 rounded-lg border bg-surface p-4 ${active ? "border-accent" : "border-border"}`}
               >
-                <p className="label">{generated ? "Generated case" : "Handcrafted case"}</p>
+                <p className="label">
+                  {!generated
+                    ? "Handcrafted case"
+                    : sample
+                      ? "Sample case, written by hand"
+                      : "Generated case"}
+                </p>
                 <h3 className="font-display text-xl leading-tight">{pub.title}</h3>
                 <p className="text-sm text-muted">
                   {pub.restaurant}, {pub.date}. {pub.tagline}
@@ -79,7 +94,7 @@ export function CaseFiles({
                 <p className="text-xs text-muted">
                   {pub.suspects.length} suspects · {pub.evidence.length} exhibits ·{" "}
                   {pub.questions.length > 0
-                    ? `${pub.questions.length} recorded answers, playable without a key`
+                    ? `${pub.questions.length} ${samples.answers ? "sample" : "recorded"} answers, playable without a key`
                     : "live questioning only"}
                 </p>
                 <div className="mt-auto flex flex-wrap items-center gap-2 pt-1">
@@ -145,7 +160,9 @@ export function CaseFiles({
         </form>
         {!isLive && (
           <p className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted">
-            Demo mode replays one sample run with a fixed theme, then loads the case it produced.
+            {samples.generation
+              ? "Demo mode replays one sample run. Its two drafts were written by hand to stand in for a real Claude run; the verdict on each is the real validator's."
+              : "Demo mode replays one recorded run with a fixed theme, then loads the case it produced."}
             <button
               type="button"
               onClick={onAddKey}
@@ -159,14 +176,17 @@ export function CaseFiles({
         {(generation.attempts.length > 0 || running) && (
           <ol aria-live="polite" className="mt-5 flex flex-col gap-3">
             {generation.attempts.map((attempt) => (
-              <AttemptCard key={attempt.n} attempt={attempt} />
+              <AttemptCard key={attempt.n} attempt={attempt} sample={sampleRun} />
             ))}
             {running &&
               generation.drafting !== null &&
               generation.drafting > generation.attempts.length && (
                 <li className="flex items-center gap-2 rounded-md border border-dashed border-border px-4 py-3 text-sm text-muted">
-                  Draft {generation.drafting}: Claude is{" "}
-                  {generation.drafting === 1 ? "writing the case" : "repairing its draft"}
+                  {sampleRun
+                    ? `Sample draft ${generation.drafting}: replaying`
+                    : `Draft ${generation.drafting}: Claude is ${
+                        generation.drafting === 1 ? "writing the case" : "repairing its draft"
+                      }`}
                   <span className="dots" aria-hidden>
                     <span>.</span>
                     <span>.</span>
@@ -196,7 +216,7 @@ export function CaseFiles({
               onClick={() => generation.caseId && onOpen(generation.caseId)}
               className="rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-fg"
             >
-              Open the new case
+              {sampleRun ? "Open the sample case" : "Open the new case"}
             </button>
             <span className="text-sm text-muted">
               It is sealed: your browser holds an encrypted copy and never sees the solution.
@@ -209,14 +229,14 @@ export function CaseFiles({
   );
 }
 
-function AttemptCard({ attempt }: { attempt: Attempt }) {
+function AttemptCard({ attempt, sample }: { attempt: Attempt; sample: boolean }) {
   return (
     <li
       className={`rise rounded-md border bg-raised ${attempt.ok ? "border-success" : "border-border"}`}
     >
       <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5">
         <p className="font-medium">
-          Draft {attempt.n}:{" "}
+          {sample ? "Sample draft" : "Draft"} {attempt.n}:{" "}
           <span className={attempt.ok ? "text-success" : "text-danger"}>
             {attempt.ok ? "accepted" : "rejected by the validator"}
           </span>
@@ -237,7 +257,9 @@ function AttemptCard({ attempt }: { attempt: Attempt }) {
       )}
       {attempt.errors.length > 0 && (
         <div className="border-t border-border px-4 py-2.5">
-          <p className="label mb-1">Sent back to the model</p>
+          <p className="label mb-1">
+            {sample ? "What the validator would send back" : "Sent back to the model"}
+          </p>
           <ul className="flex flex-col gap-1 text-sm">
             {attempt.errors.slice(0, 6).map((error) => (
               <li key={error} className="flex gap-2">

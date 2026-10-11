@@ -36,6 +36,14 @@ interface LoadedCase {
   pub: PublicCase;
   ref: CaseRef;
   generated: boolean;
+  /** Came from a hand-written sample run, not from a model. */
+  sample: boolean;
+}
+
+/** Which demo data is still hand-written rather than recorded from a real run. */
+export interface Samples {
+  answers: boolean;
+  generation: boolean;
 }
 
 interface Session {
@@ -90,6 +98,7 @@ type TabId = (typeof TABS)[number]["id"];
 
 const IDLE: GenerationView = {
   status: "idle",
+  replay: false,
   drafting: null,
   chars: 0,
   attempts: [],
@@ -105,20 +114,35 @@ const subscribeToNothing = () => () => {};
  * first client render both start a fresh game, then the saved one (if any) is
  * mounted in its place.
  */
-export function Game({ initialCase }: { initialCase: PublicCase }) {
+export function Game({ initialCase, samples }: { initialCase: PublicCase; samples: Samples }) {
   const raw = useSyncExternalStore(
     subscribeToNothing,
     () => readSaved(initialCase.id),
     () => null,
   );
   const saved = useMemo(() => parseSaved(initialCase, raw), [initialCase, raw]);
-  return <Table key={saved ? "restored" : "fresh"} initialCase={initialCase} saved={saved} />;
+  return (
+    <Table
+      key={saved ? "restored" : "fresh"}
+      initialCase={initialCase}
+      saved={saved}
+      samples={samples}
+    />
+  );
 }
 
-function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameState | null }) {
+function Table({
+  initialCase,
+  saved,
+  samples,
+}: {
+  initialCase: PublicCase;
+  saved: GameState | null;
+  samples: Samples;
+}) {
   const { apiKey, isLive, openKeyModal } = useKey();
   const [session, dispatch] = useReducer(sessionReducer, initialCase, (pub): Session => ({
-    cases: [{ pub, ref: { id: pub.id }, generated: false }],
+    cases: [{ pub, ref: { id: pub.id }, generated: false, sample: false }],
     activeId: pub.id,
     games: { [pub.id]: saved ?? initialState(pub) },
   }));
@@ -217,9 +241,10 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
   }
 
   async function generate(theme: string) {
-    setGeneration({ ...IDLE, status: "running", drafting: 1 });
+    setGeneration({ ...IDLE, status: "running", replay: !isLive, drafting: 1 });
     const body = { ...(isLive ? {} : { demoId: SAMPLE_DEMO_ID }), theme };
     const response = await streamApi<GeneratedCase, GenerateEvent>("/api/generate", body, apiKey, {
+      onMeta: (meta) => setGeneration((view) => ({ ...view, replay: meta.mode === "demo" })),
       onEvent: (event) =>
         setGeneration((view) => {
           if (event.type === "drafting") return { ...view, drafting: event.attempt, chars: 0 };
@@ -241,9 +266,19 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
       return;
     }
     const { publicCase, ref: sealed, attempts } = response.data;
-    dispatch({ type: "add", entry: { pub: publicCase, ref: sealed, generated: true } });
+    const replay = response.meta.mode === "demo";
+    dispatch({
+      type: "add",
+      entry: {
+        pub: publicCase,
+        ref: sealed,
+        generated: true,
+        sample: replay && response.meta.placeholder,
+      },
+    });
     setGeneration({
       status: "done",
+      replay,
       drafting: null,
       chars: 0,
       attempts,
@@ -378,7 +413,9 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
                         </span>
                         {asked > 0 && (
                           <span
-                            className="shrink-0 rounded bg-raised px-1.5 font-mono text-xs text-muted"
+                            // `relative` keeps the screen-reader text inside the rail's
+                            // scroll box; without it the page itself scrolls sideways.
+                            className="relative shrink-0 rounded bg-raised px-1.5 font-mono text-xs text-muted"
                             title={`${asked} asked`}
                           >
                             {asked}
@@ -477,10 +514,12 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
             cases={session.cases.map((c) => ({
               pub: c.pub,
               generated: c.generated,
+              sample: c.sample,
               asked: session.games[c.pub.id]?.turns.length ?? 0,
             }))}
             activeId={pub.id}
             isLive={isLive}
+            samples={samples}
             generation={generation}
             sampleTheme={SAMPLE_THEME}
             maxTheme={MAX_THEME_CHARS}

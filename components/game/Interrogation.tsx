@@ -71,7 +71,7 @@ export function Interrogation(props: Props) {
 
       <div
         ref={log}
-        className="flex max-h-[26rem] min-h-28 flex-col gap-4 overflow-y-auto px-4 py-4"
+        className="flex max-h-[min(26rem,46vh)] min-h-28 flex-col gap-4 overflow-y-auto px-4 py-4"
         role="log"
         aria-live="polite"
         aria-label="Transcript"

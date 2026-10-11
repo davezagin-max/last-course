@@ -7,6 +7,7 @@ import { THE_FOURTH_COURSE as kase } from "@/lib/case/handcrafted";
 import { toPublicCase, type CaseRef } from "@/lib/case/public";
 import type { Reveal } from "@/lib/case/score";
 import generateFixtures from "@/fixtures/generate.json";
+import interrogateFixtures from "@/fixtures/interrogate.json";
 import type { Fixture } from "@/lib/demo";
 import type { GenerateData, GenerateEvent } from "@/lib/generate/run";
 import { SAMPLE_DEMO_ID, SAMPLE_THEME } from "@/lib/generate/sample";
@@ -48,7 +49,12 @@ async function ask(state: GameState, demoId: string): Promise<GameState> {
   );
   const json = (await res.json()) as ApiResponse<TurnData>;
   if (!json.ok) throw new Error(`${demoId}: ${json.error.message}`);
-  expect(json.meta).toMatchObject({ mode: "demo", placeholder: true });
+  // Hand-written today, recorded after `pnpm record`: either way the response must say which.
+  expect(json.meta).toMatchObject({
+    mode: "demo",
+    placeholder: (interrogateFixtures as Record<string, { placeholder: boolean }>)[demoId]
+      .placeholder,
+  });
   return reduce(pub, state, {
     type: "answered",
     suspect: q.suspect,

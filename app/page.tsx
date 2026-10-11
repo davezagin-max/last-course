@@ -11,16 +11,16 @@ import { toPublicCase } from "@/lib/case/public";
  */
 export default function Home() {
   const publicCase = toPublicCase(THE_FOURTH_COURSE);
-  // The banner says "sample output" for as long as any fixture is hand-written.
-  const placeholder = [
-    ...Object.values(interrogateFixtures),
-    ...Object.values(generateFixtures),
-  ].some((f) => f.placeholder);
+  // The page says "sample", not "recorded", for as long as any fixture is hand-written.
+  const samples = {
+    answers: Object.values(interrogateFixtures).some((f) => f.placeholder),
+    generation: Object.values(generateFixtures).some((f) => f.placeholder),
+  };
 
   return (
     <>
-      <DemoBanner placeholder={placeholder} />
-      <Game initialCase={publicCase} />
+      <DemoBanner placeholder={samples.answers || samples.generation} />
+      <Game initialCase={publicCase} samples={samples} />
       <footer className="border-t border-border px-4 py-4 text-center text-xs text-muted">
         A work of fiction, rated PG-13. Built with Claude Code and Claude Opus 5.5.
       </footer>

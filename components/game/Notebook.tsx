@@ -196,27 +196,26 @@ function ConflictSides({
   onOpenExhibit: (id: string) => void;
 }) {
   const text = contradictionText(names, c, claims, exhibits, pub.window);
+  // Label and statement share a line, so a long exhibit title cannot squeeze the text beside it.
   return (
-    <dl className="grid grid-cols-[auto_1fr] gap-x-2 gap-y-0.5 text-sm">
+    <ul className="flex flex-col gap-0.5 border-l-2 border-border pl-2.5 text-sm">
       {text.sides.map((side, i) => (
-        <div key={i} className="contents">
-          <dt className="text-xs font-semibold text-muted">
-            {side.source.type === "evidence" ? (
-              <button
-                type="button"
-                onClick={() => onOpenExhibit(side.source.id)}
-                className="text-accent underline underline-offset-2"
-              >
-                {side.label}
-              </button>
-            ) : (
-              side.label
-            )}
-          </dt>
-          <dd>{side.text}</dd>
-        </div>
+        <li key={i}>
+          {side.source.type === "evidence" ? (
+            <button
+              type="button"
+              onClick={() => onOpenExhibit(side.source.id)}
+              className="text-xs font-semibold text-accent underline underline-offset-2"
+            >
+              {side.label}
+            </button>
+          ) : (
+            <span className="text-xs font-semibold text-muted">{side.label}</span>
+          )}{" "}
+          {side.text}
+        </li>
       ))}
-    </dl>
+    </ul>
   );
 }
 
