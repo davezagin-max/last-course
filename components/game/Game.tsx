@@ -197,10 +197,11 @@ function Table({ initialCase, saved }: { initialCase: PublicCase; saved: GameSta
     setAccusing(true);
     setAccuseError(null);
     const caseId = pub.id;
+    // No key is sent: scoring is deterministic and this route never calls a model.
     const response = await callApi<Reveal>(
       "/api/accuse",
       { case: ref, accusation, found: state.found, claims: state.claims },
-      apiKey,
+      null,
     );
     setAccusing(false);
     if (!response.ok) {

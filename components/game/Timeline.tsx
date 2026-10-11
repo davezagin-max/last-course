@@ -94,7 +94,8 @@ export function Timeline({ pub, state, names, found, contradictions }: Props) {
             {ticks.map((m) => (
               <span
                 key={m}
-                className="absolute top-2 -translate-x-1/2 font-mono text-[0.6875rem] text-muted"
+                // The first label sits against the name column, so it starts at its tick instead of straddling it.
+                className={`absolute top-2 font-mono text-[0.6875rem] text-muted ${m === from ? "pl-1" : "-translate-x-1/2"}`}
                 style={{ left: `${pct(m)}%` }}
               >
                 {formatClock(m)}
