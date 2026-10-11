@@ -7,18 +7,42 @@
       "theme": "dark",
       "viewport": "desktop",
       "actions": [
-        { "click": "text=Did you know the man at table seven?" },
-        { "wait": 200 },
-        { "click": "text=Where were you between eight o'clock and the moment he collapsed?" },
-        { "wait": 200 },
-        { "click": "button:has-text('Tomas Varga')" },
-        { "click": "text=Did you leave the pass at any point during service?" },
-        { "wait": 200 },
-        { "click": "button:has-text('Odile Renard')" },
-        { "click": "text=The office line was in use" },
-        { "wait": 300 },
-        { "scroll": -2000 },
-        { "wait": 300 }
+        {
+          "click": "text=Did you know the man at table seven?"
+        },
+        {
+          "wait": 200
+        },
+        {
+          "click": "text=Where were you between eight o'clock and the moment he collapsed?"
+        },
+        {
+          "wait": 200
+        },
+        {
+          "click": "button:has-text('Tomas Varga')"
+        },
+        {
+          "click": "text=Did you leave the pass at any point during service?"
+        },
+        {
+          "wait": 200
+        },
+        {
+          "click": "button:has-text('Odile Renard')"
+        },
+        {
+          "click": "text=The office line was in use"
+        },
+        {
+          "wait": 300
+        },
+        {
+          "scroll": -2000
+        },
+        {
+          "wait": 300
+        }
       ]
     },
     {
@@ -27,10 +51,18 @@
       "theme": "light",
       "viewport": "desktop",
       "actions": [
-        { "click": "text=Did you know the man at table seven?" },
-        { "wait": 300 },
-        { "scroll": -2000 },
-        { "wait": 300 }
+        {
+          "click": "text=Did you know the man at table seven?"
+        },
+        {
+          "wait": 300
+        },
+        {
+          "scroll": -2000
+        },
+        {
+          "wait": 300
+        }
       ]
     },
     {
@@ -39,10 +71,21 @@
       "theme": "dark",
       "viewport": "mobile",
       "actions": [
-        { "click": "text=Did you know the man at table seven?" },
-        { "wait": 300 },
-        { "scroll": -2000 },
-        { "wait": 300 }
+        {
+          "click": "text=Did you know the man at table seven?"
+        },
+        {
+          "wait": 300
+        },
+        {
+          "hover": "h1"
+        },
+        {
+          "scroll": 496
+        },
+        {
+          "wait": 300
+        }
       ]
     },
     {
@@ -51,25 +94,63 @@
       "theme": "dark",
       "viewport": "desktop",
       "actions": [
-        { "click": "text=Did you know the man at table seven?" },
-        { "click": "text=Where were you between eight o'clock and the moment he collapsed?" },
-        { "click": "text=What was different about table seven's turbot?" },
-        { "click": "text=Is there any record of what crossed the pass?" },
-        { "click": "button:has-text('Tomas Varga')" },
-        { "click": "text=Did you leave the pass at any point during service?" },
-        { "click": "button:has-text('Odile Renard')" },
-        { "click": "text=The office line was in use" },
-        { "click": "button:has-text('Marit Solheim')" },
-        { "click": "text=The poison was aconite" },
-        { "click": "text=Where were you during service?" },
-        { "click": "button:has-text('Gus Pereira')" },
-        { "click": "text=Where were you during service?" },
-        { "click": "text=Did you see anyone leave their station?" },
-        { "wait": 200 },
-        { "click": "nav[aria-label='Views'] >> text=Board" },
-        { "wait": 300 },
-        { "scroll": 330 },
-        { "wait": 300 }
+        {
+          "click": "text=Did you know the man at table seven?"
+        },
+        {
+          "click": "text=Where were you between eight o'clock and the moment he collapsed?"
+        },
+        {
+          "click": "text=What was different about table seven's turbot?"
+        },
+        {
+          "click": "text=Is there any record of what crossed the pass?"
+        },
+        {
+          "click": "button:has-text('Tomas Varga')"
+        },
+        {
+          "click": "text=Did you leave the pass at any point during service?"
+        },
+        {
+          "click": "button:has-text('Odile Renard')"
+        },
+        {
+          "click": "text=The office line was in use"
+        },
+        {
+          "click": "button:has-text('Marit Solheim')"
+        },
+        {
+          "click": "text=The poison was aconite"
+        },
+        {
+          "click": "text=Where were you during service?"
+        },
+        {
+          "click": "button:has-text('Gus Pereira')"
+        },
+        {
+          "click": "text=Where were you during service?"
+        },
+        {
+          "click": "text=Did you see anyone leave their station?"
+        },
+        {
+          "wait": 200
+        },
+        {
+          "click": "nav[aria-label='Views'] >> text=Board"
+        },
+        {
+          "wait": 300
+        },
+        {
+          "scroll": 330
+        },
+        {
+          "wait": 300
+        }
       ]
     },
     {
@@ -78,25 +159,63 @@
       "theme": "light",
       "viewport": "desktop",
       "actions": [
-        { "click": "text=Where were you between eight o'clock and the moment he collapsed?" },
-        { "click": "text=Is there any record of what crossed the pass?" },
-        { "click": "button:has-text('Tomas Varga')" },
-        { "click": "text=Did you leave the pass at any point during service?" },
-        { "click": "button:has-text('Odile Renard')" },
-        { "click": "text=The office line was in use" },
-        { "click": "button:has-text('Marit Solheim')" },
-        { "click": "text=The poison was aconite" },
-        { "click": "text=Where were you during service?" },
-        { "click": "button:has-text('Gus Pereira')" },
-        { "click": "text=Where were you during service?" },
-        { "click": "text=Did you see anyone leave their station?" },
-        { "click": "button:has-text('Priya Nair')" },
-        { "click": "text=Did you see anyone near the copper dish?" },
-        { "wait": 200 },
-        { "click": "nav[aria-label='Views'] >> text=Timeline" },
-        { "wait": 300 },
-        { "scroll": 330 },
-        { "wait": 300 }
+        {
+          "click": "text=Where were you between eight o'clock and the moment he collapsed?"
+        },
+        {
+          "click": "text=Is there any record of what crossed the pass?"
+        },
+        {
+          "click": "button:has-text('Tomas Varga')"
+        },
+        {
+          "click": "text=Did you leave the pass at any point during service?"
+        },
+        {
+          "click": "button:has-text('Odile Renard')"
+        },
+        {
+          "click": "text=The office line was in use"
+        },
+        {
+          "click": "button:has-text('Marit Solheim')"
+        },
+        {
+          "click": "text=The poison was aconite"
+        },
+        {
+          "click": "text=Where were you during service?"
+        },
+        {
+          "click": "button:has-text('Gus Pereira')"
+        },
+        {
+          "click": "text=Where were you during service?"
+        },
+        {
+          "click": "text=Did you see anyone leave their station?"
+        },
+        {
+          "click": "button:has-text('Priya Nair')"
+        },
+        {
+          "click": "text=Did you see anyone near the copper dish?"
+        },
+        {
+          "wait": 200
+        },
+        {
+          "click": "nav[aria-label='Views'] >> text=Timeline"
+        },
+        {
+          "wait": 300
+        },
+        {
+          "scroll": 330
+        },
+        {
+          "wait": 300
+        }
       ]
     },
     {
@@ -104,16 +223,58 @@
       "path": "/",
       "theme": "dark",
       "viewport": "desktop",
-      "fullPage": true,
       "actions": [
-        { "click": "text=Did you know the man at table seven?" },
-        { "click": "text=Where were you between eight o'clock and the moment he collapsed?" },
-        { "click": "nav[aria-label='Views'] >> text=Accuse" },
-        { "click": "label:has-text('Gus Pereira')" },
-        { "click": "label:has-text('Monkshood root, grated')" },
-        { "click": "section[aria-label='Accusation'] >> button:has-text('Accuse')" },
-        { "waitFor": "text=What happened" },
-        { "wait": 300 }
+        {
+          "click": "text=Did you know the man at table seven?"
+        },
+        {
+          "click": "text=Where were you between eight o'clock and the moment he collapsed?"
+        },
+        {
+          "click": "button:has-text('Marit Solheim')"
+        },
+        {
+          "click": "text=What do you make of Gus?"
+        },
+        {
+          "click": "button:has-text('Gus Pereira')"
+        },
+        {
+          "click": "text=Did you know who was eating at table seven?"
+        },
+        {
+          "click": "text=This was taped inside your locker"
+        },
+        {
+          "wait": 200
+        },
+        {
+          "click": "nav[aria-label='Views'] >> text=Accuse"
+        },
+        {
+          "click": "label:has-text('Gus Pereira')"
+        },
+        {
+          "click": "label:has-text('Monkshood root, grated')"
+        },
+        {
+          "click": "label:has-text('Revenge for the review')"
+        },
+        {
+          "click": "section[aria-label='Accusation'] >> button:has-text('Accuse')"
+        },
+        {
+          "waitFor": "text=What happened"
+        },
+        {
+          "wait": 300
+        },
+        {
+          "scroll": 330
+        },
+        {
+          "wait": 300
+        }
       ]
     },
     {
@@ -121,12 +282,25 @@
       "path": "/",
       "theme": "light",
       "viewport": "desktop",
-      "fullPage": true,
       "actions": [
-        { "click": "nav[aria-label='Views'] >> text=Case files" },
-        { "click": "text=Replay the sample run" },
-        { "waitFor": "text=Open the new case" },
-        { "wait": 300 }
+        {
+          "click": "nav[aria-label='Views'] >> text=Case files"
+        },
+        {
+          "click": "text=Replay the sample run"
+        },
+        {
+          "waitFor": "text=Open the sample case"
+        },
+        {
+          "wait": 300
+        },
+        {
+          "scroll": 640
+        },
+        {
+          "wait": 300
+        }
       ]
     }
   ],
@@ -134,19 +308,45 @@
     "path": "/",
     "theme": "dark",
     "actions": [
-      { "wait": 900 },
-      { "click": "text=Did you know the man at table seven?" },
-      { "wait": 3200 },
-      { "click": "text=Where were you between eight o'clock and the moment he collapsed?" },
-      { "wait": 3200 },
-      { "click": "button:has-text('Tomas Varga')" },
-      { "wait": 500 },
-      { "click": "text=Did you leave the pass at any point during service?" },
-      { "wait": 3400 },
-      { "click": "nav[aria-label='Views'] >> text=Board" },
-      { "wait": 1800 },
-      { "click": "nav[aria-label='Views'] >> text=Timeline" },
-      { "wait": 1800 }
+      {
+        "wait": 700
+      },
+      {
+        "click": "text=Did you know the man at table seven?"
+      },
+      {
+        "wait": 2700
+      },
+      {
+        "click": "text=Where were you between eight o'clock and the moment he collapsed?"
+      },
+      {
+        "wait": 2500
+      },
+      {
+        "click": "button:has-text('Tomas Varga')"
+      },
+      {
+        "wait": 400
+      },
+      {
+        "click": "text=Did you leave the pass at any point during service?"
+      },
+      {
+        "wait": 2700
+      },
+      {
+        "click": "nav[aria-label='Views'] >> text=Board"
+      },
+      {
+        "wait": 1500
+      },
+      {
+        "click": "nav[aria-label='Views'] >> text=Timeline"
+      },
+      {
+        "wait": 1500
+      }
     ]
   }
 }
