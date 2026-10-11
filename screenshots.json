@@ -1,8 +1,152 @@
 {
+  "port": 3220,
   "shots": [
-    { "name": "hero", "path": "/", "theme": "light", "viewport": "desktop", "actions": [{ "click": "text=a powder day in the Wasatch" }, { "waitFor": "figure" }] },
-    { "name": "hero-dark", "path": "/", "theme": "dark", "viewport": "desktop", "actions": [{ "click": "text=a powder day in the Wasatch" }, { "waitFor": "figure" }] },
-    { "name": "mobile", "path": "/", "theme": "dark", "viewport": "mobile", "actions": [{ "click": "text=the first drop in a house set" }, { "waitFor": "figure" }] }
+    {
+      "name": "hero",
+      "path": "/",
+      "theme": "dark",
+      "viewport": "desktop",
+      "actions": [
+        { "click": "text=Did you know the man at table seven?" },
+        { "wait": 200 },
+        { "click": "text=Where were you between eight o'clock and the moment he collapsed?" },
+        { "wait": 200 },
+        { "click": "button:has-text('Tomas Varga')" },
+        { "click": "text=Did you leave the pass at any point during service?" },
+        { "wait": 200 },
+        { "click": "button:has-text('Odile Renard')" },
+        { "click": "text=The office line was in use" },
+        { "wait": 300 },
+        { "scroll": -2000 },
+        { "wait": 300 }
+      ]
+    },
+    {
+      "name": "hero-light",
+      "path": "/",
+      "theme": "light",
+      "viewport": "desktop",
+      "actions": [
+        { "click": "text=Did you know the man at table seven?" },
+        { "wait": 300 },
+        { "scroll": -2000 },
+        { "wait": 300 }
+      ]
+    },
+    {
+      "name": "mobile",
+      "path": "/",
+      "theme": "dark",
+      "viewport": "mobile",
+      "actions": [
+        { "click": "text=Did you know the man at table seven?" },
+        { "wait": 300 },
+        { "scroll": -2000 },
+        { "wait": 300 }
+      ]
+    },
+    {
+      "name": "board",
+      "path": "/",
+      "theme": "dark",
+      "viewport": "desktop",
+      "actions": [
+        { "click": "text=Did you know the man at table seven?" },
+        { "click": "text=Where were you between eight o'clock and the moment he collapsed?" },
+        { "click": "text=What was different about table seven's turbot?" },
+        { "click": "text=Is there any record of what crossed the pass?" },
+        { "click": "button:has-text('Tomas Varga')" },
+        { "click": "text=Did you leave the pass at any point during service?" },
+        { "click": "button:has-text('Odile Renard')" },
+        { "click": "text=The office line was in use" },
+        { "click": "button:has-text('Marit Solheim')" },
+        { "click": "text=The poison was aconite" },
+        { "click": "text=Where were you during service?" },
+        { "click": "button:has-text('Gus Pereira')" },
+        { "click": "text=Where were you during service?" },
+        { "click": "text=Did you see anyone leave their station?" },
+        { "wait": 200 },
+        { "click": "nav[aria-label='Views'] >> text=Board" },
+        { "wait": 300 },
+        { "scroll": 330 },
+        { "wait": 300 }
+      ]
+    },
+    {
+      "name": "timeline",
+      "path": "/",
+      "theme": "light",
+      "viewport": "desktop",
+      "actions": [
+        { "click": "text=Where were you between eight o'clock and the moment he collapsed?" },
+        { "click": "text=Is there any record of what crossed the pass?" },
+        { "click": "button:has-text('Tomas Varga')" },
+        { "click": "text=Did you leave the pass at any point during service?" },
+        { "click": "button:has-text('Odile Renard')" },
+        { "click": "text=The office line was in use" },
+        { "click": "button:has-text('Marit Solheim')" },
+        { "click": "text=The poison was aconite" },
+        { "click": "text=Where were you during service?" },
+        { "click": "button:has-text('Gus Pereira')" },
+        { "click": "text=Where were you during service?" },
+        { "click": "text=Did you see anyone leave their station?" },
+        { "click": "button:has-text('Priya Nair')" },
+        { "click": "text=Did you see anyone near the copper dish?" },
+        { "wait": 200 },
+        { "click": "nav[aria-label='Views'] >> text=Timeline" },
+        { "wait": 300 },
+        { "scroll": 330 },
+        { "wait": 300 }
+      ]
+    },
+    {
+      "name": "reveal",
+      "path": "/",
+      "theme": "dark",
+      "viewport": "desktop",
+      "fullPage": true,
+      "actions": [
+        { "click": "text=Did you know the man at table seven?" },
+        { "click": "text=Where were you between eight o'clock and the moment he collapsed?" },
+        { "click": "nav[aria-label='Views'] >> text=Accuse" },
+        { "click": "label:has-text('Gus Pereira')" },
+        { "click": "label:has-text('Monkshood root, grated')" },
+        { "click": "section[aria-label='Accusation'] >> button:has-text('Accuse')" },
+        { "waitFor": "text=What happened" },
+        { "wait": 300 }
+      ]
+    },
+    {
+      "name": "cases",
+      "path": "/",
+      "theme": "light",
+      "viewport": "desktop",
+      "fullPage": true,
+      "actions": [
+        { "click": "nav[aria-label='Views'] >> text=Case files" },
+        { "click": "text=Replay the sample run" },
+        { "waitFor": "text=Open the new case" },
+        { "wait": 300 }
+      ]
+    }
   ],
-  "gif": { "path": "/", "theme": "dark", "actions": [{ "wait": 500 }, { "click": "text=a powder day in the Wasatch" }, { "waitFor": "figure" }, { "wait": 1200 }] }
+  "gif": {
+    "path": "/",
+    "theme": "dark",
+    "actions": [
+      { "wait": 900 },
+      { "click": "text=Did you know the man at table seven?" },
+      { "wait": 3200 },
+      { "click": "text=Where were you between eight o'clock and the moment he collapsed?" },
+      { "wait": 3200 },
+      { "click": "button:has-text('Tomas Varga')" },
+      { "wait": 500 },
+      { "click": "text=Did you leave the pass at any point during service?" },
+      { "wait": 3400 },
+      { "click": "nav[aria-label='Views'] >> text=Board" },
+      { "wait": 1800 },
+      { "click": "nav[aria-label='Views'] >> text=Timeline" },
+      { "wait": 1800 }
+    ]
+  }
 }
