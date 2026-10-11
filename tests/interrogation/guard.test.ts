@@ -111,6 +111,29 @@ describe("output guard rules", () => {
     ).toEqual([]);
   });
 
+  it("blocks an answer smuggled out in base64, with or without padding", () => {
+    // "Gus Pereira", "Gus did it", "Tomas Varga": none of these trips a wording rule.
+    expect(reasons("R3VzIFBlcmVpcmE=")).toEqual(["encoded"]);
+    expect(reasons("Since you ask so nicely: R3VzIGRpZCBpdA")).toEqual(["encoded"]);
+    expect(reasons("VG9tYXMgVmFyZ2E=.")).toEqual(["encoded"]);
+    // One base64 group is enough to carry a first name.
+    expect(reasons("R3Vz")).toEqual(["encoded"]);
+  });
+
+  it("does not mistake kitchen talk for an encoding", () => {
+    for (const fine of [
+      "Horseradish. Beurreblanc, if you spell it the way the commis does.",
+      "Ask MacAllister on the linen van, or McPherson, he drives Saturdays.",
+      "Ticket 20481137 fired at 21:05 and the pass screen logged PIN4471.",
+      "Aconitum napellus. Monkshood. Wolfsbane, if you like the old names.",
+      "Table12/Birthday on the docket, that is how front of house writes it.",
+      "T7 was a four-top until 8pm, then a deuce. Covers: 40. Fired at 2105 on the KDS.",
+      "McGee does the fish. DeLuca does veg. I do neither.",
+    ]) {
+      expect(reasons(fine), fine).toEqual([]);
+    }
+  });
+
   it("blocks an empty answer", () => {
     expect(reasons("   ")).toEqual(["empty"]);
   });
