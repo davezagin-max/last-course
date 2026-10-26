@@ -14,7 +14,8 @@
     "smoke": "vitest run tests/kit/smoke.live.test.ts",
     "record": "node scripts/record.mjs --port 3120",
     "screenshots": "node scripts/screenshot.mjs",
-    "eval:injection": "node scripts/eval-injection.mjs"
+    "eval:injection": "node scripts/eval-injection.mjs",
+    "functional": "node scripts/functional.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.133.0",
